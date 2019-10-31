@@ -44,6 +44,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/static/**");
         web.ignoring().antMatchers("/webjars/**");
+        web.ignoring().antMatchers("/","/blog","/blog/**","/about");
+        web.ignoring().antMatchers("/home");
     }
 
     /**
@@ -66,14 +68,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/home").hasAnyAuthority("ADMIN")
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/signin")
                 .permitAll()
-                .successForwardUrl("/home")
+                .successForwardUrl("/console")
                 .successHandler(loginSuccessHandler())
                 .and()
                 .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login").permitAll()
+                .logoutUrl("/signout")
+                .logoutSuccessUrl("/signin").permitAll()
                 .invalidateHttpSession(true)
                 .and().csrf().disable()
                 .rememberMe().tokenValiditySeconds(1000 * 60 * 60);

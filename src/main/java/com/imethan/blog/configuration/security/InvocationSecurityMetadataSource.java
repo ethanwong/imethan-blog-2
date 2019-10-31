@@ -34,12 +34,12 @@ public class InvocationSecurityMetadataSource implements FilterInvocationSecurit
             Collection<ConfigAttribute> configAttributes = new ArrayList<>();
             ConfigAttribute configAttribute = new SecurityConfig("HOMEGET");
             configAttributes.add(configAttribute);
-            resourceMap.put("/home#GET", configAttributes);
+            resourceMap.put("/console#GET", configAttributes);
 
             Collection<ConfigAttribute> configAttributes2 = new ArrayList<>();
             ConfigAttribute configAttribute2 = new SecurityConfig("INDEXGET");
             configAttributes2.add(configAttribute2);
-            resourceMap.put("/index#GET", configAttributes2);
+//            resourceMap.put("/index#GET", configAttributes2);
         }
 
     }

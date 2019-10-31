@@ -9,13 +9,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="stylesheet" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="webjars/fontawesome/4.7.0/css/font-awesome.css"/>
-    <link href="static/blog.css" rel="stylesheet">
-    <link href="static/header.css" rel="stylesheet">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/fontawesome/4.7.0/css/font-awesome.css"/>
+    <link href="/static/common.css" rel="stylesheet">
+    <link href="/static/blog.css" rel="stylesheet">
+    <link href="/static/header.css" rel="stylesheet">
+    <link href="/static/footer.css" rel="stylesheet">
 
-    <script src="webjars/jquery/3.4.1/jquery.min.js"></script>
-    <script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <sitemesh:write property='head'/>
 </head>
@@ -23,8 +26,12 @@
 <div th:replace="decorator/header :: myheader"></div>
 <div class="container" style="margin-top: 30px;margin-bottom: 30px;">
     <sitemesh:write property='body'/>
+
 </div>
+
+<!--<div class="container" th:replace="decorator/debug :: mydebug"></div>-->
 <sitemesh:write property='myTag'/>
+
 <div th:replace="decorator/footer :: myfooter"></div>
 </body>
 </html>

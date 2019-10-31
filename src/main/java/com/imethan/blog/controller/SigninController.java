@@ -18,14 +18,14 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @Log4j2
-public class LoginController {
+public class SigninController {
 
-    @GetMapping(value = "/login")
+    @GetMapping(value = "/signin")
     public String login(HttpServletRequest request, HttpServletResponse response) {
-        return "login";
+        return "signin";
     }
 
-    @GetMapping(value = "/logout")
+    @GetMapping(value = "/signout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {

@@ -6,11 +6,10 @@
 <body>
 
         <h2>Welcome</h2>
-        <p>Hi <span sec:authentication="name"/> ! Your ip is <span th:text="${#httpServletRequest.getLocalAddr()}"/>.</p>
+        <p>Hi,your ip is <span th:text="${#httpServletRequest.getLocalAddr()}"/>.</p>
 
         <p>fontawesome：<a href="http://fontawesome.io" target="_blank">http://fontawesome.io</a></p>
         <p>getbootstrap：<a href="https://getbootstrap.com/" target="_blank">https://getbootstrap.com/</a></p>
-        <!--<span th:text="${#authentication.name}"></span>-->
 
 </body>
 </html>

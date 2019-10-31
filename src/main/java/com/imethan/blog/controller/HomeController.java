@@ -15,7 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 public class HomeController {
 
-    @GetMapping(value = {"/home",""})
+    @GetMapping(value = "")
+    public String index() {
+        return "home";
+    }
+
+    @GetMapping(value = "/home")
     public String home() {
         return "home";
     }

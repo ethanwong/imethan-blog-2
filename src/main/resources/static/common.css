@@ -1,0 +1,35 @@
+@media (min-width: 1200px) {
+    .container {
+        width: 970px;
+    }
+}
+
+html {position: relative;min-height: 100%;}
+body {
+    font-family: "Microsoft YaHei", "Microsoft YaHei  UI","Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "WenQuanYi Micro Hei",  sans-serif;
+    font-size: 14px;
+    color:#444;
+    line-height: 1.5;
+    font-weight: lighter;
+}
+a{color:#555;border-radius:0px !important;}
+a{ text-decoration:none;}
+a:hover{ text-decoration:none;}
+hr{margin: 10px 0px 10px 0px;}
+li{border-radius:0px !important;}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
+    font-weight: lighter!important;
+}
+
+.page-link{
+    margin-top: 20px;
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+     color: #555;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+

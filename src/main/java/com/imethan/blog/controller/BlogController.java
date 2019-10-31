@@ -2,6 +2,8 @@ package com.imethan.blog.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @Name BlogController
@@ -10,11 +12,24 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @Create 2019-10-29 16:36
  */
 @Controller
+@RequestMapping(value = "blog")
 public class BlogController {
 
-    @GetMapping(value = {"/blog"})
+    @GetMapping(value = {""})
     public String blog() {
-        return "blog";
+        return "/blog/blog";
+    }
+
+    @GetMapping(value = {"/article/{id}"})
+    public String article(@PathVariable String id) {
+
+        return "/blog/blog-article";
+    }
+
+    @GetMapping(value = {"/channel/{id}"})
+    public String channel(@PathVariable String id) {
+
+        return "/blog/blog";
     }
 
 }
