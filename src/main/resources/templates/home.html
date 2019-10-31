@@ -1,0 +1,16 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Home</title>
+</head>
+<body>
+
+        <h2>Welcome</h2>
+        <p>Hi <span sec:authentication="name"/> ! Your ip is <span th:text="${#httpServletRequest.getLocalAddr()}"/>.</p>
+
+        <p>fontawesome：<a href="http://fontawesome.io" target="_blank">http://fontawesome.io</a></p>
+        <p>getbootstrap：<a href="https://getbootstrap.com/" target="_blank">https://getbootstrap.com/</a></p>
+        <!--<span th:text="${#authentication.name}"></span>-->
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: test
+  application:
+    name: springboot security
+    description: spring boot secutiry demo .
+  data:
+    mongodb:
+      uri: mongodb://sba:123456@116.62.162.167:37017/springboot_security

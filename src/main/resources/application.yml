@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: test
+  application:
+    name: springboot security
+    description: spring boot secutiry demo .
+  thymeleaf:
+    cache: false
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+  mvc:
+    view:
+      prefix: classpath:/templates/
+      suffix: .html
+    static-path-pattern: /static/**
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/imethan_blog_2
+
+
+

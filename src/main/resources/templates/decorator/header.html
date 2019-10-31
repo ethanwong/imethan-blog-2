@@ -1,0 +1,48 @@
+<div th:fragment="myheader">
+    <div class="header">
+        <div class="container">
+            <a class="navbar-brand" href="/">ImEthan</a>
+            <div class="navbar nav-item">
+
+                <span th:switch="${module}">
+                    <span th:case="''">
+                        <a class="nav-item active" href="/">Home</a>
+                    </span>
+                    <span th:case="*">
+                         <a class="nav-item " href="/">Home</a>
+                    </span>
+                </span>
+
+                <span th:switch="${module}">
+                    <span th:case="about">
+                         <a class="nav-item active" href="/about">About</a>
+                    </span>
+                    <span th:case="*">
+                         <a class="nav-item " href="/about">About</a>
+                    </span>
+                </span>
+            </div>
+
+            <div class="navbar nav-item nav-item-right">
+
+                <a class="nav-item " href="https://github.com/ethanwong" target="_blank"><i class="fa fa-github"></i> GitHub</a>
+
+                <span sec:authorize="isAuthenticated()">
+                    <a class="nav-item " href="/logout"><i class="fa fa-sign-out"></i> Signout</a>
+                </span>
+
+                <span sec:authorize="!isAuthenticated()">
+                    <span th:switch="${module}">
+                        <span th:case="login">
+                             <a class="nav-item active" href="/login"><i class="fa fa-sign-in"></i> Signin</a>
+                        </span>
+                        <span th:case="*">
+                             <a class="nav-item " href="/login"><i class="fa fa-sign-in"></i> Signin</a>
+                        </span>
+                    </span>
+                </span>
+
+            </div>
+        </div>
+    </div>
+</div>

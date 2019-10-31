@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="static/login.css"/>
+</head>
+<body>
+<div class="container">
+    <form name='f' action='/login' method='POST' class="form-signin">
+        <div class="form-signin-heading">ACCOUNT SIGNIN</div>
+        <!--<label for="username" class="sr-only">username</label>-->
+        <input type="text" name="username" id="username" class="form-control" placeholder="username" required autofocus/>
+        <!--<label for="password" class="sr-only">password</label>-->
+        <input type="password" name="password" id="password" class="form-control" placeholder="password" required/>
+        <input name="_csrf" type="hidden" value="5f0e7742-0269-4f4b-8cee-9ca4c3651ced"/>
+        <button class="btn btn-primary btn-block" type="submit">LOGIN</button>
+    </form>
+</div>
+</body>
+</html>

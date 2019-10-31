@@ -1,2 +1,2 @@
 # imethan-blog-2
-基于Springboot、thymeleaf、Bootstrap开发
+基于Springboot、thymeleaf、Sitemesh3、Bootstrap开发
