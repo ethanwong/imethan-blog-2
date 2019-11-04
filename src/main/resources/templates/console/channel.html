@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Channel</title>
+
+</head>
+<body>
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-8">
+        <div id="toolbar">
+            <button class="btn btn-sm btn-primary">添加</button>
+        </div>
+        <div id="table"></div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    // $(window).resize(function () {
+    //     $('#table').bootstrapTable('resetView');
+    // });
+
+    $('#table').bootstrapTable({
+        url: '/console/channel/json',
+        pagination: true,
+        sidePagination: 'server',
+
+        pageSize: 10, //每页显示多少条数据
+        pageNumber: 1, //初始化翻页的页码
+        pageList: [10, 25, 50, 100],
+        queryParamsType:'',
+
+        search: true,
+        // sidePagination: 'server',
+        showHeader: true,
+        // showRefresh: true,
+        iconSize:'sm',
+        buttonsClass: 'primary',
+        icons:{"refresh":"fa-refresh","search":"fa-search"},
+
+        toolbar: '#toolbar',
+        columns: [{
+            field: 'id',
+            title: 'Item ID'
+        }, {
+            field: 'name',
+            title: 'Item Name'
+        }, {
+            field: 'id',
+            title: '操作'
+        }]
+    })
+</script>

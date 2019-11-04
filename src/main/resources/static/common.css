@@ -33,3 +33,14 @@ li{border-radius:0px !important;}
     border: 1px solid #dee2e6;
 }
 
+.th-inner{
+    font-weight: lighter!important;
+}
+
+.table {table-layout:fixed;}
+
+.pagination{
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
