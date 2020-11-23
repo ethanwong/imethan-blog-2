@@ -7,10 +7,12 @@
 </head>
 <body>
 <div class="row">
-    <div class="col-sm-4"></div>
-    <div class="col-sm-8">
+    <div class="col-sm-12">
         <div id="toolbar">
             <button class="btn btn-sm btn-primary">添加</button>
+            <button class="btn btn-sm btn-info">查看</button>
+            <button class="btn btn-sm btn-secondary">修改</button>
+            <button class="btn btn-sm btn-danger">删除</button>
         </div>
         <div id="table"></div>
     </div>
@@ -27,7 +29,7 @@
         pagination: true,
         sidePagination: 'server',
 
-        pageSize: 10, //每页显示多少条数据
+        pageSize: 4, //每页显示多少条数据
         pageNumber: 1, //初始化翻页的页码
         pageList: [10, 25, 50, 100],
         queryParamsType:'',
@@ -39,17 +41,20 @@
         iconSize:'sm',
         buttonsClass: 'primary',
         icons:{"refresh":"fa-refresh","search":"fa-search"},
-
         toolbar: '#toolbar',
         columns: [{
             field: 'id',
-            title: 'Item ID'
+            title: 'Item ID',
+            width: '200'
         }, {
             field: 'name',
-            title: 'Item Name'
+            title: 'Item Name',
+            width: '600'
         }, {
             field: 'id',
-            title: '操作'
+            title: '操作',
+            width: '200'
+
         }]
     })
 </script>

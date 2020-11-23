@@ -3,13 +3,11 @@ package com.imethan.blog;
 import com.alibaba.fastjson.JSONObject;
 import com.imethan.blog.configuration.BlogApplication;
 import lombok.extern.log4j.Log4j2;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -28,7 +26,6 @@ import java.util.Set;
  * @Author huangyingfeng
  * @Create 2018-09-12 19:13
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = BlogApplication.class)
 @Log4j2
 public class BaseUnitTest {
@@ -37,12 +34,12 @@ public class BaseUnitTest {
     private WebApplicationContext context;
     public MockMvc mvc;
 
-    @Before
+    @BeforeAll
     public void setUp() throws Exception {
         mvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
-    @After
+    @AfterAll
     public void after() {
 
     }

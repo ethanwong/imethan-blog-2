@@ -6,10 +6,15 @@ spring:
     description: spring boot secutiry demo .
   thymeleaf:
     cache: false
+    enabled: true
+    encoding: utf-8
+    mode: HTML
+    suffix: .html
+    prefix: classpath:/templates/
   devtools:
     restart:
       enabled: true
-      additional-paths: src/main/java
+      additional-paths: src/main/java,src/resources/templates加载
   mvc:
     view:
       prefix: classpath:/templates/

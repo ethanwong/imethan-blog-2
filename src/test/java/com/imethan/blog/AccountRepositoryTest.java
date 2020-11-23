@@ -2,7 +2,7 @@ package com.imethan.blog;
 
 import com.imethan.blog.document.AccountDocument;
 import com.imethan.blog.repository.AccountRepository;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
