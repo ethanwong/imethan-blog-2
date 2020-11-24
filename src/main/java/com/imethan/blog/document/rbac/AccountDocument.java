@@ -1,5 +1,6 @@
-package com.imethan.blog.document;
+package com.imethan.blog.document.rbac;
 
+import com.imethan.blog.document.BaseDocument;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,10 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Data
 @Document(collection = "security_account")
-public class AccountDocument {
-
-    @Id
-    private String id;
+public class AccountDocument extends BaseDocument {
     private String username;
     private String password;
 }

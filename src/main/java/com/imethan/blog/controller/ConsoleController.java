@@ -18,4 +18,9 @@ public class ConsoleController {
     public String console() {
         return "/console/console";
     }
+
+    @GetMapping(value = "/publish")
+    public String publish(){
+        return "/console/publish";
+    }
 }

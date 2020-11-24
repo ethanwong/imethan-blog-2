@@ -1,6 +1,6 @@
 package com.imethan.blog.service;
 
-import com.imethan.blog.document.AccountDocument;
+import com.imethan.blog.document.rbac.AccountDocument;
 
 /**
  * @Name AccountService

@@ -1,9 +1,9 @@
 spring:
   profiles:
-    active: test
+    active: @PROFILE@
   application:
-    name: springboot security
-    description: spring boot secutiry demo .
+    name: imethan-blog-2
+    description: imethan blog base springboot .
   thymeleaf:
     cache: false
     enabled: true
@@ -23,6 +23,17 @@ spring:
   data:
     mongodb:
       uri: mongodb://127.0.0.1:27017/imethan_blog_2
-
+    rest:
+      basePath: /hal
+server:
+  port: 8888
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
 
 

@@ -15,6 +15,7 @@ public class Sitemesh3Filter extends ConfigurableSiteMeshFilter {
     protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
         builder.addDecoratorPath("/*", "/decorator/default")
                 .addExcludedPath("/static/**")
+                .addExcludedPath("/hal/**")
                 .addTagRuleBundle(new MyTagRuleBundle())
         ;
     }
