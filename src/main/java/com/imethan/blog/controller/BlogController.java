@@ -23,7 +23,7 @@ public class BlogController {
     @GetMapping(value = {"/article/{id}"})
     public String article(@PathVariable String id) {
 
-        return "/blog/blog-article";
+        return "/blog/blog-article-md";
     }
 
     @GetMapping(value = {"/channel/{id}"})

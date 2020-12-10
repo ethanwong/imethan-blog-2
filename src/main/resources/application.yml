@@ -14,7 +14,7 @@ spring:
   devtools:
     restart:
       enabled: true
-      additional-paths: src/main/java,src/resources/templates加载
+      additional-paths: src/main/java,src/resources/templates
   mvc:
     view:
       prefix: classpath:/templates/
