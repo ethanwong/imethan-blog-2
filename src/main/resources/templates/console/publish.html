@@ -18,8 +18,10 @@
     <div class="col-12">
         <p>Editor.md帮助文档：<a href="http://editor.md.ipandao.com/" target="_blank">http://editor.md.ipandao.com/</a></p>
         <div id="article-editormd"></div>
-        <center>
-        <button type="button" class="btn btn-primary" id="saveContentButton">save content</button></center>
+        <div class="mb-3">
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Tag">
+        </div>
+        <button type="button" class="btn btn-primary" id="saveContentButton">save content</button>
     </div>
 </div>
 <script src="/static/editor/editormd.js"></script>
@@ -57,6 +59,9 @@
             imageUpload: true,
             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
             imageUploadURL: "./php/upload.php",
+            onchange : function() {
+                console.log("onchange =>", this, this.id, this.settings, this.state);
+            },
             onload: function () {
                 console.log('onload', this);
                 //this.fullscreen();

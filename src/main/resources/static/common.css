@@ -11,7 +11,7 @@ body {
     font-size: 14px;
     color:#444;
     line-height: 1.5;
-    font-weight: lighter;
+    font-weight: normal;
 }
 a{color:#555;border-radius:0px !important;}
 a{ text-decoration:none;}
@@ -43,5 +43,22 @@ li{border-radius:0px !important;}
 .pagination{
     padding-top: 0px;
     margin-top: 0px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #428bca;
+    border-color: #428bca;
+}
+
+
+.first-level-title{
+    margin: 8px 8px 8px 0px;
+}
+.tag-box .badge{
+    margin: 4px !important;
+    color: white !important;
+    font-weight: lighter!important;
+    padding: 6px;!important;
 }
 

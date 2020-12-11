@@ -1,7 +1,4 @@
-**目录 (Table of Contents)**
-
 [TOCM]
-
 
 
 # Editor.md
