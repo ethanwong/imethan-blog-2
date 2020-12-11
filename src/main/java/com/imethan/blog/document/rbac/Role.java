@@ -6,14 +6,15 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * @Name AccountDocument
+ * @Name RoleDocument
  * @Description ${DESCRIPTION}
  * @Author huangyingfeng
- * @Create 2018-09-27 20:14
+ * @Create 2018-09-27 20:19
  */
 @Data
-@Document(collection = "security_account")
-public class AccountDocument extends BaseDocument {
-    private String username;
-    private String password;
+@Document(collection = "security_role")
+public class Role extends BaseDocument {
+    @Id
+    private String id;
+    private String name;
 }

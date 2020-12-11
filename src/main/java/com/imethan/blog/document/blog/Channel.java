@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Data
 @Document(collection = "blog_channel")
-public class ChannelDocument extends BaseDocument {
+public class Channel extends BaseDocument {
 
     private String name;
     private Boolean show;

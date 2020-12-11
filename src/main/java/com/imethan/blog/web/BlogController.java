@@ -1,4 +1,4 @@
-package com.imethan.blog.controller;
+package com.imethan.blog.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +26,7 @@ public class BlogController {
         return "/blog/blog-article-md";
     }
 
+    //TODO
     @GetMapping(value = {"/channel/{id}"})
     public String channel(@PathVariable String id) {
 

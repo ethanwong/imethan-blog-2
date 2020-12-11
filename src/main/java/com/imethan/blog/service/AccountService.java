@@ -1,6 +1,6 @@
 package com.imethan.blog.service;
 
-import com.imethan.blog.document.rbac.AccountDocument;
+import com.imethan.blog.document.rbac.Account;
 
 /**
  * @Name AccountService
@@ -16,5 +16,5 @@ public interface AccountService {
      * @param username
      * @return
      */
-    AccountDocument getByUsername(String username);
+    Account getByUsername(String username);
 }

@@ -1,6 +1,6 @@
 package com.imethan.blog.configuration.security;
 
-import com.imethan.blog.document.rbac.AccountDocument;
+import com.imethan.blog.document.rbac.Account;
 import com.imethan.blog.service.AccountServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,7 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AccountDocument accountDocument = accountService.getByUsername(username);
+        Account accountDocument = accountService.getByUsername(username);
         if (accountDocument == null) {
             throw new UsernameNotFoundException("username " + username + " not found");
         }
@@ -42,7 +42,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new User(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
     }
 
-    private Set<GrantedAuthority> obtainGrantedAuthorities(AccountDocument accountDocument) {
+    private Set<GrantedAuthority> obtainGrantedAuthorities(Account accountDocument) {
         Set<GrantedAuthority> authSet = new HashSet<GrantedAuthority>();
 //        for (Role role : user.getRoles()) {
 //            for(Menu menu : role.getMenus()){

@@ -1,6 +1,6 @@
 package com.imethan.blog;
 
-import com.imethan.blog.document.rbac.AccountDocument;
+import com.imethan.blog.document.rbac.Account;
 import com.imethan.blog.repository.AccountRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class AccountRepositoryTest extends BaseUnitTest {
     @Test
     public void testSave() {
 
-        AccountDocument accountDocument = new AccountDocument();
+        Account accountDocument = new Account();
         accountDocument.setUsername("root");
 
         String password = bCryptPasswordEncoder.encode("123456");

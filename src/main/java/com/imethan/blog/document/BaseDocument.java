@@ -1,6 +1,9 @@
 package com.imethan.blog.document;
 
+import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.MappedSuperclass;
 
 import java.util.UUID;
 
@@ -10,6 +13,8 @@ import java.util.UUID;
  * @Author huangyingfeng
  * @Create 2020-11-24 17:26
  */
+@Data
+@MappedSuperclass
 public class BaseDocument {
 
     /**
@@ -28,7 +33,7 @@ public class BaseDocument {
     /**
      * 创建时间
      */
-    private Long createAt;
+    private Long createAt = System.currentTimeMillis();
     /**
      * 更新时间
      */
