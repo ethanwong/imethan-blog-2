@@ -23,4 +23,9 @@ public class ConsoleController {
     public String publish(){
         return "/console/publish";
     }
+
+    @GetMapping(value = "/setting")
+    public String setting(){
+        return "/console/setting";
+    }
 }
