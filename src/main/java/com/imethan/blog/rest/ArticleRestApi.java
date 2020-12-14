@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * @Author huangyingfeng
  * @Create 2020-12-11 14:49
  */
-@Controller
+@RestController
 @Log4j2
 @RequestMapping(value = "/api/article")
 public class ArticleRestApi {
@@ -24,23 +24,15 @@ public class ArticleRestApi {
     private ArticleService articleService;
 
     @PostMapping("")
-    @ResponseBody
-    public ResultDto add(@RequestBody ArticleDto articleDto) {
+    public ResultDto add(@RequestBody Article article) {
 
-        log.info("post article {}",articleDto);
-
-        Article article = new Article();
-        article.setId(articleDto.getId());
-        article.setTitle(articleDto.getTitle());
-        article.setContent(articleDto.getContent());
-        article.setChannelId("100");
-        article.setTag(articleDto.getTag());
+        log.info("post article {}",article);
 
         return articleService.saveOrUpdate(article);
+
     }
 
     @DeleteMapping("/{id}")
-    @ResponseBody
     public ResultDto delete(@PathVariable  String id){
         log.info("delete article id {}",id);
 
@@ -48,7 +40,6 @@ public class ArticleRestApi {
     }
 
     @GetMapping("/page/{page}/{size}")
-    @ResponseBody
     public ResultDto page(@PathVariable Integer page,@PathVariable Integer size){
         log.info("get article page page={},size={}",page,size);
 

@@ -4,13 +4,20 @@ import com.imethan.blog.document.blog.Article;
 import com.imethan.blog.dto.ArticleDto;
 import com.imethan.blog.dto.ResultDto;
 import com.imethan.blog.repository.ArticleRepository;
+import com.imethan.blog.util.TimeUtils;
+import com.imethan.blog.util.UuidUtils;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Name ArticleService
@@ -29,9 +36,20 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ResultDto saveOrUpdate(Article article) {
         try {
-            articleRepository.save(article);
-            return ResultDto.ReturnSuccess();
+            if(StringUtils.isBlank(article.getId())){
+                article.setId(UuidUtils.UUID_STRING);
+                article.setCreateAt(TimeUtils.dateToString(new Date()));
+            }else{
+                Article articleSource = this.getById(article.getId());
+                article.setCreateAt(articleSource.getCreateAt());
+                article.setUpdateAt(TimeUtils.dateToString(new Date()));
+            }
+            Article resultArticle = articleRepository.save(article);
+            Map<String,String> data = new HashMap<>();
+            data.put("id",resultArticle.getId());
+            return ResultDto.ReturnSuccessData(data);
         } catch (Exception e) {
+            e.printStackTrace();
             String message = e.getMessage();
             log.error(message);
             return ResultDto.ReturnFail(message);

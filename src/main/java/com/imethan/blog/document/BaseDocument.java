@@ -21,7 +21,7 @@ public class BaseDocument {
      * ID
      */
     @Id
-    private String id = UUID.randomUUID().toString().replace("-", "");
+    private String id;
     /**
      * 创建者
      */
@@ -33,9 +33,9 @@ public class BaseDocument {
     /**
      * 创建时间
      */
-    private Long createAt = System.currentTimeMillis();
+    private String createAt;
     /**
      * 更新时间
      */
-    private Long updateAt;
+    private String updateAt;
 }

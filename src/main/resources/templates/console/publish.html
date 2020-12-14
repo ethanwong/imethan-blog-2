@@ -17,11 +17,19 @@
 <div class="row" style="padding-top: 20px;">
     <div class="col-12">
         <p>Editor.md帮助文档：<a href="http://editor.md.ipandao.com/" target="_blank">http://editor.md.ipandao.com/</a></p>
-        <div id="article-editormd"></div>
-        <div class="mb-3">
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Tag">
-        </div>
-        <button type="button" class="btn btn-primary" id="saveContentButton">save content</button>
+        <form id="content-form" action="/api/article" method="post" >
+            <div id="article-editormd">
+                <textarea style="display:none;" name="content"  required></textarea>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Title" name="title" value="title" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control"  placeholder="Tag" name="tag" value="tag" required>
+            </div>
+            <input type="text" class="form-control"  placeholder="Id" name="id" value="">
+            <button type="submit" class="btn btn-primary" >save content</button>
+        </form>
     </div>
 </div>
 <script src="/static/editor/editormd.js"></script>
@@ -36,7 +44,7 @@
             // theme : "dark",
             // previewTheme : "dark",
             // editorTheme : "pastel-on-dark",
-            markdown: "",
+            markdown: "# Hello ImEthan",
             codeFold: true,
             //syncScrolling : false,
             saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
@@ -59,11 +67,19 @@
             imageUpload: true,
             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
             imageUploadURL: "./php/upload.php",
-            onchange : function() {
-                console.log("onchange =>", this, this.id, this.settings, this.state);
+            onchange: function () {
+
+                // var title = $("#content-title").val();
+                // var content = testEditor.getMarkdown();
+                // var tag = $("#content-tag").val();
+                //
+                // var body = {'title': title, 'content': content, 'tag': tag};
+                // saveContent(body);
+
+                // console.log("onchange =>", this, this.id, this.settings, this.state);
             },
             onload: function () {
-                console.log('onload', this);
+                // console.log('onload', this);
                 //this.fullscreen();
                 //this.unwatch();
                 //this.watch().fullscreen();
@@ -130,13 +146,73 @@
             testEditor.config("tocDropdown", false);
         });
 
+        /**
+         * 自动将form表单封装成json对象
+         */
+        $.fn.serializeObject = function() {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [ o[this.name] ];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
 
-        $("#saveContentButton").bind('click', function () {
+
+        // $("#saveContentButton").bind('click', function () {
             // alert(testEditor.getMarkdown());
             // alert(testEditor.getHTML());
+            // console.log(testEditor.getMarkdown());
 
-            console.log(testEditor.getMarkdown());
-        });
+            $("#content-form").validate({
+                messages:{
+                    title: "请输入标题！",
+                    tag: "请输入标签！",
+                    content: "请输入内容！"
+                },
+                submitHandler: function(form,event) {
+
+                    event.preventDefault();
+
+                    console.log("name="+form.elements["title"].value);
+
+
+                    var body = JSON.stringify($(form).serializeObject())
+                    console.log("body="+body);
+                    saveContent(body);
+                }
+            });
+
+
+        // });
+
+
+
+        function saveContent(body) {
+            var url = "/api/article";
+            $.ajax({
+                type: 'post',
+                url: url,
+                contentType: 'application/json',
+                data: body,
+                success: function (result) {
+                    console.log("post result result=" + JSON.stringify(result));
+                    console.log("post result isSuccess=" + result.isSuccess);
+                    if(result.isSuccess){
+                        $("#content-id").val(result.data.id);
+                        alert(result.message+",id="+result.data.id);
+                    }
+                },
+                dataType: 'json'
+            })
+        }
     });
 </script>
 </body>
