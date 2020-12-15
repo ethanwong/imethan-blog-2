@@ -8,16 +8,18 @@
 <body>
 
 
-<span class="h4">Markdown转HTML的显示处理之自定义 ToC 容器</span>
-<hr>
-<div id="article-editormd-view">
+<span class="h3" id="content-title"></span>
+<div style="margin: 8px 0px 8px 4px;"><i class="fa fa-calendar"></i> <span id="content-time" ></span></div>
+<span sec:authorize="isAuthenticated()">hello admin</span>
+
+<!--<hr>-->
+<input type="hidden" name="" th:value="${id}" id="content-id">
+<div id="article-editormd-view" style="padding: 0px!important;">
     <textarea style="display:none;" name="article-editormd-markdown-doc">###Hello world!</textarea>
 </div>
 
-
 <script src="/static/editor/lib/marked.min.js"></script>
 <script src="/static/editor/lib/prettify.min.js"></script>
-
 <script src="/static/editor/lib/raphael.min.js"></script>
 <script src="/static/editor/lib/underscore.min.js"></script>
 <script src="/static/editor/lib/sequence-diagram.min.js"></script>
@@ -28,9 +30,17 @@
 <script type="text/javascript">
     $(function () {
         var articleEditormdView;
-        $.get("/static/editor/test.md", function (markdown) {
+        $.get("/api/article/"+$("#content-id").val(), function (result) {
+
+            $("title").html(result.data.title);
+
+            $("#content-title").html(result.data.title);
+            $("#content-time").html(result.data.createAt);
+
+            var content = result.data.content;
+
             articleEditormdView = editormd.markdownToHTML("article-editormd-view", {
-                markdown: markdown,//+ "\r\n" + $("#append-test").text(),
+                markdown: content,//+ "\r\n" + $("#append-test").text(),
                 //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
                 htmlDecode: "style,script,iframe",  // you can filter tags decode
                 // toc: true,
@@ -45,13 +55,6 @@
                 flowChart: true,  // 默认不解析
                 sequenceDiagram: true,  // 默认不解析
             });
-
-            //console.log("返回一个 jQuery 实例 =>", testEditormdView);
-
-            // 获取Markdown源码
-            //console.log(testEditormdView.getMarkdown());
-
-            //alert(testEditormdView.getMarkdown());
         });
     });
 </script>

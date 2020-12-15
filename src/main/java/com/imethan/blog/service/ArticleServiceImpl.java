@@ -37,7 +37,7 @@ public class ArticleServiceImpl implements ArticleService {
     public ResultDto saveOrUpdate(Article article) {
         try {
             if(StringUtils.isBlank(article.getId())){
-                article.setId(UuidUtils.UUID_STRING);
+                article.setId(UuidUtils.getUuid());
                 article.setCreateAt(TimeUtils.dateToString(new Date()));
             }else{
                 Article articleSource = this.getById(article.getId());

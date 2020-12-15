@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 /**
  * @Name ArticleRestApi
  * @Description
@@ -25,11 +27,13 @@ public class ArticleRestApi {
 
     @PostMapping("")
     public ResultDto add(@RequestBody Article article) {
-
         log.info("post article {}",article);
-
         return articleService.saveOrUpdate(article);
-
+    }
+    @GetMapping("/{id}")
+    public ResultDto get(@PathVariable String id){
+        Article article = articleService.getById(id);
+        return ResultDto.ReturnSuccessData(article);
     }
 
     @DeleteMapping("/{id}")

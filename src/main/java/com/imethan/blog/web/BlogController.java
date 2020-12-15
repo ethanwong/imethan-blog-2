@@ -1,9 +1,13 @@
 package com.imethan.blog.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Name BlogController
@@ -21,8 +25,8 @@ public class BlogController {
     }
 
     @GetMapping(value = {"/article/{id}"})
-    public String article(@PathVariable String id) {
-
+    public String article(@PathVariable String id, Model model) {
+        model.addAttribute("id", id);
         return "/blog/blog-article-md";
     }
 

@@ -17,18 +17,18 @@
 <div class="row" style="padding-top: 20px;">
     <div class="col-12">
         <p>Editor.md帮助文档：<a href="http://editor.md.ipandao.com/" target="_blank">http://editor.md.ipandao.com/</a></p>
-        <form id="content-form" action="/api/article" method="post" >
+        <form id="content-form" action="/api/article" method="post">
             <div id="article-editormd">
-                <textarea style="display:none;" name="content"  required></textarea>
+                <textarea style="display:none;" name="content" required></textarea>
             </div>
             <div class="mb-3">
                 <input type="text" class="form-control" placeholder="Title" name="title" value="title" required>
             </div>
             <div class="mb-3">
-                <input type="text" class="form-control"  placeholder="Tag" name="tag" value="tag" required>
+                <input type="text" class="form-control" placeholder="Tag" name="tag" value="tag" required>
             </div>
-            <input type="text" class="form-control"  placeholder="Id" name="id" value="">
-            <button type="submit" class="btn btn-primary" >save content</button>
+            <input type="hidden" class="form-control" placeholder="Id" name="id" id="content-id" value="">
+            <button type="submit" class="btn btn-primary">save content</button>
         </form>
     </div>
 </div>
@@ -74,9 +74,12 @@
                 // var tag = $("#content-tag").val();
                 //
                 // var body = {'title': title, 'content': content, 'tag': tag};
-                // saveContent(body);
 
-                // console.log("onchange =>", this, this.id, this.settings, this.state);
+                // $("#content-form").validate(validOption);
+                $("#content-form").submit();
+
+
+                console.log("onchange =>", this, this.id, this.settings, this.state);
             },
             onload: function () {
                 // console.log('onload', this);
@@ -91,123 +94,34 @@
             }
         });
 
-        $("#goto-line-btn").bind("click", function () {
-            testEditor.gotoLine(90);
-        });
+        var validOption = {
+            messages: {
+                title: "请输入标题！",
+                tag: "请输入标签！",
+                content: "请输入内容！"
+            },
+            submitHandler: function (form, event) {
+                event.preventDefault();
+                saveContent(form);
+            }
+        }
 
-        $("#show-btn").bind('click', function () {
-            testEditor.show();
-        });
+        $("#content-form").validate(validOption);
 
-        $("#hide-btn").bind('click', function () {
-            testEditor.hide();
-        });
-
-        $("#get-md-btn").bind('click', function () {
-            alert(testEditor.getMarkdown());
-        });
-
-        $("#get-html-btn").bind('click', function () {
-            alert(testEditor.getHTML());
-        });
-
-        $("#watch-btn").bind('click', function () {
-            testEditor.watch();
-        });
-
-        $("#unwatch-btn").bind('click', function () {
-            testEditor.unwatch();
-        });
-
-        $("#preview-btn").bind('click', function () {
-            testEditor.previewing();
-        });
-
-        $("#fullscreen-btn").bind('click', function () {
-            testEditor.fullscreen();
-        });
-
-        $("#show-toolbar-btn").bind('click', function () {
-            testEditor.showToolbar();
-        });
-
-        $("#close-toolbar-btn").bind('click', function () {
-            testEditor.hideToolbar();
-        });
-
-        $("#toc-menu-btn").click(function () {
-            testEditor.config({
-                tocDropdown: true,
-                tocTitle: "目录 Table of Contents",
-            });
-        });
-
-        $("#toc-default-btn").click(function () {
-            testEditor.config("tocDropdown", false);
-        });
-
-        /**
-         * 自动将form表单封装成json对象
-         */
-        $.fn.serializeObject = function() {
-            var o = {};
-            var a = this.serializeArray();
-            $.each(a, function() {
-                if (o[this.name]) {
-                    if (!o[this.name].push) {
-                        o[this.name] = [ o[this.name] ];
-                    }
-                    o[this.name].push(this.value || '');
-                } else {
-                    o[this.name] = this.value || '';
-                }
-            });
-            return o;
-        };
-
-
-        // $("#saveContentButton").bind('click', function () {
-            // alert(testEditor.getMarkdown());
-            // alert(testEditor.getHTML());
-            // console.log(testEditor.getMarkdown());
-
-            $("#content-form").validate({
-                messages:{
-                    title: "请输入标题！",
-                    tag: "请输入标签！",
-                    content: "请输入内容！"
-                },
-                submitHandler: function(form,event) {
-
-                    event.preventDefault();
-
-                    console.log("name="+form.elements["title"].value);
-
-
-                    var body = JSON.stringify($(form).serializeObject())
-                    console.log("body="+body);
-                    saveContent(body);
-                }
-            });
-
-
-        // });
-
-
-
-        function saveContent(body) {
-            var url = "/api/article";
+        function saveContent(form) {
+            var body = JSON.stringify($(form).serializeObject())
+            console.log("body=" + body);
             $.ajax({
-                type: 'post',
-                url: url,
+                type: form.method,
+                url: form.action,
                 contentType: 'application/json',
                 data: body,
                 success: function (result) {
                     console.log("post result result=" + JSON.stringify(result));
                     console.log("post result isSuccess=" + result.isSuccess);
-                    if(result.isSuccess){
+                    if (result.isSuccess) {
                         $("#content-id").val(result.data.id);
-                        alert(result.message+",id="+result.data.id);
+                        alert(result.message + ",id=" + result.data.id);
                     }
                 },
                 dataType: 'json'

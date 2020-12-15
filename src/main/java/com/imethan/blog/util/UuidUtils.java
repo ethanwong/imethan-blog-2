@@ -13,5 +13,7 @@ public class UuidUtils {
     /**
      * UUID
      */
-    public static String UUID_STRING = UUID.randomUUID().toString().replace("-", "");
+    public static String getUuid(){
+        return UUID.randomUUID().toString().replace("-", "");
+    }
 }

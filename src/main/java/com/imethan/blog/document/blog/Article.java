@@ -4,6 +4,7 @@ import com.imethan.blog.document.BaseDocument;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,4 +24,14 @@ public class Article extends BaseDocument {
     private String content;
     private String channelId;
     private String tag;
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", channelId='" + channelId + '\'' +
+                ", tag='" + tag + '\'' +
+                "} " + super.toString();
+    }
 }

@@ -8,3 +8,10 @@
     font-size: 18px;
 
 }
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #428bca;
+    border-color: #428bca;
+}

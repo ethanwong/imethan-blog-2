@@ -44,8 +44,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/static/**");
         web.ignoring().antMatchers("/webjars/**");
-        web.ignoring().antMatchers("/","/blog","/blog/**","/about");
+        web.ignoring().antMatchers("/","/blog","/blog/**","/blog/article/**","/about");
         web.ignoring().antMatchers("/home");
+        web.ignoring().antMatchers("/api/**");
     }
 
     /**

@@ -4,67 +4,70 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <link href="/static/js/pagination.css" rel="stylesheet">
     <title>Blog</title>
 </head>
 
 <body>
 
-<span class="h3">My Blog</span><small>  我的工作和学习笔记</small>
+<span class="h3">My Blog</span><small> 我的工作和学习笔记</small>
 <hr>
-
 
 <div class="row">
     <div class="col-sm-8">
 
-        <ul class="list-unstyled list-group">
-            <li class="list-group-item list-group-item-articlelist">
-                <a href="/blog/article/1234567890" class="title">在Spring MVC的拦截器里面获取上传和下载的文件大小</a>
-                <small><a href="">spring专题</a> 2019/10/10</small>
-            </li>
+        <ul class="list-unstyled list-group" id="blog-list">
+            <!--            <li class="list-group-item list-group-item-articlelist">-->
+            <!--                <a href="/blog/article/1234567890" class="title">在Spring MVC的拦截器里面获取上传和下载的文件大小</a>-->
+            <!--                <small><a href="">spring专题</a> 2019/10/10</small>-->
+            <!--            </li>-->
 
-            <li class="list-group-item list-group-item-articlelist">
-                <a href="/blog/article/1234567890" class="title">java InputStream读取数据问题</a>
-                <small><a href="">程序员笔记</a> 2018/01/18</small>
-            </li>
+            <!--            <li class="list-group-item list-group-item-articlelist">-->
+            <!--                <a href="/blog/article/1234567890" class="title">java InputStream读取数据问题</a>-->
+            <!--                <small><a href="">程序员笔记</a> 2018/01/18</small>-->
+            <!--            </li>-->
 
-            <li class="list-group-item list-group-item-articlelist">
-                <a href="/blog/article/1234567890" class="title">关于mongoDB的一些常用查询语句</a>
-                <small><a>MongoDB</a> 2016/12/01</small>
-            </li>
+            <!--            <li class="list-group-item list-group-item-articlelist">-->
+            <!--                <a href="/blog/article/1234567890" class="title">关于mongoDB的一些常用查询语句</a>-->
+            <!--                <small><a>MongoDB</a> 2016/12/01</small>-->
+            <!--            </li>-->
         </ul>
 
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+
+        <div class="m-style" id="pagination"></div>
+
+<!--        <nav aria-label="Page navigation example">-->
+<!--            <ul class="pagination">-->
+<!--                <li class="page-item">-->
+<!--                    <a class="page-link" href="#" aria-label="Previous">-->
+<!--                        <span aria-hidden="true">&laquo;</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+
+<!--                <li class="page page-item active"><a class="page-link" href="">1</a></li>-->
+<!--                <li class="page page-item"><a class="page-link" href="">2</a></li>-->
+<!--                <li class="page page-item"><a class="page-link" href="">3</a></li>-->
+
+<!--                <li class="page-item">-->
+<!--                    <a class="page-link" href="#" aria-label="Next">-->
+<!--                        <span aria-hidden="true">&raquo;</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </nav>-->
 
 
     </div>
     <div class="col-sm-4">
-<!--        <ul class="list-group">-->
-<!--            <li class="list-group-item">技术笔记</li>-->
-<!--            <li class="list-group-item">SpringBoot的应用</li>-->
-<!--            <li class="list-group-item">MongoDB</li>-->
-<!--            <li class="list-group-item">微服务架构</li>-->
-<!--            <li class="list-group-item">单服务解决方案</li>-->
-<!--        </ul>-->
+        <!--        <ul class="list-group">-->
+        <!--            <li class="list-group-item">技术笔记</li>-->
+        <!--            <li class="list-group-item">SpringBoot的应用</li>-->
+        <!--            <li class="list-group-item">MongoDB</li>-->
+        <!--            <li class="list-group-item">微服务架构</li>-->
+        <!--            <li class="list-group-item">单服务解决方案</li>-->
+        <!--        </ul>-->
 
         <div class="first-level-title">Content Tag</div>
         <div class="tag-box">
@@ -79,7 +82,116 @@
 
     </div>
 </div>
+<script src="/static/js/jquery.pagination.js"></script>
+<script type="text/javascript">
+    $(function () {
+        load(page, size);
+    });
 
+    var page = 1;
+    var size = 2;
+    var totalPages;
+
+    function load(page, size) {
+
+        // console.log("load page="+page);
+
+        $.get("/api/article/page/" + (page - 1) + "/" + size, function (result) {
+            var data = result.data;
+            var content = data.content;
+            $("#blog-list").html("");
+            $.each(content, function (i, item) {
+                var li = blogli(item.id, item.title, item.tag, item.createAt);
+                // console.log(blogli);
+                $("#blog-list").append(li);
+            })
+
+            // console.log(data);
+            // console.log(content);
+            // console.log(data.totalElements);
+            // console.log("totalPages="+data.totalPages);
+            totalPages = data.totalPages;
+            // console.log(data.numberOfElements);
+            // console.log("post result result=" + JSON.stringify(result));
+
+            pagination(page, size, data.totalPages);
+        })
+    }
+
+
+    function blogli(id, title, tag, createAt) {
+        return "<li class='list-group-item list-group-item-articlelist'>"
+            + " <a href='/blog/article/" + id + "' class='title'>" + title + "</a>"
+            // +" <small><a href=''>"+tag+"</a> "+createAt+"</small>"
+            + " <small>" + createAt + "</small>"
+            + "</li>";
+    }
+
+    function pagination(page, size, totalPages) {
+
+        $('#pagination').pagination({
+            pageCount: totalPages,
+            current: page,
+            jump: true,
+            callback: function (api) {
+                load(api.getCurrent(),size);
+            }
+        });
+
+
+        // $(".pagination").children("li").each(function () {
+        //     $(this).remove();
+        // })
+        //
+        // $(".pagination").append(pagePrevious());
+        //
+        //
+        // for (var i = 1; i <= totalPages; i++) {
+        //     var active = false;
+        //     if (page == i) {
+        //         active = true;
+        //     }
+        //     var li = pageli(i, active);
+        //     $(".pagination").append(li);
+        //     console.log("li=" + li);
+        //
+        //     $(".pagination .page-link").on("click",function (){
+        //         var page = $(this).html();
+        //         load(page,size);
+        //     })
+        // }
+        //
+        // $(".pagination").append(pageNext());
+    }
+
+    // function pagePrevious() {
+    //     return "<li class='page-item'>" +
+    //         " <a class='page-link' href='#' aria-label='Previous'>" +
+    //         "<span aria-hidden='true'>&laquo;</span>" +
+    //         "</a>" +
+    //         "</li>";
+    // }
+    //
+    // function pageNext() {
+    //     return "<li class='page-item'>" +
+    //         " <a class='page-link' href='#' aria-label='Next'>" +
+    //         "<span aria-hidden='true'>&raquo;</span>" +
+    //         "   </a>" +
+    //         " </li>";
+    // }
+    //
+    // function pageli(page, active) {
+    //     var li;
+    //     if (active) {
+    //         li = "<li class='page-item active'><button class='page-link' >" + page + "</button></li>"
+    //     } else {
+    //         li= "<li class='page-item'><button class='page-link' >" + page + "</button></li>"
+    //     }
+    //     return li;
+    // }
+
+
+</script>
 </body>
 </html>
 
