@@ -9,17 +9,17 @@
 <span class="h3" id="content-title"></span>
 <div style="margin: 8px 0px 8px 4px;">
     <span id="content-time"></span>
+    <input type="hidden" name="" th:value="${id}" id="content-id">
+    <span sec:authorize="isAuthenticated()" >
+        <i class="fa fa-book" aria-hidden="true" style="padding-left: 10px;"></i>
+        <a type="button" th:href="@{'/console/article/modify/'+${id}}">编辑</a>
 
-    <span sec:authorize="isAuthenticated()" style="float: right">
-        <i class="fa fa-book" aria-hidden="true"></i>
-        <a type="button" id="modify" >Modify</a>
-
-        <i class="fa fa-times" aria-hidden="true"></i>
-        <a type="button" id="delete" >Delete</a>
+        <i class="fa fa-times" aria-hidden="true" style="padding-left: 10px;"></i>
+        <a type="button"  id="content-delete">删除</a>
     </span>
 </div>
 
-<input type="hidden" name="" th:value="${id}" id="content-id">
+
 <div id="article-editormd-view" style="padding: 0px!important;">
     <textarea style="display:none;" name="article-editormd-markdown-doc">###Hello world!</textarea>
 </div>
@@ -61,6 +61,10 @@
                 flowChart: true,  // 默认不解析
                 sequenceDiagram: true,  // 默认不解析
             });
+        });
+
+        $("#content-delete").click(function (){
+            alert($(this).html());
         });
     });
 </script>

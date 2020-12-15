@@ -14,14 +14,14 @@
 <hr>
 <div class="row" style="padding-top: 20px;">
     <div class="col-12">
-        <p>Editor.md帮助文档：<a href="http://editor.md.ipandao.com/" target="_blank">http://editor.md.ipandao.com/</a></p>
         <form id="content-form" action="/api/article" method="post">
-            <div id="article-editormd">
-                <textarea style="display:none;" name="content" required></textarea>
-            </div>
             <div class="mb-3">
                 <input type="text" class="form-control" placeholder="Title" name="title" value="title" required>
             </div>
+            <div id="article-editormd">
+                <textarea style="display:none;" name="content" required></textarea>
+            </div>
+
             <div class="mb-3">
                 <input type="text" class="form-control" placeholder="Tag" name="tag" value="tag" required>
             </div>
@@ -119,7 +119,7 @@
                     console.log("post result isSuccess=" + result.isSuccess);
                     if (result.isSuccess) {
                         $("#content-id").val(result.data.id);
-                        alert(result.message + ",id=" + result.data.id);
+                        // alert(result.message + ",id=" + result.data.id);
                     }
                 },
                 dataType: 'json'
