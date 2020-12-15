@@ -80,7 +80,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ResultDto page(Integer pageNo, Integer pageSize) {
-        Pageable Pageable =  PageRequest.of(pageNo,pageSize,Sort.by("createAt"));
+        Pageable Pageable =  PageRequest.of(pageNo,pageSize,Sort.by(Sort.Order.desc("createAt")));
         Page<Article> page = articleRepository.findAll(Pageable);
         return ResultDto.ReturnSuccessData(page);
     }

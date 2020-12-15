@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -44,9 +45,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/static/**");
         web.ignoring().antMatchers("/webjars/**");
-        web.ignoring().antMatchers("/","/blog","/blog/**","/blog/article/**","/about");
-        web.ignoring().antMatchers("/home");
-        web.ignoring().antMatchers("/api/**");
+
+//        web.ignoring().antMatchers("/","/blog","/blog/**","/blog/article/**","/about","/api/**");
+//        web.ignoring().antMatchers("/home");
+//        web.ignoring().antMatchers("/api/**");
     }
 
     /**
@@ -64,9 +66,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(securityFilter, FilterSecurityInterceptor.class)
                 .authorizeRequests()
-//                .antMatchers("/index").permitAll()
+                .antMatchers("/","/home","/blog","/blog/**","/about","/api/article/**").permitAll()
                 .anyRequest().authenticated()
-//                .antMatchers("/home").hasAnyAuthority("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/signin")

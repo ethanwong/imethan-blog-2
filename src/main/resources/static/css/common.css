@@ -61,4 +61,9 @@ li{border-radius:0px !important;}
     font-weight: lighter!important;
     padding: 6px;!important;
 }
+.color-primary{color: #428bca!important;}
+.color-success{color: #5cb85c!important;}
+.color-info{color: #5bc0de!important;}
+.color-warning{color: #f0ad4e!important;}
+.color-danger{color: #d9534f!important;}
 
