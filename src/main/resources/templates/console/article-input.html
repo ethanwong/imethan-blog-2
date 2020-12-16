@@ -10,7 +10,8 @@
     <title>Publish</title>
 </head>
 <body>
-<h3>Publish Content</h3>
+<span class="h3">Publish Content</span>
+<p style="float: right;color: red;display: none;" id="auto-save-warn">自动保存成功！</p>
 <hr>
 <div class="row" style="padding-top: 20px;">
     <div class="col-12">
@@ -26,13 +27,16 @@
                 <input type="text" class="form-control" placeholder="Tag" name="tag" value="tag" required>
             </div>
             <input type="hidden" class="form-control" placeholder="Id" name="id" id="content-id" value="">
-            <button type="submit" class="btn btn-primary">save content</button>
+            <button type="submit" class="btn btn-primary" id="submit-btn" >提交</button>
         </form>
     </div>
 </div>
 <script src="/static/editor/editormd.js"></script>
+<script src="/static/js/jquery.md5.js"></script>
 <script type="text/javascript">
-    var testEditor;
+    let testEditor;
+    let contentMd5Temp;
+    let contentId;
 
     $(function () {
         testEditor = editormd("article-editormd", {
@@ -42,7 +46,7 @@
             // theme : "dark",
             // previewTheme : "dark",
             // editorTheme : "pastel-on-dark",
-            markdown: "# Hello ImEthan",
+            markdown: "## Hello ImEthan",
             codeFold: true,
             //syncScrolling : false,
             saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
@@ -74,10 +78,10 @@
                 // var body = {'title': title, 'content': content, 'tag': tag};
 
                 // $("#content-form").validate(validOption);
-                $("#content-form").submit();
 
-
-                console.log("onchange =>", this, this.id, this.settings, this.state);
+                // if(checkMd5(testEditor.getMarkdown())){
+                //     $("#content-form").submit();
+                // }
             },
             onload: function () {
                 // console.log('onload', this);
@@ -91,6 +95,32 @@
                 //this.resize("100%", 640);
             }
         });
+
+        $("#submit-btn").click(function () {
+            $("#content-form").submit();
+            layer.msg('发布成功，即将跳转到查看页面~~', {icon: 6});
+
+            setTimeout(function () {
+                window.location.href = "/blog/article/" + contentId;
+            }, 2000);
+
+        });
+
+        function checkMd5(content){
+            var md5 = $.md5(content);
+            if(contentMd5Temp != md5){
+                contentMd5Temp = md5;
+                return true;
+            }
+            return false;
+        }
+
+        //定时任务
+        setInterval(function(){
+            if(checkMd5(testEditor.getMarkdown())){
+                $("#content-form").submit();
+            }
+        }, 10000);
 
         var validOption = {
             messages: {
@@ -107,25 +137,42 @@
         $("#content-form").validate(validOption);
 
         function saveContent(form) {
+
+            $("#submit-btn").attr("disabled",true);
+
             var body = JSON.stringify($(form).serializeObject())
-            console.log("body=" + body);
+            // console.log("body=" + body);
+
             $.ajax({
                 type: form.method,
                 url: form.action,
                 contentType: 'application/json',
                 data: body,
                 success: function (result) {
-                    console.log("post result result=" + JSON.stringify(result));
-                    console.log("post result isSuccess=" + result.isSuccess);
+                    // console.log("post result result=" + JSON.stringify(result));
+                    console.log("post result isSuccess=" + result.isSuccess+" id="+result.data.id);
                     if (result.isSuccess) {
+                        contentId = result.data.id;
                         $("#content-id").val(result.data.id);
                         // alert(result.message + ",id=" + result.data.id);
+                        autoSaveWarn('block');
                     }
+
+                    $("#submit-btn").removeAttr("disabled");
                 },
+
                 dataType: 'json'
             })
         }
+
+
     });
+
+    function autoSaveWarn(display) {
+        $("#auto-save-warn").css('display', display);
+        setTimeout("autoSaveWarn('none')",3000);
+    }
+
 </script>
 </body>
 </html>

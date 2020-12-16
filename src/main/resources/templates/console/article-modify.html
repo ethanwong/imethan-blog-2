@@ -10,36 +10,42 @@
     <title>Modify</title>
 </head>
 <body>
-<h3>Modify Content</h3>
+<span class="h3">Modify Content</span>
+<p style="float: right;color: red;display: none;" id="auto-save-warn">自动保存成功！</p>
 <hr>
 <div class="row" style="padding-top: 20px;">
     <div class="col-12">
         <form id="content-form" action="/api/article" method="post">
             <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Title" name="title" id="content-title" value="title" required>
+                <input type="text" class="form-control" placeholder="Title" name="title" id="content-title"
+                       value="title" required>
             </div>
             <div id="article-editormd">
                 <textarea style="display:none;" name="content" required></textarea>
             </div>
             <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Tag" name="tag" id="content-tag" value="tag"  required>
+                <input type="text" class="form-control" placeholder="Tag" name="tag" id="content-tag" value="tag"
+                       required>
             </div>
             <input type="hidden" class="form-control" placeholder="Id" name="id" id="content-id" th:value="${id}">
-            <button type="submit" class="btn btn-primary">save content</button>
+            <button type="submit" class="btn btn-primary" id="submit-btn">提交</button>
         </form>
     </div>
 </div>
 <script src="/static/editor/editormd.js"></script>
+<script src="/static/js/jquery.md5.js"></script>
 <script type="text/javascript">
     var testEditor;
+    var contentMd5Temp;
 
     $(function () {
 
-        var content;
-        var title;
-        var tag;
+        let content;
+        let title;
+        let tag;
+        let contentId = $("#content-id").val();
 
-        $.get("/api/article/" + $("#content-id").val(), function (result) {
+        $.get("/api/article/" + contentId, function (result) {
             content = result.data.content;
             title = result.data.title;
             tag = result.data.tag;
@@ -87,10 +93,14 @@
                     // var body = {'title': title, 'content': content, 'tag': tag};
 
                     // $("#content-form").validate(validOption);
-                    $("#content-form").submit();
+                    // $("#content-form").submit();
+
+                    // if(checkMd5(testEditor.getMarkdown())){
+                    //     $("#content-form").submit();
+                    // }
 
 
-                    console.log("onchange =>", this, this.id, this.settings, this.state);
+                    // console.log("onchange =>", this, this.id, this.settings, this.state);
                 },
                 onload: function () {
                     // console.log('onload', this);
@@ -106,6 +116,31 @@
             });
         });
 
+        function checkMd5(content) {
+            var md5 = $.md5(content);
+            if (contentMd5Temp != md5) {
+                contentMd5Temp = md5;
+                return true;
+            }
+            return false;
+        }
+
+        // 定时任务
+        setInterval(function () {
+            if (checkMd5(testEditor.getMarkdown())) {
+                $("#content-form").submit();
+            }
+        }, 10000);
+
+        $("#submit-btn").click(function () {
+            $("#content-form").submit();
+
+            layer.msg('发布成功，即将跳转到查看页面~~', {icon: 6});
+
+            setTimeout(function () {
+                window.location.href = "/blog/article/" + contentId;
+            }, 2000);
+        });
 
 
         var validOption = {
@@ -135,13 +170,18 @@
                     console.log("post result isSuccess=" + result.isSuccess);
                     if (result.isSuccess) {
                         $("#content-id").val(result.data.id);
-                        // alert(result.message + ",id=" + result.data.id);
+                        autoSaveWarn('block');
                     }
                 },
                 dataType: 'json'
             })
         }
     });
+
+    function autoSaveWarn(display) {
+        $("#auto-save-warn").css('display', display);
+        setTimeout("autoSaveWarn('none')", 3000);
+    }
 </script>
 </body>
 </html>

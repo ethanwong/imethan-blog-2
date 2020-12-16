@@ -6,23 +6,30 @@
     <link rel="stylesheet" href="/static/editor/css/editormd.preview.css"/>
 </head>
 <body>
-<span class="h3" id="content-title"></span>
-<div style="margin: 8px 0px 8px 4px;">
+<span class="h1" id="content-title"></span>
+<small style="margin: 8px 0px 8px 4px;">
     <span id="content-time"></span>
     <input type="hidden" name="" th:value="${id}" id="content-id">
-    <span sec:authorize="isAuthenticated()" >
-        <i class="fa fa-book" aria-hidden="true" style="padding-left: 10px;"></i>
+    <span sec:authorize="isAuthenticated()">
         <a type="button" th:href="@{'/console/article/modify/'+${id}}">编辑</a>
-
-        <i class="fa fa-times" aria-hidden="true" style="padding-left: 10px;"></i>
-        <a type="button"  id="content-delete">删除</a>
+        <a type="button" id="content-delete">删除</a>
     </span>
+</small>
+
+
+<div class="row">
+    <div class="col-9">
+        <div id="article-editormd-view" style="padding: 0px!important;">
+            <textarea style="display:none;" name="article-editormd-markdown-doc">###Hello world!</textarea>
+        </div>
+    </div>
+    <div class="col-3">
+        <div id="custom-toc-container" style="padding: 16px 0px 0px 0px!important;"></div>
+    </div>
 </div>
 
 
-<div id="article-editormd-view" style="padding: 0px!important;">
-    <textarea style="display:none;" name="article-editormd-markdown-doc">###Hello world!</textarea>
-</div>
+
 
 <script src="/static/editor/lib/marked.min.js"></script>
 <script src="/static/editor/lib/prettify.min.js"></script>
@@ -36,7 +43,8 @@
 <script type="text/javascript">
     $(function () {
         var articleEditormdView;
-        $.get("/api/article/" + $("#content-id").val(), function (result) {
+        var contentId = $("#content-id").val();
+        $.get("/api/article/" + contentId, function (result) {
 
             $("title").html(result.data.title);
 
@@ -51,7 +59,7 @@
                 htmlDecode: "style,script,iframe",  // you can filter tags decode
                 // toc: true,
                 tocm: true,    // Using [TOCM]
-                // tocContainer: "#custom-toc-container", // 自定义 ToC 容器层
+                tocContainer: "#custom-toc-container", // 自定义 ToC 容器层
                 //gfm             : false,
                 tocDropdown: true,
                 markdownSourceCode: true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
@@ -63,8 +71,26 @@
             });
         });
 
-        $("#content-delete").click(function (){
-            alert($(this).html());
+        $("#content-delete").click(function () {
+            layer.confirm('你确定要删除？', {
+                btn: ['确定', '取消'], title: '',offset: '200px',yes:function(){
+                    $.ajax({
+                        type: "delete",
+                        url: "/api/article/" + contentId,
+                        success: function (result) {
+                            if (result.isSuccess) {
+                                layer.msg('删除成功', {icon: 1});
+                            } else {
+                                layer.msg('删除失败', {icon: 2});
+                            }
+                            setTimeout(function (){
+                                window.location.href = '/blog'
+                            },1000);
+
+                        }
+                    });
+                }
+            });
         });
     });
 </script>

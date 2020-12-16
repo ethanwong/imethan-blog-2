@@ -15,3 +15,12 @@
     background-color: #428bca;
     border-color: #428bca;
 }
+
+.markdown-toc-list ul{
+    padding-left: 0px;
+}
+
+.markdown-toc-list li{
+    padding-left: 0px;
+    margin-left: 10px;
+}

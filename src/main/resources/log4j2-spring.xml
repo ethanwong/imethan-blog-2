@@ -69,7 +69,7 @@
         <logger name="org.apache.catalina" level="error" additivity="false"></logger>
         <logger name="springfox.documentation" level="error" additivity="false"></logger>
 
-        <root level="INFO">
+        <root level="DEBUG">
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFileInfo"/>
             <appender-ref ref="RollingFileWarn"/>
