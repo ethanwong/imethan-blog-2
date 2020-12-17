@@ -24,6 +24,10 @@ public class Article extends BaseDocument {
     private String content;
     private String channelId;
     private String tag;
+    /**
+     * 0-正常，1-草稿，2-回收
+     */
+    private Integer status;
 
     @Override
     public String toString() {
@@ -32,6 +36,7 @@ public class Article extends BaseDocument {
                 ", content='" + content + '\'' +
                 ", channelId='" + channelId + '\'' +
                 ", tag='" + tag + '\'' +
+                ", status='" + status + '\'' +
                 "} " + super.toString();
     }
 }

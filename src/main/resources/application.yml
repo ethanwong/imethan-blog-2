@@ -25,6 +25,8 @@ spring:
       uri: mongodb://127.0.0.1:27017/imethan_blog_2
     rest:
       basePath: /hal
+
+
 server:
   port: 8888
 management:
@@ -36,4 +38,14 @@ management:
     health:
       show-details: ALWAYS
 
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        data:
+#          mongodb:
+#            core: DEBUG
+#      mongodb:
+#        driver:
+#          protocol: DEBUG
 

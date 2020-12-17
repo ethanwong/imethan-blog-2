@@ -6,6 +6,7 @@
 .list-group-item-articlelist .title {
     display: block;
     font-size: 18px;
+    padding-bottom: 2px;
 
 }
 
@@ -14,6 +15,10 @@
     color: #fff;
     background-color: #428bca;
     border-color: #428bca;
+}
+
+.markdown-toc-list{
+    padding-top: 20px;
 }
 
 .markdown-toc-list ul{

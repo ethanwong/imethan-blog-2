@@ -4,6 +4,8 @@ import com.imethan.blog.document.blog.Article;
 import com.imethan.blog.dto.ArticleDto;
 import com.imethan.blog.dto.ResultDto;
 
+import java.util.Map;
+
 /**
  * @Name ArticleService
  * @Description
@@ -13,5 +15,5 @@ import com.imethan.blog.dto.ResultDto;
 public interface ArticleService extends BaseService<Article,String> {
 
 
-    ResultDto page(Integer pageNo, Integer pageSize);
+    ResultDto page(Map<String, Object> parameters, Integer pageNo, Integer pageSize);
 }

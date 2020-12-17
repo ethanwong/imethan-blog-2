@@ -23,10 +23,13 @@
             <div id="article-editormd">
                 <textarea style="display:none;" name="content" required></textarea>
             </div>
+
             <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Tag" name="tag" id="content-tag" value="tag"
-                       required>
+                <label for="content-tag" class="form-label">Tag标签：多个以英文逗号“,”隔开</label>
+                <textarea class="form-control" id="content-tag" rows="3" name="tag" value="tag" required></textarea>
             </div>
+
+            <input type="hidden" class="form-control" placeholder="Id" name="status" id="content-status" value="1">
             <input type="hidden" class="form-control" placeholder="Id" name="id" id="content-id" th:value="${id}">
             <button type="submit" class="btn btn-primary" id="submit-btn">提交</button>
         </form>
@@ -133,13 +136,16 @@
         }, 10000);
 
         $("#submit-btn").click(function () {
-            $("#content-form").submit();
+            if($("#content-form").valid()){
+                $("#content-status").val("0");//正式发布
+                $("#content-form").submit();
 
-            layer.msg('发布成功，即将跳转到查看页面~~', {icon: 6});
+                layer.msg('发布成功，即将跳转到查看页面~~', {icon: 6});
 
-            setTimeout(function () {
-                window.location.href = "/blog/article/" + contentId;
-            }, 2000);
+                setTimeout(function () {
+                    window.location.href = "/blog/article/" + contentId;
+                }, 2000);
+            }
         });
 
 

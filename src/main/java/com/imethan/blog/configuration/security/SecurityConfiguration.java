@@ -66,7 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(securityFilter, FilterSecurityInterceptor.class)
                 .authorizeRequests()
-                .antMatchers("/","/home","/blog","/blog/**","/about","/api/article/**").permitAll()
+                .antMatchers("/","/home","/blog","/blog/**","/about","/api/article/**","/api/article/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

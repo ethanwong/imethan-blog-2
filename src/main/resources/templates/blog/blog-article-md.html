@@ -2,11 +2,11 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8"/>
-    <title>HTML Preview (markdown to html) - Editor.md examples</title>
+    <title>ImEthan</title>
     <link rel="stylesheet" href="/static/editor/css/editormd.preview.css"/>
 </head>
 <body>
-<span class="h1" id="content-title"></span>
+<span class="h1" id="content-title" style="font-weight: 200!important;"></span>
 <small style="margin: 8px 0px 8px 4px;">
     <span id="content-time"></span>
     <input type="hidden" name="" th:value="${id}" id="content-id">
@@ -45,6 +45,9 @@
         var articleEditormdView;
         var contentId = $("#content-id").val();
         $.get("/api/article/" + contentId, function (result) {
+            if(result.data == null){
+                $("#article-editormd-view").html("<h1>内容不存在!</h1>");
+            }
 
             $("title").html(result.data.title);
 

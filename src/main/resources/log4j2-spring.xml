@@ -66,10 +66,11 @@
         <logger name="org.springframework" level="info" additivity="false"></logger>
         <logger name="org.mongodb.driver" level="info" additivity="false"></logger>
         <logger name="org.hibernate" level="info" additivity="false"></logger>
+
         <logger name="org.apache.catalina" level="error" additivity="false"></logger>
         <logger name="springfox.documentation" level="error" additivity="false"></logger>
 
-        <root level="DEBUG">
+        <root level="INFO">
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFileInfo"/>
             <appender-ref ref="RollingFileWarn"/>

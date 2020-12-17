@@ -59,7 +59,7 @@ li{border-radius:0px !important;}
     margin: 4px !important;
     color: white !important;
     font-weight: lighter!important;
-    padding: 6px;!important;
+    padding: 8px;!important;
 }
 .color-primary{color: #428bca!important;}
 .color-success{color: #5cb85c!important;}
@@ -67,4 +67,8 @@ li{border-radius:0px !important;}
 .color-warning{color: #f0ad4e!important;}
 .color-danger{color: #d9534f!important;}
 .layui-layer-btn .layui-layer-btn0{color: #fff!important; }
+
+.bg-primary {
+    background-color: #428bca!important;
+}
 

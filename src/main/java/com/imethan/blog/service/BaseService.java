@@ -16,6 +16,8 @@ public interface BaseService<T, ID> {
 
     ResultDto delete(String id);
 
+    ResultDto recycle(String id);
+
     ResultDto update(T t);
 
     T getById(String id);

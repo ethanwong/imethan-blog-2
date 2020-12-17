@@ -9,59 +9,25 @@
     <link href="/static/js/pagination.css" rel="stylesheet">
     <title>Blog</title>
 </head>
-
 <body>
-
-<span class="h3">My Blog</span><small> 我的工作和学习笔记</small>
-<span style="float: right;display: inline;" >
-    <input style="width: 220px;height:33.61px;border-radius:0px;display: inline;" type="text" class="form-control" placeholder="" name="keyword" id="content-search">
-    <button style="border-radius:0px;vertical-align:baseline;border: 1px solid #ced4da;padding: 4px;" class="btn btn-outline-secondary " type="button">search</button>
+<span class="h2" style="font-weight: 200;">My Blog</span><small> 我的工作和学习笔记</small>
+<span style="float: right;display: inline;">
+    <input style="width: 260px;border-radius:0px;display: inline;" type="text" class="form-control"
+           placeholder="search" name="keyword" id="search-keyword">
 </span>
-
 <hr>
-
 <div class="row">
     <div class="col-sm-8">
 
-        <ul class="list-unstyled list-group" id="blog-list">
+        <ul class="list-unstyled list-group" id="blog-box">
             <!--            <li class="list-group-item list-group-item-articlelist">-->
             <!--                <a href="/blog/article/1234567890" class="title">在Spring MVC的拦截器里面获取上传和下载的文件大小</a>-->
             <!--                <small><a href="">spring专题</a> 2019/10/10</small>-->
-            <!--            </li>-->
-
-            <!--            <li class="list-group-item list-group-item-articlelist">-->
-            <!--                <a href="/blog/article/1234567890" class="title">java InputStream读取数据问题</a>-->
-            <!--                <small><a href="">程序员笔记</a> 2018/01/18</small>-->
-            <!--            </li>-->
-
-            <!--            <li class="list-group-item list-group-item-articlelist">-->
-            <!--                <a href="/blog/article/1234567890" class="title">关于mongoDB的一些常用查询语句</a>-->
-            <!--                <small><a>MongoDB</a> 2016/12/01</small>-->
             <!--            </li>-->
         </ul>
 
 
         <div class="m-style" id="pagination"></div>
-
-<!--        <nav aria-label="Page navigation example">-->
-<!--            <ul class="pagination">-->
-<!--                <li class="page-item">-->
-<!--                    <a class="page-link" href="#" aria-label="Previous">-->
-<!--                        <span aria-hidden="true">&laquo;</span>-->
-<!--                    </a>-->
-<!--                </li>-->
-
-<!--                <li class="page page-item active"><a class="page-link" href="">1</a></li>-->
-<!--                <li class="page page-item"><a class="page-link" href="">2</a></li>-->
-<!--                <li class="page page-item"><a class="page-link" href="">3</a></li>-->
-
-<!--                <li class="page-item">-->
-<!--                    <a class="page-link" href="#" aria-label="Next">-->
-<!--                        <span aria-hidden="true">&raquo;</span>-->
-<!--                    </a>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </nav>-->
 
 
     </div>
@@ -69,9 +35,6 @@
         <!--        <ul class="list-group">-->
         <!--            <li class="list-group-item">技术笔记</li>-->
         <!--            <li class="list-group-item">SpringBoot的应用</li>-->
-        <!--            <li class="list-group-item">MongoDB</li>-->
-        <!--            <li class="list-group-item">微服务架构</li>-->
-        <!--            <li class="list-group-item">单服务解决方案</li>-->
         <!--        </ul>-->
 
         <div class="first-level-title">Content Tag</div>
@@ -88,66 +51,27 @@
     </div>
 </div>
 <script src="/static/js/jquery.pagination.js"></script>
+<script src="/static/js/tag.js"></script>
+<script src="/static/js/blog.js"></script>
 <script type="text/javascript">
     $(function () {
-        load(page, size);
 
-        $("#content-search").bind('input propertychange', function() {
-            console.log("change val="+$(this).val());
-            layer.msg($(this).val(), {icon: 6,offset: '200px'});
+
+        //加载内容
+        loadBlog("#blog-box", '#pagination', page, size, '','');
+
+        //加载标签
+        loadTag(".tag-box");
+
+        //检索时间
+        $("#search-keyword").bind('keypress', function (event) {
+            if (event.keyCode == "13") {
+                console.log("search val=" + $(this).val());
+                loadBlog("#blog-box", '#pagination', page, size,'title', $(this).val());
+            }
         })
-
-
     });
 
-    var page = 1;
-    var size = 10;
-    var totalPages;
-
-    function load(page, size) {
-
-        // console.log("load page="+page);
-
-        $.get("/api/article/page/" + (page - 1) + "/" + size, function (result) {
-            var data = result.data;
-            var content = data.content;
-            $("#blog-list").html("");
-            $.each(content, function (i, item) {
-                var li = blogli(item.id, item.title, item.tag, item.createAt);
-                // console.log(blogli);
-                $("#blog-list").append(li);
-            })
-
-            // console.log(data);
-            // console.log(content);
-            // console.log(data.totalElements);
-            // console.log("totalPages="+data.totalPages);
-            totalPages = data.totalPages;
-            // console.log(data.numberOfElements);
-            // console.log("post result result=" + JSON.stringify(result));
-
-            pagination(page, size, data.totalPages);
-        })
-    }
-
-    function blogli(id, title, tag, createAt) {
-        return "<li class='list-group-item list-group-item-articlelist'>"
-            + " <a href='/blog/article/" + id + "' class='title'>" + title + "</a>"
-            // +" <small><a href=''>"+tag+"</a> "+createAt+"</small>"
-            + " <small>" + createAt + "</small>"
-            + "</li>";
-    }
-
-    function pagination(page, size, totalPages) {
-        $('#pagination').pagination({
-            pageCount: totalPages,
-            current: page,
-            jump: true,
-            callback: function (api) {
-                load(api.getCurrent(),size);
-            }
-        });
-    }
 
 </script>
 </body>
