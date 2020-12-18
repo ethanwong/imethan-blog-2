@@ -1,6 +1,7 @@
 package com.imethan.blog.configuration.security;
 
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -24,7 +25,18 @@ public class LoginSuccessHandler extends
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
 
+        //检查验证码是否正确
+        if (request.getMethod().equals("POST") && request.getRequestURI().equals("/signin")) {
+            String code = request.getParameter("code");
+            String validCode = (String) request.getSession().getAttribute("valid_code");
+            log.info("SecurityFilter doFilter valid code={},request code={}", validCode, code);
+            if (!code.equals(validCode)) {
+                throw new AuthenticationServiceException("校验码不正确！");
+            }
+        }
+
         User user = (User) authentication.getPrincipal();
+
         log.info("user {} login,ip is {}", user, getIpAddress(request));
         super.onAuthenticationSuccess(request, response, authentication);
     }

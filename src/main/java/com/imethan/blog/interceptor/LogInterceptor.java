@@ -13,7 +13,7 @@ public class LogInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        log.info("Request Method：{},URI：{}，QueryString：{}", request.getMethod(), request.getRequestURI(), request.getQueryString());
+//        log.info("Request Method：{},URI：{}，QueryString：{}", request.getMethod(), request.getRequestURI(), request.getQueryString());
         return true;
     }
 }

@@ -17,4 +17,10 @@ public interface AccountService {
      * @return
      */
     Account getByUsername(String username);
+
+    /**
+     * 检查是否存在root账号，没有则创建
+     */
+    void checkRootUser();
+
 }

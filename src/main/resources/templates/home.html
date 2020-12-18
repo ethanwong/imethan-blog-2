@@ -2,21 +2,39 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>Home</title>
+    <style>
+        .banner {
+            margin: 40px 0px 40px 0px;
+            line-height: 1.2;
+        }
+        .banner .title {
+            font-size: 50px;
+            font-weight: lighter;
+        }
+        hr{
+            margin: 40px 0px 40px 0px;
+        }
+    </style>
 </head>
 <body>
-
-<h2>Welcome</h2>
-<p>Hi,your ip is <span th:text="${#httpServletRequest.getLocalAddr()}"/>.</p>
+<div class="banner">
+    <p class="title">Welcome</p>
+    <p>A tech blog base java、springboot、mongodb. | 一位野生程序猿的自留地。</p>
+    <p><a style="width: 200px;" class="btn btn-primary" href="blog"> Learn more </a></p>
+</div>
 <hr>
-<p class="first-level-title">Content Tag</p>
-<div class="tag-box"></div>
-<hr>
 
-<p class="first-level-title">Site Index</p>
+<!--<p class="level1-title">Content Tag</p>-->
+<!--<div class="tag-box"></div>-->
+
+<!--<hr>-->
+
+<p class="level1-title">Site Index</p>
 <p>fontawesome：<a href="http://www.fontawesome.com.cn/" target="_blank">http://www.fontawesome.com.cn/</a></p>
 <p>getbootstrap：<a href="https://getbootstrap.com/" target="_blank">https://getbootstrap.com/</a></p>
 <p>jqueryvalidation：<a href="https://jqueryvalidation.org/" target="_blank">https://jqueryvalidation.org/</a></p>
-<p>editor.md：<a href="https://pandao.github.io/editor.md/index.html" target="_blank">https://pandao.github.io/editor.md/index.html</a></p>
+<p>editor.md：<a href="https://pandao.github.io/editor.md/index.html" target="_blank">https://pandao.github.io/editor.md/index.html</a>
+</p>
 <p>layer：<a href="https://layer.layui.com/" target="_blank">https://layer.layui.com/</a></p>
 <p>nprogress：<a href="https://ricostacruz.com/nprogress/" target="_blank">https://ricostacruz.com/nprogress/</a></p>
 </body>
@@ -25,7 +43,7 @@
 <script type="text/javascript">
     $(function () {
         NProgress.start();
-        loadTag(".tag-box");
+        // loadTag(".tag-box");
         NProgress.done();
     });
 </script>

@@ -29,6 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private SecurityFilter securityFilter;
 
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -66,7 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(securityFilter, FilterSecurityInterceptor.class)
                 .authorizeRequests()
-                .antMatchers("/","/home","/blog","/blog/**","/about","/api/article/**","/api/article/**").permitAll()
+                .antMatchers("/", "/home", "/blog", "/blog/**", "/about", "/api/article/**", "/api/article/**", "/validCode").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

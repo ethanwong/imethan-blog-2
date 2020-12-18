@@ -23,7 +23,7 @@ public class ModuleInterceptor implements HandlerInterceptor {
         String uri = request.getRequestURI();
 
         String[] uris = uri.split("/");
-        log.info("uris={}", uris);
+//        log.info("uris={}", uris);
         if (uris.length > 0) {
             module = uris[1];
         }
@@ -31,7 +31,7 @@ public class ModuleInterceptor implements HandlerInterceptor {
         request.setAttribute("module", module);
 
 
-        log.info("uri={},module={}", uri, module);
+//        log.info("uri={},module={}", uri, module);
 
         return true;
     }

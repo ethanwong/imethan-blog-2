@@ -52,8 +52,9 @@ li{border-radius:0px !important;}
 }
 
 
-.first-level-title{
+.level1-title{
     margin: 8px 8px 8px 0px;
+    font-weight: bolder;
 }
 .tag-box .badge{
     margin: 4px !important;
