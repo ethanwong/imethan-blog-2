@@ -19,42 +19,45 @@
 </div>
 </body>
 </html>
-<script>
-    // $(window).resize(function () {
-    //     $('#table').bootstrapTable('resetView');
-    // });
 
-    $('#table').bootstrapTable({
-        url: '/console/channel/json',
-        pagination: true,
-        sidePagination: 'server',
+<script type="text/javascript">
+    $(function () {
+        NProgress.start();
 
-        pageSize: 4, //每页显示多少条数据
-        pageNumber: 1, //初始化翻页的页码
-        pageList: [10, 25, 50, 100],
-        queryParamsType:'',
+        $('#table').bootstrapTable({
+            url: '/console/channel/json',
+            pagination: true,
+            sidePagination: 'server',
 
-        search: true,
-        // sidePagination: 'server',
-        showHeader: true,
-        // showRefresh: true,
-        iconSize:'sm',
-        buttonsClass: 'primary',
-        icons:{"refresh":"fa-refresh","search":"fa-search"},
-        toolbar: '#toolbar',
-        columns: [{
-            field: 'id',
-            title: 'Item ID',
-            width: '200'
-        }, {
-            field: 'name',
-            title: 'Item Name',
-            width: '600'
-        }, {
-            field: 'id',
-            title: '操作',
-            width: '200'
+            pageSize: 4, //每页显示多少条数据
+            pageNumber: 1, //初始化翻页的页码
+            pageList: [10, 25, 50, 100],
+            queryParamsType:'',
 
-        }]
-    })
+            search: true,
+            // sidePagination: 'server',
+            showHeader: true,
+            // showRefresh: true,
+            iconSize:'sm',
+            buttonsClass: 'primary',
+            icons:{"refresh":"fa-refresh","search":"fa-search"},
+            toolbar: '#toolbar',
+            columns: [{
+                field: 'id',
+                title: 'Item ID',
+                width: '200'
+            }, {
+                field: 'name',
+                title: 'Item Name',
+                width: '600'
+            }, {
+                field: 'id',
+                title: '操作',
+                width: '200'
+
+            }]
+        })
+
+        NProgress.done();
+    });
 </script>

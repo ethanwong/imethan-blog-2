@@ -7,14 +7,14 @@
 </head>
 <body>
 <span class="h1" id="content-title" style="font-weight: 200!important;"></span>
-<small style="margin: 8px 0px 8px 4px;">
-    <span id="content-time"></span>
-    <input type="hidden" name="" th:value="${id}" id="content-id">
-    <span sec:authorize="isAuthenticated()">
+
+<span sec:authorize="isAuthenticated()" style="padding-left: 10px;">
         <a type="button" th:href="@{'/console/article/modify/'+${id}}">编辑</a>
         <a type="button" id="content-delete">删除</a>
-    </span>
-</small>
+</span>
+<br>
+<small id="content-tag"></small>
+<input type="hidden" name="" th:value="${id}" id="content-id">
 
 
 <div class="row">
@@ -41,7 +41,10 @@
 
 <script src="/static/editor/editormd.js"></script>
 <script type="text/javascript">
+
     $(function () {
+        NProgress.start();
+
         var articleEditormdView;
         var contentId = $("#content-id").val();
         $.get("/api/article/" + contentId, function (result) {
@@ -53,6 +56,8 @@
 
             $("#content-title").html(result.data.title);
             $("#content-time").html(result.data.createAt);
+            $("#content-tag").append(" <i class=\"fa fa-calendar-o\" aria-hidden=\"true\"></i> "+result.data.createAt);
+            $("#content-tag").append("      <i class=\"fa fa-bookmark-o\" aria-hidden=\"true\"></i> "+result.data.tag);
 
             var content = result.data.content;
 
@@ -95,6 +100,8 @@
                 }
             });
         });
+
+        NProgress.done();
     });
 </script>
 </body>

@@ -13,4 +13,5 @@ import com.imethan.blog.dto.ResultDto;
 public interface TagService extends BaseService<Tag,String> {
     ResultDto findAll();
 
+    ResultDto clearTag();
 }

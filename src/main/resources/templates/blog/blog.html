@@ -55,7 +55,7 @@
 <script src="/static/js/blog.js"></script>
 <script type="text/javascript">
     $(function () {
-
+        NProgress.start();
 
         //加载内容
         loadBlog("#blog-box", '#pagination', page, size, '','');
@@ -70,6 +70,8 @@
                 loadBlog("#blog-box", '#pagination', page, size,'title', $(this).val());
             }
         })
+
+        NProgress.done();
     });
 
 

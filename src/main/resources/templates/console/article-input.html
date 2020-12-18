@@ -43,6 +43,7 @@
     let contentId;
 
     $(function () {
+        NProgress.start();
         testEditor = editormd("article-editormd", {
             width: "100%",
             height: 600,
@@ -154,7 +155,7 @@
             })
         }
 
-
+        NProgress.done();
     });
 
     function autoSaveWarn(display) {

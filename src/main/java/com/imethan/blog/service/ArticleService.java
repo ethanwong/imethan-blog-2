@@ -1,9 +1,11 @@
 package com.imethan.blog.service;
 
 import com.imethan.blog.document.blog.Article;
+import com.imethan.blog.document.blog.Tag;
 import com.imethan.blog.dto.ArticleDto;
 import com.imethan.blog.dto.ResultDto;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,4 +18,6 @@ public interface ArticleService extends BaseService<Article,String> {
 
 
     ResultDto page(Map<String, Object> parameters, Integer pageNo, Integer pageSize);
+
+    List<Article> searchArticleByTag(Tag tag);
 }

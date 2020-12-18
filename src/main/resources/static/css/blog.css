@@ -5,8 +5,9 @@
 
 .list-group-item-articlelist .title {
     display: block;
-    font-size: 18px;
+    font-size: 20px;
     padding-bottom: 2px;
+    font-weight: 340;
 
 }
 

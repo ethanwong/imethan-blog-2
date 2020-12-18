@@ -9,34 +9,23 @@
 <p>Hi,your ip is <span th:text="${#httpServletRequest.getLocalAddr()}"/>.</p>
 <hr>
 <p class="first-level-title">Content Tag</p>
-<div class="tag-box">
-    <a class="badge bg-primary" href="" role="button">项目管理</a>
-    <a class="badge bg-secondary" href="" role="button">研发架构</a>
-    <a class="badge bg-success" href="" role="button">从零开始</a>
-    <a class="badge bg-danger" href="" role="button">SpringBoot</a>
-    <a class="badge bg-warning" href="" role="button">ActiveMQ</a>
-    <a class="badge bg-info" href="" role="button">EMQX</a>
-    <a class="badge bg-dark" href="" role="button">VUE运用</a>
-</div>
+<div class="tag-box"></div>
 <hr>
-<label>内容检索：</label><input style="width: 220px;border-radius:0px;display: inline;" type="text" class="form-control"
-                           placeholder="" name="keyword" id="content-search">
-<button style="border-radius:0px;vertical-align:baseline;border: 1px solid #ced4da;" class="btn btn-outline-secondary "
-        type="button">search
-</button>
-<hr>
-<p class="first-level-title">URL INDEX</p>
+
+<p class="first-level-title">Site Index</p>
 <p>fontawesome：<a href="http://www.fontawesome.com.cn/" target="_blank">http://www.fontawesome.com.cn/</a></p>
 <p>getbootstrap：<a href="https://getbootstrap.com/" target="_blank">https://getbootstrap.com/</a></p>
 <p>jqueryvalidation：<a href="https://jqueryvalidation.org/" target="_blank">https://jqueryvalidation.org/</a></p>
-<p>editor.md：<a href="https://pandao.github.io/editor.md/index.html" target="_blank">https://pandao.github.io/editor.md/index.html</a>
-</p>
+<p>editor.md：<a href="https://pandao.github.io/editor.md/index.html" target="_blank">https://pandao.github.io/editor.md/index.html</a></p>
 <p>layer：<a href="https://layer.layui.com/" target="_blank">https://layer.layui.com/</a></p>
+<p>nprogress：<a href="https://ricostacruz.com/nprogress/" target="_blank">https://ricostacruz.com/nprogress/</a></p>
 </body>
 </html>
 <script src="/static/js/tag.js"></script>
 <script type="text/javascript">
     $(function () {
+        NProgress.start();
         loadTag(".tag-box");
+        NProgress.done();
     });
 </script>

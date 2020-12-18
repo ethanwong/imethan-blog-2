@@ -1,4 +1,5 @@
 function loadTag(box) {
+
     $.get("/api/article/tag", function (result) {
         if (result.isSuccess) {
             $(box).html("");
@@ -9,12 +10,15 @@ function loadTag(box) {
                 var id = item.id;
                 $("#" + id).on("click", function () {
                     console.log('用on绑定事件' + id)
+                    NProgress.start();
                     loadBlog("#blog-box", '#pagination', page, size, 'tag', item.name);
+                    NProgress.done();
                 })
             })
 
         }
     });
+
 }
 
 function tagBoxA(name, id) {

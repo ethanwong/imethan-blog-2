@@ -119,12 +119,14 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ResultDto page(Map<String, Object> parameters, Integer pageNo, Integer pageSize) {
         PageRequest pageable = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Order.desc("createAt")));
-//        Page<Article> page =articleRepository.findAll(Pageable);
-
-//        PageRequest pageRequest =  PageRequest.of(pageNo, pageSize, Sort.Direction.DESC, "createAt");
         Page<Article> page = articleRepository.getPageByParameters(parameters, pageable);
-
-
         return ResultDto.ReturnSuccessData(page);
+    }
+
+    @Override
+    public List<Article> searchArticleByTag(Tag tag) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("LIKE_tag",tag.getName());
+        return articleRepository.getListByParameters(parameters,null);
     }
 }
