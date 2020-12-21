@@ -28,7 +28,7 @@ public class ArticleServiceTest {
     @Autowired
     private ArticleRepository articleRepository;
 
-    @Test
+//    @Test
     public void bachSave() {
         Article articleSource = articleService.getById("7d0d346b09014fb48cb2a60b09a2ca28");
 

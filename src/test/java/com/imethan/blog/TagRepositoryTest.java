@@ -20,7 +20,7 @@ public class TagRepositoryTest {
     @Autowired
     private TagRepository tagRepository;
 
-    @Test
+//    @Test
     public void findByName(){
         Tag tag = new Tag();
         tag.setName("MQTT");

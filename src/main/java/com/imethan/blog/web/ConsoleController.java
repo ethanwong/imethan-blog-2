@@ -20,23 +20,23 @@ public class ConsoleController {
 
     @GetMapping(value = "")
     public String console() {
-        return "/console/console";
+        return "console/console";
     }
 
     @GetMapping(value = "/article/input")
     public String inputArticle(){
-        return "/console/article-input";
+        return "console/article-input";
     }
 
     @GetMapping(value = "/article/modify/{id}")
     public String modifyArticle(@PathVariable String id, Model model){
         log.info("modify article id={}",id);
         model.addAttribute("id",id);
-        return "/console/article-modify";
+        return "console/article-modify";
     }
 
     @GetMapping(value = "/setting")
     public String setting(){
-        return "/console/setting";
+        return "console/setting";
     }
 }

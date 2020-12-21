@@ -23,7 +23,7 @@ public class ChannelController {
 
     @GetMapping(value = "")
     public String console() {
-        return "/console/channel";
+        return "console/channel";
     }
     @ResponseBody
     @GetMapping(value = "json")

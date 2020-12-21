@@ -21,20 +21,20 @@ public class BlogController {
 
     @GetMapping(value = {""})
     public String blog() {
-        return "/blog/blog";
+        return "blog/blog";
     }
 
     @GetMapping(value = {"/article/{id}"})
     public String article(@PathVariable String id, Model model) {
         model.addAttribute("id", id);
-        return "/blog/blog-article-md";
+        return "blog/blog-article-md";
     }
 
     //TODO
     @GetMapping(value = {"/channel/{id}"})
     public String channel(@PathVariable String id) {
 
-        return "/blog/blog";
+        return "blog/blog";
     }
 
 }
