@@ -33,10 +33,12 @@
     width: 38px;
     height: 38px;
     line-height: 38px;
-    background: #e91e63;
+    /*background: #e91e63;*/
+    background: #428bca;
     color: #fff;
     font-size: 14px;
-    border: 1px solid #e91e63;
+    /*border: 1px solid #e91e63;*/
+    border: 1px solid #428bca;
 }
 
 .m-style a {
@@ -53,7 +55,8 @@
 
 .m-style a:hover {
     color: #fff;
-    background: #e91e63;
+    background: #428bca;
+    /*background: #e91e63;*/
 }
 
 .m-style .next,
@@ -66,7 +69,8 @@
 .now,
 .count {
     padding: 0 5px;
-    color: #f00;
+    color: #428bca;
+    /*color: #f00;*/
 }
 
 .eg img {

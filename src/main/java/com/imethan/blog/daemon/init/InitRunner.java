@@ -25,6 +25,10 @@ public class InitRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.info("InitRunner run");
+
+        //检查是否已经创建ROOT账号
         accountService.checkRootUser();
+
+
     }
 }

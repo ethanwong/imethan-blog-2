@@ -30,6 +30,5 @@ public class MongoConfiguration {
     public void initIndicesAfterStartup() {
         //创建所有
         mongoTemplate.indexOps(Tag.class).ensureIndex(new Index().on("name", Sort.Direction.ASC).named("blog_tag_name_index").unique());
-
     }
 }

@@ -4,17 +4,21 @@ function loadTag(box) {
         if (result.isSuccess) {
             $(box).html("");
             var content = result.data;
-            $.each(content, function (i, item) {
-                var tagItem = tagBoxA(item.name, item.id);
-                $(box).append(tagItem);
-                var id = item.id;
-                $("#" + id).on("click", function () {
-                    console.log('用on绑定事件' + id)
-                    NProgress.start();
-                    loadBlog("#blog-box", '#pagination', page, size, 'tag', item.name);
-                    NProgress.done();
+            if (content.length > 0) {
+                $.each(content, function (i, item) {
+                    var tagItem = tagBoxA(item.name, item.id);
+                    $(box).append(tagItem);
+                    var id = item.id;
+                    $("#" + id).on("click", function () {
+                        console.log('用on绑定事件' + id)
+                        NProgress.start();
+                        loadBlog("#blog-box", '#pagination', page, size, 'tag', item.name);
+                        NProgress.done();
+                    })
                 })
-            })
+            }else{
+                $(box).html("<h1>没有标签</h1>");
+            }
 
         }
     });

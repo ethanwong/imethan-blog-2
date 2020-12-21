@@ -22,7 +22,7 @@ spring:
     static-path-pattern: /static/**
   data:
     mongodb:
-      uri: mongodb://127.0.0.1:27017/imethan_blog_2
+      uri: mongodb://127.0.0.1:27017/imethan_blog_4
     rest:
       basePath: /hal
 server:

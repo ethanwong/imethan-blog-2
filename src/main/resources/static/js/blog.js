@@ -6,12 +6,13 @@ function loadBlog(blogbox, pagebox, page, size, key, value) {
         var data = result.data;
         var content = data.content;
         $(blogbox).html("");
+        var blogItems = "";
         if (data.totalElements > 0) {
             $.each(content, function (i, item) {
-                $(blogbox).append(blogItem(item.id, item.title, item.tag, item.createAt));
+                blogItems += blogItem(item.id, item.title, item.tag, item.createAt);
             })
 
-
+            $(blogbox).append(blogItems);
         } else {
             $(blogbox).html("<h1>没有内容</h1>");
         }
