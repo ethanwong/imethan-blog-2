@@ -73,3 +73,8 @@ li{border-radius:0px !important;}
     background-color: #428bca!important;
 }
 
+.list-group-item.active{
+    background-color: #428bca;
+    border-color: #428bca;
+}
+

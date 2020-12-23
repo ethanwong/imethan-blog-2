@@ -15,23 +15,44 @@
 
 <body>
 
-<span class="h3">
+<span class="h1">
     Setting
-</span>
+</span><small>系统基础参数配置</small>
 <hr>
 
 <div class="row" style="padding-top: 20px;">
     <div class="col-3">
         <ul class="list-group">
-            <li class="list-group-item">系统信息</li>
-            <li class="list-group-item">基本配置</li>
-            <li class="list-group-item">META配置</li>
-            <li class="list-group-item">版权设置</li>
-            <li class="list-group-item">About设置</li>
+            <li class="list-group-item active" type="system">系统信息</li>
+            <li class="list-group-item" type="common">基本配置</li>
+            <li class="list-group-item" type="meta">META配置</li>
+            <li class="list-group-item" type="copyright">版权设置</li>
+            <li class="list-group-item" type="about">About设置</li>
+            <li class="list-group-item" type="password">修改密码</li>
         </ul>
     </div>
     <div class="col-9">
-        配置内容
+        <div class="shadow-sm p-3 mb-5 bg-white rounded">
+
+            <div class="level1-title " type="system">系统配置</div>
+
+            <div id="setting-box" class="text-muted">
+                <section hidden type="password">
+                    <div class="mb-3">
+                        <label for="enter-password" class="form-label">Enter Password</label>
+                        <input type="password" class="form-control" id="enter-password" placeholder="Enter Password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm-password" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirm-password"
+                               placeholder="Confirm Password">
+                    </div>
+                    <button type="button" class="btn btn-primary">确认修改</button>
+                    <div style="text-align: center"></div>
+                </section>
+            </div>
+
+        </div>
     </div>
 </div>
 
@@ -40,7 +61,40 @@
 <script type="text/javascript">
     $(function () {
         NProgress.start();
+        $(".list-group li").each(function () {
+            $(this).click(function () {
+                NProgress.start();
+                //移除全部选中
+                $(".list-group li").each(function () {
+                    $(this).removeClass("active");
+                })
+                //添加点击选中
+                $(this).addClass("active");
 
+                //设置表单内容标题
+                var type = $(this).attr("type");
+                $(".level1-title").attr("type", type);
+                $(".level1-title").html($(this).html());
+
+
+                // layer.msg(type, {icon: 1});
+
+
+                $("#setting-box section").each(function () {
+                    $(this).attr("hidden", "hidden")
+
+                });
+                $("#setting-box section").each(function () {
+                    if ($(this).attr("type") == type) {
+                        $(this).removeAttr("hidden")
+                        layer.msg($(this).attr("type"), {icon: 1});
+                    }
+                });
+
+
+                NProgress.done();
+            })
+        })
         NProgress.done();
     });
 </script>

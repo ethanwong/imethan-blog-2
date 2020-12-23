@@ -39,4 +39,10 @@ public class ConsoleController {
     public String setting(){
         return "console/setting";
     }
+
+    @GetMapping(value = "/setting/{type}")
+    public String settingContent(@PathVariable String type, Model model){
+        model.addAttribute("type",type);
+        return "console/setting";
+    }
 }

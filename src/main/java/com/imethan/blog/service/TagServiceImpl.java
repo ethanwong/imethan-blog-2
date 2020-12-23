@@ -76,6 +76,7 @@ public class TagServiceImpl implements TagService {
             return ResultDto.ReturnSuccess();
         } catch (Exception e) {
             log.error(e.getMessage());
+            e.printStackTrace();
             return ResultDto.ReturnFail(e.getMessage());
         }
 

@@ -65,6 +65,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         successHandler.setTargetUrlParameter("redirectTo");
         successHandler.setDefaultTargetUrl("/");
 
+        http.headers().frameOptions().disable();
+
         http.addFilterBefore(securityFilter, FilterSecurityInterceptor.class)
                 .authorizeRequests()
                 .antMatchers("/", "/home", "/blog", "/blog/**", "/about", "/api/article/**", "/api/article/**", "/validCode").permitAll()

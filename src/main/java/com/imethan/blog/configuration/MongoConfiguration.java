@@ -22,6 +22,7 @@ public class MongoConfiguration {
 
     final MongoTemplate mongoTemplate;
 
+
     public MongoConfiguration(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }

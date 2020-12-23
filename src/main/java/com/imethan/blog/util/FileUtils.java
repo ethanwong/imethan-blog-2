@@ -16,10 +16,9 @@ public class FileUtils {
     /**
      * 保存图片
      * @param uploadFile
-     * @param request
      * @return
      */
-    public static String saveImage(MultipartFile uploadFile, HttpServletRequest request) {
+    public static String saveImage(MultipartFile uploadFile) {
         try {
             //获取文件名
             String fileName = uploadFile.getOriginalFilename();
@@ -46,10 +45,9 @@ public class FileUtils {
     /**
      * 保存文件
      * @param uploadFile
-     * @param request
      * @return
      */
-    public static String saveFile(MultipartFile uploadFile, HttpServletRequest request) {
+    public static String saveFile(MultipartFile uploadFile) {
         try {
             //获取文件名
             String fileName = uploadFile.getOriginalFilename();
