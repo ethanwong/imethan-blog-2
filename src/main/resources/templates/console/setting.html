@@ -4,11 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
-
     <title>Setting</title>
 
 </head>
@@ -38,17 +35,19 @@
 
             <div id="setting-box" class="text-muted">
                 <section hidden type="password">
-                    <div class="mb-3">
-                        <label for="enter-password" class="form-label">Enter Password</label>
-                        <input type="password" class="form-control" id="enter-password" placeholder="Enter Password">
-                    </div>
-                    <div class="mb-3">
-                        <label for="confirm-password" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirm-password"
-                               placeholder="Confirm Password">
-                    </div>
-                    <button type="button" class="btn btn-primary">确认修改</button>
-                    <div style="text-align: center"></div>
+                    <form id="resetpassword-form" action="/console/reset/password" method="post">
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Enter Password</label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder="Enter Password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password2" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="password2" name="password2"
+                                   placeholder="Confirm Password" required>
+                        </div>
+                        <button type="submit" id="resetpassword-button" class="btn btn-primary">确认修改</button>
+                    </form>
                 </section>
             </div>
 
@@ -61,6 +60,8 @@
 <script type="text/javascript">
     $(function () {
         NProgress.start();
+
+
         $(".list-group li").each(function () {
             $(this).click(function () {
                 NProgress.start();
@@ -76,18 +77,15 @@
                 $(".level1-title").attr("type", type);
                 $(".level1-title").html($(this).html());
 
-
-                // layer.msg(type, {icon: 1});
-
-
+                //隐藏所有配置内容
                 $("#setting-box section").each(function () {
                     $(this).attr("hidden", "hidden")
 
                 });
+                //激活选中配置内容
                 $("#setting-box section").each(function () {
                     if ($(this).attr("type") == type) {
                         $(this).removeAttr("hidden")
-                        layer.msg($(this).attr("type"), {icon: 1});
                     }
                 });
 
@@ -96,5 +94,30 @@
             })
         })
         NProgress.done();
+
+
+        var validOption = {
+            rules: {
+                password: "required",
+                password2: {
+                    equalTo: "#password"
+                }
+            },
+            messages: {
+                password: "请输入密码！",
+                password2: "请确认密码！"
+            },
+            submitHandler: function (form, event) {
+                event.preventDefault();
+                submitForm(form, function (result) {
+                    if (result.isSuccess) {
+                        layer.msg('密码修改成功~~', {icon: 6});
+                    }
+                });
+            }
+        }
+        $("#resetpassword-form").validate(validOption);
+
+
     });
 </script>

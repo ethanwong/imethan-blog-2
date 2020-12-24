@@ -136,7 +136,7 @@
         }, 10000);
 
         $("#submit-btn").click(function () {
-            if($("#content-form").valid()){
+            if ($("#content-form").valid()) {
                 $("#content-status").val("0");//正式发布
                 $("#content-form").submit();
 
@@ -157,31 +157,19 @@
             },
             submitHandler: function (form, event) {
                 event.preventDefault();
-                saveContent(form);
-            }
-        }
-
-        $("#content-form").validate(validOption);
-
-        function saveContent(form) {
-            var body = JSON.stringify($(form).serializeObject())
-            console.log("body=" + body);
-            $.ajax({
-                type: form.method,
-                url: form.action,
-                contentType: 'application/json',
-                data: body,
-                success: function (result) {
+                submitForm(form, function (result) {
                     console.log("post result result=" + JSON.stringify(result));
                     console.log("post result isSuccess=" + result.isSuccess);
                     if (result.isSuccess) {
                         $("#content-id").val(result.data.id);
                         autoSaveWarn('block');
                     }
-                },
-                dataType: 'json'
-            })
+                });
+            }
         }
+
+        $("#content-form").validate(validOption);
+
 
         NProgress.done();
     });

@@ -1,6 +1,7 @@
 package com.imethan.blog.service;
 
 import com.imethan.blog.document.rbac.Account;
+import com.imethan.blog.dto.ResultDto;
 
 /**
  * @Name AccountService
@@ -23,4 +24,10 @@ public interface AccountService {
      */
     void checkRootUser();
 
+    /**
+     * 修改ROOT账号密码
+     * @param password
+     * @return
+     */
+    ResultDto resetRootPassword(String password);
 }

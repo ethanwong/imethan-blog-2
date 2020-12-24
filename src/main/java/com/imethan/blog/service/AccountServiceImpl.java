@@ -29,17 +29,33 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void checkRootUser() {
-        try{
+        try {
             Account account = accountRepository.findByUsername("root");
-            if(account == null){
+            if (account == null) {
                 Account accountDocument = new Account();
                 accountDocument.setUsername("root");
                 String password = bCryptPasswordEncoder.encode("root123456");
                 accountDocument.setPassword(password);
                 accountRepository.save(accountDocument);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
+    }
+
+    @Override
+    public ResultDto resetRootPassword(String password) {
+        try {
+            log.info("modify root password to {}", password);
+            Account account = accountRepository.findByUsername("root");
+            String passwordEncode = bCryptPasswordEncoder.encode(password);
+            account.setPassword(passwordEncode);
+            accountRepository.save(account);
+            return ResultDto.ReturnSuccess();
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResultDto.ReturnFail(e.getMessage());
+        }
+
     }
 }

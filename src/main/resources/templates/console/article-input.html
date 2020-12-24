@@ -25,13 +25,14 @@
 
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Tag标签：多个以英文逗号“,”隔开</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="tag" value="tag" required></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="tag" value="tag"
+                          required></textarea>
             </div>
 
 
             <input type="hidden" class="form-control" placeholder="Id" name="id" id="content-id" value="">
             <input type="hidden" class="form-control" placeholder="Id" name="status" id="content-status" value="1">
-            <button type="submit" class="btn btn-primary" id="submit-btn" >提交</button>
+            <button type="submit" class="btn btn-primary" id="submit-btn">提交</button>
         </form>
     </div>
 </div>
@@ -83,7 +84,7 @@
         });
 
         $("#submit-btn").click(function () {
-            if($("#content-form").valid()){
+            if ($("#content-form").valid()) {
                 $("#content-status").val("0");//正式发布
                 $("#content-form").submit();
                 layer.msg('发布成功，即将跳转到查看页面~~', {icon: 6});
@@ -96,9 +97,9 @@
 
         });
 
-        function checkMd5(content){
+        function checkMd5(content) {
             var md5 = $.md5(content);
-            if(contentMd5Temp != md5){
+            if (contentMd5Temp != md5) {
                 contentMd5Temp = md5;
                 return true;
             }
@@ -106,8 +107,8 @@
         }
 
         //定时任务
-        setInterval(function(){
-            if(checkMd5(testEditor.getMarkdown())){
+        setInterval(function () {
+            if (checkMd5(testEditor.getMarkdown())) {
                 $("#content-form").submit();
             }
         }, 10000);
@@ -120,47 +121,27 @@
             },
             submitHandler: function (form, event) {
                 event.preventDefault();
-                saveContent(form);
+                $("#submit-btn").attr("disabled", true);
+                submitForm(form, function (result) {
+                    if (result.isSuccess) {
+                        contentId = result.data.id;
+                        $("#content-id").val(result.data.id);
+                        autoSaveWarn('block');
+                    }
+                });
+                $("#submit-btn").removeAttr("disabled");
             }
         }
 
         $("#content-form").validate(validOption);
 
-        function saveContent(form) {
-
-            $("#submit-btn").attr("disabled",true);
-
-            var body = JSON.stringify($(form).serializeObject())
-            // console.log("body=" + body);
-
-            $.ajax({
-                type: form.method,
-                url: form.action,
-                contentType: 'application/json',
-                data: body,
-                success: function (result) {
-                    // console.log("post result result=" + JSON.stringify(result));
-                    console.log("post result isSuccess=" + result.isSuccess+" id="+result.data.id);
-                    if (result.isSuccess) {
-                        contentId = result.data.id;
-                        $("#content-id").val(result.data.id);
-                        // alert(result.message + ",id=" + result.data.id);
-                        autoSaveWarn('block');
-                    }
-
-                    $("#submit-btn").removeAttr("disabled");
-                },
-
-                dataType: 'json'
-            })
-        }
 
         NProgress.done();
     });
 
     function autoSaveWarn(display) {
         $("#auto-save-warn").css('display', display);
-        setTimeout("autoSaveWarn('none')",3000);
+        setTimeout("autoSaveWarn('none')", 3000);
     }
 
 </script>
