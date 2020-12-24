@@ -13,6 +13,7 @@ import com.mongodb.client.gridfs.model.GridFSFile;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.http.MediaType;
@@ -132,17 +133,43 @@ public class ArticleRestApi {
      * @return
      */
     @GetMapping(value = "image/{id}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE})
-    public byte[] image(@PathVariable String id, HttpServletResponse response) {
+    public void image(@PathVariable String id, HttpServletResponse response, HttpServletRequest request) {
         try {
+            if (request.getHeader("IF-Modified-Since") != null || request.getHeader("If-None-Match") != null) {
+                log.info("使用缓存 IF-Modified-Since = {},If-None-Match = {} ", request.getHeader("IF-Modified-Since"), request.getHeader("If-None-Match"));
+                response.setStatus(304);
+                return;
+            }
+
             log.info("下载图片:id={}", id);
             GridFsResource gridFsResource = gridFsService.getImage(id);
             if (gridFsResource != null) {
-                return IOUtils.toByteArray(gridFsResource.getInputStream());
+                response.addHeader("Accept-Ranges", "bytes");
+                response.addHeader("Cache-Control", "max-age=2592000");
+                response.addHeader("Last-Modified", gridFsResource.getGridFSFile().getUploadDate().toGMTString());
+                response.addHeader("Etag", gridFsResource.getGridFSFile().getObjectId().toString());
+                response.addHeader("Vary", "Origin");
+                response.addHeader("Vary", "Access-Control-Request-Method");
+                response.addHeader("Vary", "Access-Control-Request-Headers");
+                String ext = gridFsResource.getGridFSFile().getMetadata().get("ext").toString();
+
+                String contentType = MediaType.IMAGE_JPEG_VALUE;
+                if (ext.equalsIgnoreCase("JPG")) {
+                    contentType = MediaType.IMAGE_JPEG_VALUE;
+                } else if (ext.equalsIgnoreCase("PNG")) {
+                    contentType = MediaType.IMAGE_PNG_VALUE;
+                } else if (ext.equalsIgnoreCase("GIF")) {
+                    contentType = MediaType.IMAGE_GIF_VALUE;
+                }
+                response.setContentType(contentType);
+
+                response.getOutputStream().write(IOUtils.toByteArray(gridFsResource.getInputStream()));
             }
         } catch (IOException e) {
+            log.error("get image error msg=" + e.getMessage());
             e.printStackTrace();
         }
-        return null;
+
     }
 
     /**
