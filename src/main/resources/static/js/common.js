@@ -17,14 +17,28 @@ $.fn.serializeObject = function () {
     return o;
 };
 
-function submitForm(form, callback) {
+function submitForm(form, successCallback, errorCallback) {
+    let serializeObject = $(form).serializeObject();
+
+    let data = JSON.stringify(serializeObject);
+    // console.log("submitForm data="+data);
+    console.log("submitForm _csrf="+serializeObject["_csrf"]);
+    // console.log("submitForm form.method="+form.method);
+    // console.log("submitForm form.action="+form.action);
     $.ajax({
         type: form.method,
         url: form.action,
         contentType: 'application/json',
-        data: JSON.stringify($(form).serializeObject()),
+        headers: {
+            "X-CSRF-TOKEN" : serializeObject["_csrf"]
+        },
+        data: data,
+
         success: function (result) {
-            callback(result);
+            successCallback(result);
+        },
+        error: function (result){
+            errorCallback(result);
         },
         dataType: 'json'
     })

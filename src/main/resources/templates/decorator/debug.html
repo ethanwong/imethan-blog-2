@@ -7,10 +7,17 @@
 </head>
 <body>
 <div th:fragment="mydebug">
-    <div class="alert alert-warning " role="alert">
+    <div class="alert alert-warning " role="alert" style="margin-bottom: 0px;">
         <h4 class="alert-heading">Debug info</h4>
-        module: <span th:text="${module}"></span>
         <hr>
+        module: <div th:text="${module}"></div>
+        <br>
+        CSRF:<span th:text="${_csrf.parameterName}"></span>
+        <br>
+        TOKEN:<span th:text="${_csrf.token}"></span>
+        <br>
+        HEADERNAME:<span th:text="${_csrf.headerName}"></span>
+
         <p class="mb-0"></p>
     </div>
 </div>

@@ -64,8 +64,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
         successHandler.setTargetUrlParameter("redirectTo");
         successHandler.setDefaultTargetUrl("/");
-
-        http.headers().frameOptions().disable();
+        //开启禁用frame引用
+        //DENY：不能被嵌入到任何iframe或frame中
+        //SAMEORIGIN：页面只能被本站页面嵌入到iframe或者frame中
+        http.headers().frameOptions().sameOrigin();
+        //http.headers().httpStrictTransportSecurity().includeSubDomains(true).preload(true);
 
         http.addFilterBefore(securityFilter, FilterSecurityInterceptor.class)
                 .authorizeRequests()
@@ -82,7 +85,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/signout")
                 .logoutSuccessUrl("/signin").permitAll()
                 .invalidateHttpSession(true)
-                .and().csrf().disable()
+                .and()
                 .rememberMe().tokenValiditySeconds(1000 * 60 * 60);
     }
 

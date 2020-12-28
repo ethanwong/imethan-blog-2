@@ -2,10 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <link rel="stylesheet" href="/static/editor/css/editormd.css"/>
     <title>Publish</title>
 </head>
@@ -29,23 +25,32 @@
                           required></textarea>
             </div>
 
+            <input type="hidden" name="submitType" id="content-submit-type" value="auto">
+            <input type="hidden" name="id" id="content-id" value="">
+            <input type="hidden" name="status" id="content-status" value="1">
+            <input id="csrf" th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}"/>
 
-            <input type="hidden" class="form-control" placeholder="Id" name="id" id="content-id" value="">
-            <input type="hidden" class="form-control" placeholder="Id" name="status" id="content-status" value="1">
             <button type="submit" class="btn btn-primary" id="submit-btn">提交</button>
         </form>
     </div>
 </div>
+</body>
+</html>
 <script src="/static/editor/editormd.js"></script>
 <script src="/static/js/jquery.md5.js"></script>
 <script type="text/javascript">
-    let testEditor;
+
+    /**
+     * 主要功能：自动保存、提交保存
+     */
+
+    let mdEditor;
     let contentMd5Temp;
     let contentId;
 
     $(function () {
         NProgress.start();
-        testEditor = editormd("article-editormd", {
+        mdEditor = editormd("article-editormd", {
             width: "100%",
             height: 600,
             path: '/static/editor/lib/',
@@ -74,7 +79,7 @@
             //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
             imageUpload: true,
             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL: "/api/article/upload/image",
+            imageUploadURL: "/api/article/upload/image?_csrf=" + $("#csrf").val(),
             onchange: function () {
 
             },
@@ -83,35 +88,38 @@
             }
         });
 
+        /**
+         * 提交保存
+         */
         $("#submit-btn").click(function () {
+            /**
+             * 设置保存类型
+             * auto:自动保存
+             * publish:发布保存
+             */
+            $("#content-submit-type").val("publish");
+
             if ($("#content-form").valid()) {
                 $("#content-status").val("0");//正式发布
                 $("#content-form").submit();
-                layer.msg('发布成功，即将跳转到查看页面~~', {icon: 6});
-
-                setTimeout(function () {
-                    window.location.href = "/blog/article/" + contentId;
-                }, 2000);
             }
-
-
         });
 
-        function checkMd5(content) {
-            var md5 = $.md5(content);
-            if (contentMd5Temp != md5) {
-                contentMd5Temp = md5;
-                return true;
-            }
-            return false;
-        }
 
-        //定时任务
+        /**
+         * 自动保存
+         */
         setInterval(function () {
-            if (checkMd5(testEditor.getMarkdown())) {
+            /**
+             * 设置保存类型
+             * auto:自动保存
+             * publish:发布保存
+             */
+            $("#content-submit-type").val("auto");
+            if (checkMd5(mdEditor.getMarkdown()) && $("#content-form").valid()) {
                 $("#content-form").submit();
             }
-        }, 10000);
+        }, 5000);
 
         var validOption = {
             messages: {
@@ -121,29 +129,83 @@
             },
             submitHandler: function (form, event) {
                 event.preventDefault();
-                $("#submit-btn").attr("disabled", true);
-                submitForm(form, function (result) {
-                    if (result.isSuccess) {
-                        contentId = result.data.id;
-                        $("#content-id").val(result.data.id);
-                        autoSaveWarn('block');
-                    }
-                });
-                $("#submit-btn").removeAttr("disabled");
+                saveArticleHandle(form);
             }
         }
 
         $("#content-form").validate(validOption);
-
-
         NProgress.done();
     });
 
-    function autoSaveWarn(display) {
+    /**
+     * 保存内容处理
+     * @param form
+     */
+    function saveArticleHandle(form) {
+        $("#submit-btn").attr("disabled", true);//将提交按钮设置为disabled
+
+        let submitType = $("#content-submit-type").val();//auto:自动保存，publish:发布保存
+
+        submitForm(form,
+            //成功回调
+            function (result) {
+                console.log("ajax success result=" + result);
+                if (result.isSuccess) {
+                    contentId = result.data.id;
+                    $("#content-id").val(result.data.id);
+
+                    if (submitType == 'publish') {
+                        layer.msg('发布成功，即将跳转到查看页面~~', {offset: '200px',icon: 6});
+                        setTimeout(function () {
+                            window.location.href = "/blog/article/" + contentId;
+                        }, 2000);
+                    } else {
+                        autoSaveWarn('block', "自动保存成功！");
+                    }
+
+                } else {
+                    console.log("submitType=" + submitType);
+                    if (submitType == 'publish') {
+                        layer.msg('发布失败：' + result.message, {offset: '200px',icon: 5});
+                    } else {
+                        autoSaveWarn('block', "自动保存失败:" + result.message);
+                    }
+                }
+            },
+            //失败回调
+            function (result) {
+                console.log("submitType=" + submitType);
+                console.log("submitType=" + (submitType == "publish"));
+                // console.log("ajax error result=" + result.statusText);
+                // console.log("ajax error result=" + result.status);
+
+                if (submitType == "publish") {
+                    layer.msg('发布失败：' + result.status + "-" + result.statusText, {offset: '200px',icon: 5});
+                } else {
+                    autoSaveWarn('block', "自动保存失败:" + result.status + "-" + result.statusText);
+                }
+
+                // console.log("ajax error result=" + JSON.stringify(result));
+            });
+
+        $("#submit-btn").removeAttr("disabled");//将提交按钮设置为正常
+    }
+
+
+    function autoSaveWarn(display, message) {
+        $("#auto-save-warn").html(message);
         $("#auto-save-warn").css('display', display);
+
         setTimeout("autoSaveWarn('none')", 3000);
     }
 
+    function checkMd5(content) {
+        let md5 = $.md5(content);
+        if (contentMd5Temp != md5) {
+            contentMd5Temp = md5;
+            return true;
+        }
+        return false;
+    }
+
 </script>
-</body>
-</html>

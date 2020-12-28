@@ -20,14 +20,13 @@
     <form name='f' action='/signin' method='POST' class="form-signin">
         <div class="form-signin-heading">SIGN IN</div>
         <!--<label for="username" class="sr-only">username</label>-->
-        <input type="text" name="username" id="username" class="form-control" value="" placeholder="username" required autofocus/>
+        <input type="text" name="username" id="username" class="form-control" value="root" placeholder="username" required autofocus/>
         <!--<label for="password" class="sr-only">password</label>-->
-        <input type="password" name="password" id="password" class="form-control" value="" placeholder="password" required/>
+        <input type="password" name="password" id="password" class="form-control" value="1" placeholder="password" required/>
 
         <input type="text"  id="code" class="form-control" name="code" style="width: 210px;display: inline;vertical-align: top;" value="" placeholder="code" required/>
         <img id="codeImg" alt="点击更换" title="点击更换" src="/validCode" />
-
-        <input name="_csrf" type="hidden" value="5f0e7742-0269-4f4b-8cee-9ca4c3651ced"/>
+        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}" />
         <button class="btn btn-primary btn-block" type="submit">SIGN IN</button>
     </form>
 </div>

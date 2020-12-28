@@ -46,6 +46,7 @@
                             <input type="password" class="form-control" id="password2" name="password2"
                                    placeholder="Confirm Password" required>
                         </div>
+                        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}"/>
                         <button type="submit" id="resetpassword-button" class="btn btn-primary">确认修改</button>
                     </form>
                 </section>
@@ -113,6 +114,8 @@
                     if (result.isSuccess) {
                         layer.msg('密码修改成功~~', {icon: 6});
                     }
+                }, function () {
+                    layer.msg('密码修改失败~~', {icon: 5});
                 });
             }
         }
