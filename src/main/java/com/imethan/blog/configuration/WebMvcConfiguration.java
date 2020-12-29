@@ -66,8 +66,8 @@ public class WebMvcConfiguration {
             @Override
             public void addResourceHandlers(ResourceHandlerRegistry registry) {
                 int timeout = 60 * 60 * 24 * 30;//缓存一个月
-//                registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/").setCachePeriod(timeout);
-//                registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/").setCachePeriod(timeout);
+                registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/").setCachePeriod(timeout);
+                registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/").setCachePeriod(timeout);
             }
 
         };
