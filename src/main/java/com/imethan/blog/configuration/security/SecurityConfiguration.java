@@ -85,7 +85,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/signout")
                 .logoutSuccessUrl("/signin").permitAll()
                 .invalidateHttpSession(true)
-                .and()
+                .and().csrf().ignoringAntMatchers("/api/article/upload/image**").and()
                 .rememberMe().tokenValiditySeconds(1000 * 60 * 60);
     }
 
