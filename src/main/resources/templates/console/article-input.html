@@ -14,6 +14,16 @@
         <form id="content-form" action="/api/article" method="post">
             <div class="mb-3">
                 <input type="text" class="form-control" placeholder="Title" name="title" value="" required>
+
+            </div>
+            <div class="mb-3">
+                <select class="form-select form-control " aria-label="SelectChannel" id="channelId" name="channelId"
+                        required>
+                    <option>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
             </div>
             <div id="article-editormd">
                 <textarea style="display:none;" name="content" required></textarea>
@@ -28,8 +38,6 @@
             <input type="hidden" name="submitType" id="content-submit-type" value="auto">
             <input type="hidden" name="id" id="content-id" value="">
             <input type="hidden" name="status" id="content-status" value="1">
-            <input id="csrf" th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}"/>
-
             <button type="submit" class="btn btn-primary" id="submit-btn">提交</button>
         </form>
     </div>
@@ -88,10 +96,15 @@
             }
         });
 
+
+
         /**
          * 提交保存
          */
         $("#submit-btn").click(function () {
+
+
+
             /**
              * 设置保存类型
              * auto:自动保存
@@ -121,12 +134,14 @@
             }
         }, 5000);
 
-        var validOption = {
+        let validOption = {
             messages: {
                 title: "请输入标题！",
                 tag: "请输入标签！",
-                content: "请输入内容！"
+                content: "请输入内容！",
+                channelId: "请选择栏目！"
             },
+            ignore: ":hidden:not(select)",//解决无法校验select
             submitHandler: function (form, event) {
                 event.preventDefault();
                 saveArticleHandle(form);
@@ -155,7 +170,7 @@
                     $("#content-id").val(result.data.id);
 
                     if (submitType == 'publish') {
-                        layer.msg('发布成功，即将跳转到查看页面~~', {offset: '200px',icon: 6});
+                        layer.msg('发布成功，即将跳转到查看页面~~', {offset: '200px', icon: 6});
                         setTimeout(function () {
                             window.location.href = "/blog/article/" + contentId;
                         }, 2000);
@@ -166,7 +181,7 @@
                 } else {
                     console.log("submitType=" + submitType);
                     if (submitType == 'publish') {
-                        layer.msg('发布失败：' + result.message, {offset: '200px',icon: 5});
+                        layer.msg('发布失败：' + result.message, {offset: '200px', icon: 5});
                     } else {
                         autoSaveWarn('block', "自动保存失败:" + result.message);
                     }
@@ -180,7 +195,7 @@
                 // console.log("ajax error result=" + result.status);
 
                 if (submitType == "publish") {
-                    layer.msg('发布失败：' + result.status + "-" + result.statusText, {offset: '200px',icon: 5});
+                    layer.msg('发布失败：' + result.status + "-" + result.statusText, {offset: '200px', icon: 5});
                 } else {
                     autoSaveWarn('block', "自动保存失败:" + result.status + "-" + result.statusText);
                 }

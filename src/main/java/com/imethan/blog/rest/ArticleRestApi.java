@@ -82,7 +82,6 @@ public class ArticleRestApi {
     @PreAuthorize(value = "permitAll()")
     @GetMapping("/page/{page}/{size}")
     public ResultDto page(@PathVariable Integer page, @PathVariable Integer size, HttpServletRequest request) {
-        log.info("get article page page={},size={}", page, size);
 
         if (size > 100) {
             size = 100;
@@ -92,12 +91,19 @@ public class ArticleRestApi {
         parameters.put("EQ_status", Constant.ARTICLE_STATUS_NORMAL);
         String title = request.getParameter("title");
         String tag = request.getParameter("tag");
+        String channelId = request.getParameter("channelId");
+
         if (StringUtils.isNoneBlank(title)) {
             parameters.put("LIKE_title", title);
         }
         if (StringUtils.isNoneBlank(tag)) {
             parameters.put("LIKE_tag", tag);
         }
+        if (StringUtils.isNoneBlank(channelId)) {
+            parameters.put("EQ_channelId", channelId);
+        }
+        log.info("get article page page={},size={},parameters={}", page, size, parameters);
+
         return articleService.page(parameters, page, size);
     }
 

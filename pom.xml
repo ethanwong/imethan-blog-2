@@ -126,11 +126,11 @@
             <artifactId>fontawesome</artifactId>
             <version>4.7.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>bootstrap-table</artifactId>
-            <version>1.15.4</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.webjars.bower</groupId>-->
+<!--            <artifactId>bootstrap-table</artifactId>-->
+<!--            <version>1.18.1</version>-->
+<!--        </dependency>-->
         <!-- bootstrap end -->
 
         <dependency>

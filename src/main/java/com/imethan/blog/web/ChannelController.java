@@ -25,52 +25,6 @@ public class ChannelController {
     public String console() {
         return "console/channel";
     }
-    @ResponseBody
-    @GetMapping(value = "json")
-    public BootstrapTableResult json() {
-        Map map = new HashMap();
-        map.put("name","ethan");
-        map.put("id","1234567890");
 
-        Map map1 = new HashMap();
-        map1.put("name","wong");
-        map1.put("id","1234567890");
 
-        List list = new ArrayList<>();
-        list.add(map);
-        list.add(map1);
-        list.add(map);
-        list.add(map1);
-        list.add(map1);
-        list.add(map1);
-        list.add(map1);
-        list.add(map1);
-        list.add(map1);
-        list.add(map1);
-
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-//        list.add(map1);
-
-        BootstrapTableResult result = new BootstrapTableResult();
-        result.setRows(list);
-        result.setTotal(list.size());
-        return result;
-    }
 }

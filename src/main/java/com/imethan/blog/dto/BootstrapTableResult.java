@@ -14,7 +14,7 @@ import java.util.Map;
  * @Create 2019-11-01 13:42
  */
 @Data
-public class BootstrapTableResult implements Serializable {
+public class BootstrapTableResult<T> implements Serializable {
     private long total;
-    private List<Map> rows = new ArrayList<Map>();
+    private List<T> rows = new ArrayList<T>();
 }

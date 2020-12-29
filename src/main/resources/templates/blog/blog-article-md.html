@@ -9,8 +9,8 @@
 <span class="h1" id="content-title" style="font-weight: 200!important;"></span>
 
 <span sec:authorize="isAuthenticated()" style="padding-left: 10px;">
-        <a type="button" th:href="@{'/console/article/modify/'+${id}}">编辑</a>
-        <a type="button" id="content-delete">删除</a>
+        <a th:href="@{'/console/article/modify/'+${id}}">编辑</a>
+        <a href="#" id="content-delete">删除</a>
 </span>
 <br>
 <small id="content-tag"></small>
@@ -27,8 +27,6 @@
         <div id="custom-toc-container" style="padding: 16px 0px 0px 0px!important;"></div>
     </div>
 </div>
-
-
 
 
 <script src="/static/editor/lib/marked.min.js"></script>
@@ -48,7 +46,7 @@
         var articleEditormdView;
         var contentId = $("#content-id").val();
         $.get("/api/article/" + contentId, function (result) {
-            if(result.data == null){
+            if (result.data == null) {
                 $("#article-editormd-view").html("<h1>内容不存在!</h1>");
             }
 
@@ -56,8 +54,8 @@
 
             $("#content-title").html(result.data.title);
             $("#content-time").html(result.data.createAt);
-            $("#content-tag").append(" <i class=\"fa fa-calendar-o\" aria-hidden=\"true\"></i> "+result.data.createAt);
-            $("#content-tag").append("      <i class=\"fa fa-bookmark-o\" aria-hidden=\"true\"></i> "+result.data.tag);
+            $("#content-tag").append(" <i class=\"fa fa-calendar-o\" aria-hidden=\"true\"></i> " + result.data.createAt);
+            $("#content-tag").append("      <i class=\"fa fa-bookmark-o\" aria-hidden=\"true\"></i> " + result.data.tag);
 
             var content = result.data.content;
 
@@ -81,22 +79,18 @@
 
         $("#content-delete").click(function () {
             layer.confirm('你确定要删除？', {
-                btn: ['确定', '取消'], title: '',offset: '200px',yes:function(){
-                    $.ajax({
-                        type: "delete",
-                        url: "/api/article/" + contentId,
-                        success: function (result) {
-                            if (result.isSuccess) {
-                                layer.msg('删除成功', {icon: 1});
-                            } else {
-                                layer.msg('删除失败', {icon: 2});
-                            }
-                            setTimeout(function (){
-                                window.location.href = '/blog'
-                            },1000);
+                btn: ['确定', '取消'], title: '', offset: '200px', yes: function () {
 
+                    ajaxDelete("/api/article/" + contentId, function (result) {
+                        if (result.isSuccess) {
+                            layer.msg('删除成功', {icon: 1});
+                        } else {
+                            layer.msg('删除失败', {icon: 2});
                         }
-                    });
+                        setTimeout(function () {
+                            window.location.href = '/blog'
+                        }, 1000);
+                    })
                 }
             });
         });

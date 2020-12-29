@@ -3,19 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Channel</title>
+    <style>
+        #input-box {
+            display: none;
+        }
 
+        #input-box-wrapper {
+            margin: 12px 10px 0px 10px;
+        }
+
+
+    </style>
 </head>
 <body>
 <div class="row">
     <div class="col-sm-12">
         <div id="toolbar">
-            <button class="btn btn-sm btn-primary">添加</button>
-            <button class="btn btn-sm btn-info">查看</button>
-            <button class="btn btn-sm btn-secondary">修改</button>
-            <button class="btn btn-sm btn-danger">删除</button>
+            <button class="btn btn-sm btn-primary" id="add-channel">添加</button>
+            <button class="btn btn-sm btn-info" id="modify-channel">修改</button>
+            <button class="btn btn-sm btn-danger" id="delete-channel">删除</button>
         </div>
         <div id="table"></div>
+
+        <div id="input-box">
+            <div id="input-box-wrapper">
+                <form id="input-form" action="/api/channel" method="post">
+                    <div class="mb-3">
+                        <label for="name" class="form-label level1-title">Channel Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Channel Name" name="name"
+                               value="" required>
+                        <input type="hidden" id="id" name="id" value="">
+                        <input type="hidden" id="orderNo" name="orderNo" value="">
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+
+
 </div>
 </body>
 </html>
@@ -24,40 +49,171 @@
     $(function () {
         NProgress.start();
 
-        $('#table').bootstrapTable({
-            url: '/console/channel/json',
+        let bootstrapTable = $('#table').bootstrapTable({
+            url: '/api/channel/page',
             pagination: true,
             sidePagination: 'server',
 
-            pageSize: 4, //每页显示多少条数据
+            clickToSelect: true,//2,设置点击选中当前行
+            // singleSelect: true,//3,设置单选
+
+            pageSize: 10, //每页显示多少条数据
             pageNumber: 1, //初始化翻页的页码
             pageList: [10, 25, 50, 100],
-            queryParamsType:'',
+            queryParamsType: '',
 
             search: true,
             // sidePagination: 'server',
             showHeader: true,
             // showRefresh: true,
-            iconSize:'sm',
+            iconSize: 'sm',
             buttonsClass: 'primary',
-            icons:{"refresh":"fa-refresh","search":"fa-search"},
+            icons: {"refresh": "fa-refresh", "search": "fa-search"},
             toolbar: '#toolbar',
-            columns: [{
-                field: 'id',
-                title: 'Item ID',
-                width: '200'
-            }, {
-                field: 'name',
-                title: 'Item Name',
-                width: '600'
-            }, {
-                field: 'id',
-                title: '操作',
-                width: '200'
-
-            }]
+            columns: [
+                {
+                    field: 'state',
+                    checkbox: true
+                },
+                {
+                    field: 'name',
+                    title: 'Item Name',
+                    width: '600'
+                }
+                ,
+                {
+                  field: 'show',
+                  title: 'Show',
+                  width: 300
+                },
+                {
+                    field: 'orderNo',
+                    title: 'OrderNo',
+                    width: '300'
+                }
+                , {
+                    field: 'createAt',
+                    title: 'CreateAt',
+                    width: '600'
+                }
+                // , {
+                //     field: 'id',
+                //     title: '操作',
+                //     width: '200'
+                //
+                // }
+            ]
         })
 
         NProgress.done();
+
+        let validOption = {
+            messages: {
+                name: "请输入名称！"
+            },
+            submitHandler: function (form, event) {
+                event.preventDefault();
+                submitForm(form
+                    , function (result) {
+                        layer.msg('保存成功~~', {offset: '200px', icon: 6});
+                        // bootstrapTable.refresh();
+                        $('#table').bootstrapTable('refresh');
+                    }
+                    , function (result) {
+
+                    })
+            }
+        }
+        $("#input-form").validate(validOption);
+
+        let layerOption = {
+            type: 1,
+            offset: "200px",
+            title: false,
+            closeBtn: 1,
+            btn: ['保存', '取消'],
+            shadeClose: true,
+            area: ['360px', '160px'],
+            content: $("#input-box"),
+            yes: function (index, layero) {
+                if ($("#name").val() != '') {
+                    $("#input-form").submit();
+                    layer.close(index);
+                    $('#table').bootstrapTable('refresh');
+                } else {
+                    layer.msg('名称不能为空~~', {offset: '200px', icon: 5});
+                }
+
+            }
+        }
+
+        /**
+         * 添加
+         */
+        $("#add-channel").click(function () {
+            resetForm();
+            layer.open(layerOption);
+        });
+
+        /**
+         * 修改
+         */
+        $("#modify-channel").click(function () {
+            let items = $('#table').bootstrapTable('getSelections');
+            if (items.length == 0) {
+                layer.msg("请选择！", {offset: '200px', icon: 5});
+            }
+            let top = items[0];
+            let id = top.id;
+            let name = top.name;
+            let orderNo = top.orderNo;
+
+            console.log("id=" + id);
+            console.log("name=" + name);
+            console.log("orderNo=" + orderNo);
+
+            //设置表单
+            resetForm();
+            $("#name").val(name);
+            $("#id").val(id);
+            $("#orderNo").val(orderNo);
+
+            layer.open(layerOption);
+
+        });
+
+        function resetForm() {
+            $("#name").val("");
+            $("#id").val("");
+            $("#orderNo").val("");
+        }
+
+        /**
+         * 删除
+         */
+        $("#delete-channel").click(function () {
+            let items = $('#table').bootstrapTable('getSelections');
+            if (items.length == 0) {
+                layer.msg("请选择！", {offset: '200px', icon: 5});
+            } else {
+                let top = items[0];
+                let id = top.id;
+
+                layer.confirm('你确定要删除？', {
+                    btn: ['确定', '取消'], title: '', offset: '200px', yes: function () {
+                        ajaxDelete("/api/channel/" + id, function (result) {
+                            if (result.isSuccess) {
+                                layer.msg('删除成功', {icon: 1});
+                            } else {
+                                layer.msg('删除失败', {icon: 2});
+                            }
+                            $('#table').bootstrapTable('refresh');
+                        })
+                    }
+                });
+            }
+        });
+
+
     });
 </script>

@@ -15,6 +15,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Channel extends BaseDocument {
 
     private String name;
-    private Boolean show;
+    /**
+     * 是否显示
+     */
+    private Boolean show = true;
     private Integer orderNo;
+    /**
+     * 0-正常，1-草稿，2-回收
+     */
+    private Integer status = 0;
+
 }

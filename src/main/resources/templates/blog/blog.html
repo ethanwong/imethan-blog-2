@@ -8,11 +8,16 @@
     <meta name="author" content="">
     <link href="/static/js/pagination.css" rel="stylesheet">
     <title>Blog</title>
+    <style>
+        .channel-box {
+            padding-right: 20px;
+        }
+    </style>
 </head>
 <body>
 <span class="h2" style="font-weight: 200;">My Blog</span><small> 我的工作和学习笔记</small>
-<span style="float: right;display: inline;">
-    <input style="width: 260px;border-radius:0px;display: inline;" type="text" class="form-control"
+<span style="float: right;display: inline;padding-right: 20px;">
+    <input style="width: 330px;border-radius:0px;display: inline;" type="text" class="form-control"
            placeholder="search" name="keyword" id="search-keyword">
 </span>
 <hr>
@@ -32,20 +37,19 @@
 
     </div>
     <div class="col-sm-4">
-        <!--        <ul class="list-group">-->
-        <!--            <li class="list-group-item">技术笔记</li>-->
-        <!--            <li class="list-group-item">SpringBoot的应用</li>-->
-        <!--        </ul>-->
+        <div class="level1-title">Content Channel</div>
+        <ul class="list-group channel-box">
+        </ul>
 
         <div class="level1-title">Content Tag</div>
         <div class="tag-box">
-<!--            <a class="badge bg-primary" href="" role="button">项目管理</a>-->
-<!--            <a class="badge bg-secondary" href="" role="button">研发架构</a>-->
-<!--            <a class="badge bg-success" href="" role="button">从零开始</a>-->
-<!--            <a class="badge bg-danger" href="" role="button">SpringBoot</a>-->
-<!--            <a class="badge bg-warning" href="" role="button">ActiveMQ</a>-->
-<!--            <a class="badge bg-info" href="" role="button">EMQX</a>-->
-<!--            <a class="badge bg-dark" href="" role="button">VUE运用</a>-->
+            <!--            <a class="badge bg-primary" href="" role="button">项目管理</a>-->
+            <!--            <a class="badge bg-secondary" href="" role="button">研发架构</a>-->
+            <!--            <a class="badge bg-success" href="" role="button">从零开始</a>-->
+            <!--            <a class="badge bg-danger" href="" role="button">SpringBoot</a>-->
+            <!--            <a class="badge bg-warning" href="" role="button">ActiveMQ</a>-->
+            <!--            <a class="badge bg-info" href="" role="button">EMQX</a>-->
+            <!--            <a class="badge bg-dark" href="" role="button">VUE运用</a>-->
         </div>
 
     </div>
@@ -58,20 +62,26 @@
         NProgress.start();
 
         //加载内容
-        loadBlog("#blog-box", '#pagination', page, size, '','');
+        loadBlog("#blog-box", '#pagination', page, size, '', '');
 
         //加载标签
         loadTag(".tag-box");
+
+        //加载栏目
+        loadChannel(".channel-box");
 
         //检索时间
         $("#search-keyword").bind('keypress', function (event) {
             if (event.keyCode == "13") {
                 console.log("search val=" + $(this).val());
-                loadBlog("#blog-box", '#pagination', page, size,'title', $(this).val());
+                loadBlog("#blog-box", '#pagination', page, size, 'title', $(this).val());
             }
         })
 
         NProgress.done();
+
+
+
     });
 
 

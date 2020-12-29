@@ -28,8 +28,6 @@
             <input type="hidden" id="content-submit-type" value="auto">
             <input type="hidden" name="status" id="content-status" value="1">
             <input type="hidden" name="id" id="content-id" th:value="${id}">
-            <input id="csrf" th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}"/>
-
             <button type="submit" class="btn btn-primary" id="submit-btn">提交</button>
         </form>
     </div>

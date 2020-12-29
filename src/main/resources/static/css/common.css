@@ -53,7 +53,7 @@ li{border-radius:0px !important;}
 
 
 .level1-title{
-    margin: 8px 8px 8px 0px;
+    margin: 20px 8px 8px 0px;
     font-weight: bolder;
 }
 .tag-box .badge{
@@ -76,5 +76,8 @@ li{border-radius:0px !important;}
 .list-group-item.active{
     background-color: #428bca;
     border-color: #428bca;
+}
+.btn {
+    border-radius: 0px !important;
 }
 

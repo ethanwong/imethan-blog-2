@@ -36,3 +36,43 @@ function blogItem(id, title, tag, createAt) {
         // + " <small>" + createAt + "</small>"
         + "</li>";
 }
+
+function loadChannel(channelBox){
+
+    $.get("/api/channel/list", function (result) {
+        let data = result.data;
+        let items = "";
+        $(channelBox).html("");
+        if (data.length > 0) {
+            $.each(data, function (i, item) {
+                items += "<li class='list-group-item' id='"+item.id+"'>"+item.name+"</li>";
+            })
+            $(channelBox).append(items);
+        } else {
+            $(channelBox).html("<h1>没有栏目</h1>");
+        }
+
+        /**
+         * 加载栏目内容
+         */
+        $(".channel-box li").each(function () {
+            $(this).click(function () {
+                NProgress.start();
+                //移除全部选中
+                $(".list-group li").each(function () {
+                    $(this).removeClass("active");
+                })
+                //添加点击选中
+                $(this).addClass("active");
+
+                let id = $(this).attr("id");
+                let name = $(this).html();
+
+                loadBlog("#blog-box", '#pagination', page, size, 'channelId', id);
+
+                NProgress.done();
+            })
+        })
+
+    })
+}

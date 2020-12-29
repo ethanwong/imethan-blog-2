@@ -22,24 +22,46 @@ function submitForm(form, successCallback, errorCallback) {
 
     let data = JSON.stringify(serializeObject);
     // console.log("submitForm data="+data);
-    console.log("submitForm _csrf="+serializeObject["_csrf"]);
+    console.log("submitForm _csrf=" + serializeObject["_csrf"]);
     // console.log("submitForm form.method="+form.method);
     // console.log("submitForm form.action="+form.action);
+
+    let token = $("meta[name='_csrf']").attr("content");
+    console.log("submitForm _csrf=" + token);
+
+
     $.ajax({
         type: form.method,
         url: form.action,
         contentType: 'application/json',
         headers: {
-            "X-CSRF-TOKEN" : serializeObject["_csrf"]
+            "X-CSRF-TOKEN": token
         },
         data: data,
 
         success: function (result) {
             successCallback(result);
         },
-        error: function (result){
+        error: function (result) {
             errorCallback(result);
         },
         dataType: 'json'
     })
+}
+
+function ajaxDelete(uri, successCallback, errorCallback) {
+    let token = $("meta[name='_csrf']").attr("content");
+    $.ajax({
+        type: "delete",
+        url: uri,
+        headers: {
+            "X-CSRF-TOKEN": token
+        },
+        success: function (result) {
+            successCallback(result);
+        },
+        error: function (result) {
+            errorCallback(result);
+        },
+    });
 }
