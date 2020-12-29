@@ -7,8 +7,8 @@
 </head>
 <body>
 <span class="h3">Publish Content</span>
-<p style="float: right;color: red;display: none;" id="auto-save-warn">自动保存成功！</p>
-<hr>
+<span style="float: right;color: red;display: none;" id="auto-save-warn">自动保存成功！</span>
+
 <div class="row" style="padding-top: 20px;">
     <div class="col-12">
         <form id="content-form" action="/api/article" method="post">
@@ -17,12 +17,9 @@
 
             </div>
             <div class="mb-3">
-                <select class="form-select form-control " aria-label="SelectChannel" id="channelId" name="channelId"
+                <select class="form-select form-control" aria-label="SelectChannel" id="channelId" name="channelId"
                         required>
-                    <option>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option value="">Channel</option>
                 </select>
             </div>
             <div id="article-editormd">
@@ -97,13 +94,10 @@
         });
 
 
-
         /**
          * 提交保存
          */
         $("#submit-btn").click(function () {
-
-
 
             /**
              * 设置保存类型
@@ -134,7 +128,22 @@
             }
         }, 5000);
 
+
+        $.get("/api/channel/list", function (result) {
+            let data = result.data;
+            let items = "";
+            if (data.length > 0) {
+                $.each(data, function (i, item) {
+                    $("#channelId").append(" <option value='"+item.id+"'>"+item.name+"</option>");
+                })
+            }
+        })
+
+
         let validOption = {
+            rules: {
+                channelId: "required"
+            },
             messages: {
                 title: "请输入标题！",
                 tag: "请输入标签！",

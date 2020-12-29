@@ -23,6 +23,7 @@ public class Article extends BaseDocument {
     private String title;
     private String content;
     private String channelId;
+    private String channelName;
     private String tag;
     /**
      * 0-正常，1-草稿，2-回收

@@ -1,10 +1,12 @@
 package com.imethan.blog.service;
 
 import com.imethan.blog.document.blog.Article;
+import com.imethan.blog.document.blog.Channel;
 import com.imethan.blog.document.blog.Constant;
 import com.imethan.blog.document.blog.Tag;
 import com.imethan.blog.dto.ResultDto;
 import com.imethan.blog.repository.ArticleRepository;
+import com.imethan.blog.repository.ChannelRepository;
 import com.imethan.blog.repository.TagRepository;
 import com.imethan.blog.util.TimeUtils;
 import com.imethan.blog.util.UuidUtils;
@@ -30,6 +32,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
     @Autowired
+    private ChannelRepository channelRepository;
+    @Autowired
     private TagRepository tagRepository;
 
 
@@ -44,6 +48,9 @@ public class ArticleServiceImpl implements ArticleService {
                 article.setCreateAt(articleSource.getCreateAt());
                 article.setUpdateAt(TimeUtils.dateToString(new Date()));
             }
+            Channel channel = channelRepository.getById(article.getChannelId());
+            article.setChannelName(channel.getName());
+
             Article resultArticle = articleRepository.save(article);
             Map<String, String> data = new HashMap<>();
             data.put("id", resultArticle.getId());

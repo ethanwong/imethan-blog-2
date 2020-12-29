@@ -4,6 +4,11 @@
     <meta charset="utf-8"/>
     <title>ImEthan</title>
     <link rel="stylesheet" href="/static/editor/css/editormd.preview.css"/>
+    <style>
+        #content-tag i{
+            padding-right: 10px;
+        }
+    </style>
 </head>
 <body>
 <span class="h1" id="content-title" style="font-weight: 200!important;"></span>
@@ -13,7 +18,7 @@
         <a href="#" id="content-delete">删除</a>
 </span>
 <br>
-<small id="content-tag"></small>
+<small id="content-tag" style="color: #a8afb7;"></small>
 <input type="hidden" name="" th:value="${id}" id="content-id">
 
 
@@ -54,8 +59,9 @@
 
             $("#content-title").html(result.data.title);
             $("#content-time").html(result.data.createAt);
-            $("#content-tag").append(" <i class=\"fa fa-calendar-o\" aria-hidden=\"true\"></i> " + result.data.createAt);
-            $("#content-tag").append("      <i class=\"fa fa-bookmark-o\" aria-hidden=\"true\"></i> " + result.data.tag);
+            $("#content-tag").append("<i class=\"fa fa-calendar-o\" aria-hidden=\"true\"> "+result.data.createAt+"</i> ");
+            $("#content-tag").append("<i class=\"fa fa-bookmark-o\" aria-hidden=\"true\"> "+result.data.tag+"</i> " );
+            $("#content-tag").append("<i class=\"fa fa-link\" aria-hidden=\"true\"> "+result.data.channelName+"</i> ");
 
             var content = result.data.content;
 

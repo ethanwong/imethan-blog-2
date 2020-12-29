@@ -9,7 +9,7 @@ function loadBlog(blogbox, pagebox, page, size, key, value) {
         var blogItems = "";
         if (data.totalElements > 0) {
             $.each(content, function (i, item) {
-                blogItems += blogItem(item.id, item.title, item.tag, item.createAt);
+                blogItems += blogItem(item.id, item.title, item.tag, item.createAt, item.channelName);
             })
 
             $(blogbox).append(blogItems);
@@ -22,22 +22,23 @@ function loadBlog(blogbox, pagebox, page, size, key, value) {
             current: page,
             jump: true,
             callback: function (api) {
-                loadBlog(blogbox,pagebox, api.getCurrent(), size, key, value);
+                loadBlog(blogbox, pagebox, api.getCurrent(), size, key, value);
             }
         });
 
     })
 }
 
-function blogItem(id, title, tag, createAt) {
+function blogItem(id, title, tag, createAt, channelName) {
     return "<li class='list-group-item list-group-item-articlelist'>"
         + " <a href='/blog/article/" + id + "' class='title'>" + title + "</a>"
-        + " <small><i class=\"fa fa-calendar-o\" aria-hidden=\"true\"></i> " + createAt + "   <i class=\"fa fa-bookmark-o\" aria-hidden=\"true\"></i> " + tag + " </small>"
+        + " <small style='color: #a8afb7'><i class=\"fa fa-calendar-o\" aria-hidden=\"true\"> " + createAt + "</i>   <i class=\"fa fa-bookmark-o\" aria-hidden=\"true\"> " + tag + "</i>"
+        + "<i class=\"fa fa-link\" aria-hidden=\"true\"> " + channelName + "</i>  </small>"
         // + " <small>" + createAt + "</small>"
         + "</li>";
 }
 
-function loadChannel(channelBox){
+function loadChannel(channelBox) {
 
     $.get("/api/channel/list", function (result) {
         let data = result.data;
@@ -45,7 +46,7 @@ function loadChannel(channelBox){
         $(channelBox).html("");
         if (data.length > 0) {
             $.each(data, function (i, item) {
-                items += "<li class='list-group-item' id='"+item.id+"'>"+item.name+"</li>";
+                items += "<li class='list-group-item' id='" + item.id + "'>" + item.name + "</li>";
             })
             $(channelBox).append(items);
         } else {

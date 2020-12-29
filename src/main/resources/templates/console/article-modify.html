@@ -7,14 +7,19 @@
 </head>
 <body>
 <span class="h3">Modify Content</span>
-<p style="float: right;color: red;display: none;" id="auto-save-warn">自动保存成功！</p>
-<hr>
+<span style="float: right;color: red;display: none;" id="auto-save-warn">自动保存成功！</span>
 <div class="row" style="padding-top: 20px;">
     <div class="col-12">
         <form id="content-form" action="/api/article" method="post">
             <div class="mb-3">
                 <input type="text" class="form-control" placeholder="Title" name="title" id="content-title"
                        value="title" required>
+            </div>
+            <div class="mb-3">
+                <select class="form-select form-control" aria-label="SelectChannel" id="channelId" name="channelId"
+                        required>
+                    <option value="">Channel</option>
+                </select>
             </div>
             <div id="article-editormd">
                 <textarea style="display:none;" name="content" required></textarea>
@@ -56,9 +61,25 @@
             content = result.data.content;
             title = result.data.title;
             tag = result.data.tag;
+            let channelId = result.data.channelId;
 
             $("#content-title").val(title);
             $("#content-tag").val(tag);
+
+            //填充栏目
+            $.get("/api/channel/list", function (result) {
+                let data = result.data;
+                let items = "";
+                if (data.length > 0) {
+                    $.each(data, function (i, item) {
+                        if(item.id == channelId){
+                            $("#channelId").append(" <option value='"+item.id+"' selected>"+item.name+"</option>");
+                        }else{
+                            $("#channelId").append(" <option value='"+item.id+"' >"+item.name+"</option>");
+                        }
+                    })
+                }
+            })
 
 
             mdEditor = editormd("article-editormd", {
@@ -133,11 +154,17 @@
 
         });
 
+
+
         var validOption = {
+            rules: {
+                channelId: "required"
+            },
             messages: {
                 title: "请输入标题！",
                 tag: "请输入标签！",
-                content: "请输入内容！"
+                content: "请输入内容！",
+                channelId: "请选择栏目！"
             },
             submitHandler: function (form, event) {
                 event.preventDefault();

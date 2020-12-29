@@ -12,6 +12,9 @@
         .channel-box {
             padding-right: 20px;
         }
+        #blog-box i{
+            padding-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -37,6 +40,24 @@
 
     </div>
     <div class="col-sm-4">
+        <div sec:authorize="isAuthenticated()">
+            <div class="level1-title">Admin Only</div>
+            <div class="row"  style="margin-bottom: 10px">
+                <div class="col-sm">
+                    <i class="fa fa-pencil-square-o color-primary align-middle" aria-hidden="true"></i>
+                    <a href="/console/article/input">发布内容</a>
+                </div>
+                <div class="col-sm">
+                    <i class="fa fa-list color-info align-middle" aria-hidden="true"></i>
+                    <a href="/console/channel">栏目管理</a>
+                </div>
+                <div class="col-sm">
+                    <i class="fa fa-cog color-warning align-middle" aria-hidden="true"></i>
+                    <a href="/console/setting">系统配置</a>
+                </div>
+            </div>
+        </div>
+
         <div class="level1-title">Content Channel</div>
         <ul class="list-group channel-box">
         </ul>
