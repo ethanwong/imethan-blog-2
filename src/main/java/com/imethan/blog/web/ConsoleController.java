@@ -64,7 +64,7 @@ public class ConsoleController {
      * @param password
      * @return
      */
-    @PostMapping("setting/password")
+    @PostMapping("reset/password")
     @ResponseBody
     public ResultDto resetPassword(@RequestBody JSONObject password) {
         return accountService.resetRootPassword(password.getString("password"));
