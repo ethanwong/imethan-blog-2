@@ -82,9 +82,14 @@
                 }
                 ,
                 {
-                  field: 'show',
-                  title: 'Show',
-                  width: 300
+                    field: 'show',
+                    title: 'Show',
+                    width: 300
+                },
+                {
+                    field: 'type',
+                    title: 'Type',
+                    width: 300
                 },
                 {
                     field: 'orderNo',
@@ -133,7 +138,7 @@
             closeBtn: 1,
             btn: ['保存', '取消'],
             shadeClose: true,
-            area: ['360px', '160px'],
+            area: ['360px', '180px'],
             content: $("#input-box"),
             yes: function (index, layero) {
                 if ($("#name").val() != '') {
@@ -203,9 +208,9 @@
                     btn: ['确定', '取消'], title: '', offset: '200px', yes: function () {
                         ajaxDelete("/api/channel/" + id, function (result) {
                             if (result.isSuccess) {
-                                layer.msg('删除成功', {icon: 1});
+                                layer.msg('删除成功', {offset: "200px", icon: 1});
                             } else {
-                                layer.msg('删除失败', {icon: 2});
+                                layer.msg('删除失败:' + result.message, {offset: "200px", icon: 2});
                             }
                             $('#table').bootstrapTable('refresh');
                         })

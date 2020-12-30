@@ -2,18 +2,15 @@ package com.imethan.blog.rest;
 
 import com.imethan.blog.document.blog.Article;
 import com.imethan.blog.document.blog.Constant;
-import com.imethan.blog.dto.FileDto;
 import com.imethan.blog.dto.ImageDto;
 import com.imethan.blog.dto.ResultDto;
 import com.imethan.blog.service.ArticleService;
 import com.imethan.blog.service.GridFsService;
 import com.imethan.blog.service.TagService;
-import com.imethan.blog.util.FileUtils;
-import com.mongodb.client.gridfs.model.GridFSFile;
+import com.imethan.blog.util.SecurityUtils;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.http.MediaType;
@@ -88,7 +85,14 @@ public class ArticleRestApi {
         }
 
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("EQ_status", Constant.ARTICLE_STATUS_NORMAL);
+
+        String status = request.getParameter("status");
+        if (StringUtils.isNoneBlank(status) && SecurityUtils.isLogin()) {
+            parameters.put("EQ_status", Integer.valueOf(status));//草稿箱和回收站,登录状态才允许访问
+        } else {
+            parameters.put("EQ_status", Constant.ARTICLE_STATUS_NORMAL);//
+        }
+
         String title = request.getParameter("title");
         String tag = request.getParameter("tag");
         String channelId = request.getParameter("channelId");

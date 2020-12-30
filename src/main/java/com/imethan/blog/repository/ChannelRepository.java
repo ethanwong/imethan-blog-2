@@ -11,4 +11,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * @Create 2020-12-28 11:47
  */
 public interface ChannelRepository extends MongoRepository<Channel, String>, BaseRepository<Channel,String> {
+    Channel getByName(String name);
 }

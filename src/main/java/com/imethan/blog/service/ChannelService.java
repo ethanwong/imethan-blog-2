@@ -15,5 +15,8 @@ public interface ChannelService extends BaseService<Channel,String> {
 
     ResultDto page(Map<String, Object> parameters, Integer pageNo, Integer pageSize);
 
-    ResultDto list();
+    ResultDto list(Map<String, Object> parameters);
+
+    void checkInnerChannel();
+
 }

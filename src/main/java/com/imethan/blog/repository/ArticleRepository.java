@@ -4,6 +4,8 @@ import com.imethan.blog.document.blog.Article;
 import com.imethan.blog.repository.base.BaseRepository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.List;
+
 /**
  * @Name ArticleRepository
  * @Description
@@ -11,4 +13,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * @Create 2020-12-11 15:10
  */
 public interface ArticleRepository extends MongoRepository<Article, String>, BaseRepository<Article,String> {
+    List<Article> findByChannelId(String id);
 }

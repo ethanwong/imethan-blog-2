@@ -1,6 +1,8 @@
 package com.imethan.blog.daemon.init;
 
+import com.imethan.blog.document.blog.Constant;
 import com.imethan.blog.service.AccountService;
+import com.imethan.blog.service.ChannelService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -21,6 +23,8 @@ public class InitRunner implements ApplicationRunner {
 
     @Autowired
     AccountService accountService;
+    @Autowired
+    ChannelService channelService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -28,6 +32,10 @@ public class InitRunner implements ApplicationRunner {
 
         //检查是否已经创建ROOT账号
         accountService.checkRootUser();
+        /**
+         * 检查内置信息分类
+         */
+        channelService.checkInnerChannel();
 
 
     }

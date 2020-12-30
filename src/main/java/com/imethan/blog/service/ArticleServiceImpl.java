@@ -48,8 +48,6 @@ public class ArticleServiceImpl implements ArticleService {
                 article.setCreateAt(articleSource.getCreateAt());
                 article.setUpdateAt(TimeUtils.dateToString(new Date()));
             }
-            Channel channel = channelRepository.getById(article.getChannelId());
-            article.setChannelName(channel.getName());
 
             Article resultArticle = articleRepository.save(article);
             Map<String, String> data = new HashMap<>();
@@ -72,17 +70,17 @@ public class ArticleServiceImpl implements ArticleService {
         List<Tag> result = new ArrayList<>();
         for (String name : tagList) {
             Tag tagDb = tagRepository.findByName(name);
-            if(tagDb == null){
+            if (tagDb == null) {
                 Tag tag = new Tag();
                 tag.setName(name);
                 tag.setCreateAt(TimeUtils.dateToString(new Date()));
                 result.add(tag);
             }
         }
-        try{
+        try {
             tagRepository.saveAll(result);
-        }catch (Exception e){
-            log.error("bach save tag error message="+e.getMessage());
+        } catch (Exception e) {
+            log.error("bach save tag error message=" + e.getMessage());
         }
 
     }
@@ -102,10 +100,18 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ResultDto recycle(String id) {
         try {
+            String message = "操作成功，";
             Article article = articleRepository.findById(id).get();
-            article.setStatus(Constant.ARTICLE_STATUS_RECYCLE);
-            articleRepository.save(article);
-            return ResultDto.ReturnSuccess();
+            //回收状态下继续删除便是彻底删除
+            if (article.getStatus().equals(Constant.ARTICLE_STATUS_RECYCLE)) {
+                articleRepository.deleteById(id);
+                message += "已经彻底删除！";
+            } else {
+                article.setStatus(Constant.ARTICLE_STATUS_RECYCLE);
+                articleRepository.save(article);
+                message += "进入回收站！";
+            }
+            return ResultDto.ReturnSuccess(message);
         } catch (Exception e) {
             String message = e.getMessage();
             log.error(message);
@@ -120,20 +126,33 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Article getById(String id) {
-        return articleRepository.getById(id);
+        Article article = articleRepository.getById(id);
+        Channel channel = channelRepository.getById(article.getChannelId());
+        if (channel != null) {
+            article.setChannelName(channel.getName());
+        }
+        return article;
     }
 
     @Override
     public ResultDto page(Map<String, Object> parameters, Integer pageNo, Integer pageSize) {
         PageRequest pageable = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Order.desc("createAt")));
         Page<Article> page = articleRepository.getPageByParameters(parameters, pageable);
+
+        for (Article article : page.getContent()) {
+            Channel channel = channelRepository.getById(article.getChannelId());
+            if (channel != null) {
+                article.setChannelName(channel.getName());
+            }
+        }
+
         return ResultDto.ReturnSuccessData(page);
     }
 
     @Override
     public List<Article> searchArticleByTag(Tag tag) {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("LIKE_tag",tag.getName());
-        return articleRepository.getListByParameters(parameters,null);
+        parameters.put("LIKE_tag", tag.getName());
+        return articleRepository.getListByParameters(parameters, null);
     }
 }

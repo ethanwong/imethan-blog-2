@@ -4,6 +4,7 @@ import com.imethan.blog.document.blog.Article;
 import com.imethan.blog.document.blog.Channel;
 import com.imethan.blog.document.blog.Constant;
 import com.imethan.blog.dto.ResultDto;
+import com.imethan.blog.repository.ArticleRepository;
 import com.imethan.blog.repository.ChannelRepository;
 import com.imethan.blog.util.TimeUtils;
 import com.imethan.blog.util.UuidUtils;
@@ -32,6 +33,8 @@ public class ChannelServiceImpl implements ChannelService {
 
     @Autowired
     private ChannelRepository channelRepository;
+    @Autowired
+    private ArticleRepository articleRepository;
 
     @Override
     public ResultDto saveOrUpdate(Channel channel) {
@@ -45,6 +48,12 @@ public class ChannelServiceImpl implements ChannelService {
                 channel.setCreateAt(channelSource.getCreateAt());
                 channel.setUpdateAt(TimeUtils.dateToString(new Date()));
             }
+
+            if (channel.getName().equals(Constant.INNER_CHANNEL_NAME)) {
+                channel.setType(1);
+                channel.setShow(false);
+            }
+
             Channel resultChannel = channelRepository.save(channel);
             Map<String, String> data = new HashMap<>();
             data.put("id", resultChannel.getId());
@@ -61,6 +70,11 @@ public class ChannelServiceImpl implements ChannelService {
     @Override
     public ResultDto delete(String id) {
         try {
+            //检查是否被关联
+            List<Article> list = articleRepository.findByChannelId(id);
+            if (list != null && list.size() > 0) {
+                return ResultDto.ReturnFail("被关联的栏目不能删除");
+            }
             channelRepository.deleteById(id);
             return ResultDto.ReturnSuccess();
         } catch (Exception e) {
@@ -96,17 +110,36 @@ public class ChannelServiceImpl implements ChannelService {
 
     @Override
     public ResultDto page(Map<String, Object> parameters, Integer pageNo, Integer pageSize) {
-        PageRequest pageable = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Order.asc("orderNo")).and(Sort.by(Sort.Order.desc("createAt"))));
+        PageRequest pageable = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Order.desc("orderNo")).and(Sort.by(Sort.Order.desc("createAt"))));
         Page<Channel> page = channelRepository.getPageByParameters(parameters, pageable);
         return ResultDto.ReturnSuccessData(page);
     }
 
     @Override
-    public ResultDto list() {
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("EQ_show", true);
-        parameters.put("EQ_status", 0);
-        List<Channel> list = channelRepository.getListByParameters(parameters, Sort.by(Sort.Order.asc("orderNo")).and(Sort.by(Sort.Order.desc("createAt"))));
+    public ResultDto list(Map<String, Object> parameters) {
+        List<Channel> list = channelRepository.getListByParameters(parameters, Sort.by(Sort.Order.desc("orderNo")).and(Sort.by(Sort.Order.desc("createAt"))));
         return ResultDto.ReturnSuccessData(list);
+    }
+
+    @Override
+    public void checkInnerChannel() {
+        try {
+            Channel channel = channelRepository.getByName(Constant.INNER_CHANNEL_NAME);
+            if (channel == null) {
+                channel = new Channel();
+                channel.setId(UuidUtils.getUuid());
+                channel.setCreateAt(TimeUtils.dateToString(new Date()));
+                channel.setName(Constant.INNER_CHANNEL_NAME);
+
+            }
+            channel.setShow(false);
+            channel.setOrderNo(10000);
+            channel.setStatus(0);
+            channel.setType(1);
+            channelRepository.save(channel);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.info("checkInnerChannel error msg = {}", e.getMessage());
+        }
     }
 }

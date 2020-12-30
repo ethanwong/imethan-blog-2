@@ -129,7 +129,7 @@
         }, 5000);
 
 
-        $.get("/api/channel/list", function (result) {
+        $.get("/api/channel/list/all", function (result) {
             let data = result.data;
             let items = "";
             if (data.length > 0) {

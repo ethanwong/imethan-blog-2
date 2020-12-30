@@ -25,4 +25,9 @@ public class Channel extends BaseDocument {
      */
     private Integer status = 0;
 
+    /**
+     * 0-标准，1-内置
+     */
+    private Integer type = 0;
+
 }

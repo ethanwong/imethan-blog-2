@@ -68,6 +68,15 @@ public class ResultDto {
     }
 
     /**
+     * 操作成功响应
+     * @param message
+     * @return
+     */
+    public static ResultDto ReturnSuccess(String message) {
+        return new ResultDto(true, message, null);
+    }
+
+    /**
      * 操作成功响应数据
      * @param data
      * @return

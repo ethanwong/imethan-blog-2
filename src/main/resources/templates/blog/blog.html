@@ -12,7 +12,8 @@
         .channel-box {
             padding-right: 20px;
         }
-        #blog-box i{
+
+        #blog-box i {
             padding-right: 10px;
         }
     </style>
@@ -26,23 +27,18 @@
 <hr>
 <div class="row">
     <div class="col-sm-8">
-
         <ul class="list-unstyled list-group" id="blog-box">
             <!--            <li class="list-group-item list-group-item-articlelist">-->
             <!--                <a href="/blog/article/1234567890" class="title">在Spring MVC的拦截器里面获取上传和下载的文件大小</a>-->
             <!--                <small><a href="">spring专题</a> 2019/10/10</small>-->
             <!--            </li>-->
         </ul>
-
-
         <div class="m-style" id="pagination"></div>
-
-
     </div>
     <div class="col-sm-4">
         <div sec:authorize="isAuthenticated()">
             <div class="level1-title">Admin Only</div>
-            <div class="row"  style="margin-bottom: 10px">
+            <div class="row" style="margin-bottom: 10px">
                 <div class="col-sm">
                     <i class="fa fa-pencil-square-o color-primary align-middle" aria-hidden="true"></i>
                     <a href="/console/article/input">发布内容</a>
@@ -56,6 +52,20 @@
                     <a href="/console/setting">系统配置</a>
                 </div>
             </div>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-sm">
+                    <i class="fa fa-recycle color-danger align-middle" aria-hidden="true"></i>
+                    <a href="javascript:;" id="recycle-link">回收内容</a>
+                </div>
+                <div class="col-sm">
+                    <i class="fa fa-paint-brush color-warning align-middle" aria-hidden="true"></i>
+                    <a href="javascript:;" id="modify-link">查看草稿</a>
+                </div>
+                <div class="col-sm">
+                    <i class="fa fa-star color-primary align-middle" aria-hidden="true"></i>
+                    <a href="/blog">已发内容</a>
+                </div>
+            </div>
         </div>
 
         <div class="level1-title">Content Channel</div>
@@ -65,12 +75,6 @@
         <div class="level1-title">Content Tag</div>
         <div class="tag-box">
             <!--            <a class="badge bg-primary" href="" role="button">项目管理</a>-->
-            <!--            <a class="badge bg-secondary" href="" role="button">研发架构</a>-->
-            <!--            <a class="badge bg-success" href="" role="button">从零开始</a>-->
-            <!--            <a class="badge bg-danger" href="" role="button">SpringBoot</a>-->
-            <!--            <a class="badge bg-warning" href="" role="button">ActiveMQ</a>-->
-            <!--            <a class="badge bg-info" href="" role="button">EMQX</a>-->
-            <!--            <a class="badge bg-dark" href="" role="button">VUE运用</a>-->
         </div>
 
     </div>
@@ -82,8 +86,18 @@
     $(function () {
         NProgress.start();
 
+        let key = '', value = '';
+        /**
+         * 0-正常，1-草稿，2-回收
+         */
+        let status = getUrlParam("status")
+        if (status != null) {
+            key = "status";
+            value = status;
+        }
+
         //加载内容
-        loadBlog("#blog-box", '#pagination', page, size, '', '');
+        loadBlog("#blog-box", '#pagination', page, size, key, value);
 
         //加载标签
         loadTag(".tag-box");
@@ -91,20 +105,38 @@
         //加载栏目
         loadChannel(".channel-box");
 
+        NProgress.done();
+
         //检索时间
         $("#search-keyword").bind('keypress', function (event) {
             if (event.keyCode == "13") {
-                console.log("search val=" + $(this).val());
                 loadBlog("#blog-box", '#pagination', page, size, 'title', $(this).val());
             }
         })
 
-        NProgress.done();
+        //回收内容
+        $("#recycle-link").click(function () {
+            loadBlog("#blog-box", '#pagination', page, size, "status", 2);
+        });
 
-
+        //草稿内容
+        $("#modify-link").click(function () {
+            loadBlog("#blog-box", '#pagination', page, size, "status", 1);
+        });
 
     });
 
+    /**
+     * 获取url参数值
+     * @param name
+     * @returns {string|null}
+     */
+    function getUrlParam(name) {
+        let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        let r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]);
+        return null; //返回参数值
+    }
 
 </script>
 </body>

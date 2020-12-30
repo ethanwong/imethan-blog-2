@@ -5,7 +5,7 @@
     <title>ImEthan</title>
     <link rel="stylesheet" href="/static/editor/css/editormd.preview.css"/>
     <style>
-        #content-tag i{
+        #content-tag i {
             padding-right: 10px;
         }
     </style>
@@ -13,13 +13,15 @@
 <body>
 <span class="h1" id="content-title" style="font-weight: 200!important;"></span>
 
-<span sec:authorize="isAuthenticated()" style="padding-left: 10px;">
-        <a th:href="@{'/console/article/modify/'+${id}}">编辑</a>
-        <a href="#" id="content-delete">删除</a>
+<span sec:authorize="isAuthenticated()" style="padding-left: 20px;">
+        <a th:href="@{'/console/article/modify/'+${id}}" class="color-primary">编辑</a>
+        &nbsp;
+        <a href="#" id="content-delete" class="color-danger">删除</a>
 </span>
 <br>
 <small id="content-tag" style="color: #a8afb7;"></small>
 <input type="hidden" name="" th:value="${id}" id="content-id">
+<input type="hidden" name="" value="" id="content-status">
 
 
 <div class="row">
@@ -51,19 +53,22 @@
         var articleEditormdView;
         var contentId = $("#content-id").val();
         $.get("/api/article/" + contentId, function (result) {
-            if (result.data == null) {
+
+            let data = result.data;
+
+            if (data == null) {
                 $("#article-editormd-view").html("<h1>内容不存在!</h1>");
             }
 
-            $("title").html(result.data.title);
+            $("title").html(data.title);
+            $("#content-status").val(data.status);
+            $("#content-title").html(data.title);
+            $("#content-time").html(data.createAt);
+            $("#content-tag").append("<i class=\"fa fa-calendar-o\" aria-hidden=\"true\"> " + data.createAt + "</i> ");
+            $("#content-tag").append("<i class=\"fa fa-bookmark-o\" aria-hidden=\"true\"> " + data.tag + "</i> ");
+            $("#content-tag").append("<i class=\"fa fa-link\" aria-hidden=\"true\"> " + data.channelName + "</i> ");
 
-            $("#content-title").html(result.data.title);
-            $("#content-time").html(result.data.createAt);
-            $("#content-tag").append("<i class=\"fa fa-calendar-o\" aria-hidden=\"true\"> "+result.data.createAt+"</i> ");
-            $("#content-tag").append("<i class=\"fa fa-bookmark-o\" aria-hidden=\"true\"> "+result.data.tag+"</i> " );
-            $("#content-tag").append("<i class=\"fa fa-link\" aria-hidden=\"true\"> "+result.data.channelName+"</i> ");
-
-            var content = result.data.content;
+            var content = data.content;
 
             articleEditormdView = editormd.markdownToHTML("article-editormd-view", {
                 markdown: content,//+ "\r\n" + $("#append-test").text(),
@@ -89,12 +94,15 @@
 
                     ajaxDelete("/api/article/" + contentId, function (result) {
                         if (result.isSuccess) {
-                            layer.msg('删除成功', {icon: 1});
+                            layer.msg(result.message, {offset: '200px', icon: 1});
                         } else {
-                            layer.msg('删除失败', {icon: 2});
+                            layer.msg(result.message, {offset: '200px', icon: 2});
                         }
+
+                        let status = $("#content-status").val();
                         setTimeout(function () {
-                            window.location.href = '/blog'
+
+                            window.location.href = '/blog?status='+status;
                         }, 1000);
                     })
                 }

@@ -19,4 +19,9 @@ public class Constant {
      * 2-已经回收文章
      */
     public static final Integer ARTICLE_STATUS_RECYCLE = 2;
+
+    /**
+     * 内置信息分类栏目名称
+     */
+    public static final String INNER_CHANNEL_NAME = "内置信息分类";
 }

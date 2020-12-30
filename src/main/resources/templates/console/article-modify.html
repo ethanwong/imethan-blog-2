@@ -58,16 +58,21 @@
         let contentId = $("#content-id").val();
 
         $.get("/api/article/" + contentId, function (result) {
-            content = result.data.content;
-            title = result.data.title;
-            tag = result.data.tag;
-            let channelId = result.data.channelId;
+
+            let data = result.data;
+
+            content = data.content;
+            title = data.title;
+            tag = data.tag;
+            let channelId = data.channelId;
+            let status = data.status;
 
             $("#content-title").val(title);
             $("#content-tag").val(tag);
+            $("#content-status").val(tag);
 
             //填充栏目
-            $.get("/api/channel/list", function (result) {
+            $.get("/api/channel/list/all", function (result) {
                 let data = result.data;
                 let items = "";
                 if (data.length > 0) {

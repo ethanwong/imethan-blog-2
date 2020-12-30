@@ -5,11 +5,14 @@ import com.imethan.blog.document.blog.Constant;
 import com.imethan.blog.dto.BootstrapTableResult;
 import com.imethan.blog.dto.ResultDto;
 import com.imethan.blog.service.ChannelService;
+import com.imethan.blog.util.SecurityUtils;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,11 +43,11 @@ public class ChannelRestApi {
         page = page - 1;
 
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("EQ_status", Constant.ARTICLE_STATUS_NORMAL);
 
         if (StringUtils.isNoneBlank(searchText)) {
             parameters.put("LIKE_name", searchText);
         }
+
         ResultDto resultDto = channelService.page(parameters, page, size);
         Page<Channel> pageData = (Page<Channel>) resultDto.getData();
 
@@ -57,8 +60,26 @@ public class ChannelRestApi {
     @PreAuthorize(value = "permitAll()")
     @ResponseBody
     @GetMapping(value = "list")
-    public ResultDto list(){
-        return channelService.list();
+    public ResultDto list(HttpServletRequest request) {
+        Map<String, Object> parameters = new HashMap<>();
+
+        /**
+         * 非登录状态只允许查看显示和非内置分类
+         */
+        if (!SecurityUtils.isLogin()) {
+            parameters.put("EQ_show", true);
+            parameters.put("EQ_type", 0);
+        }
+
+        return channelService.list(parameters);
+    }
+
+    @PreAuthorize(value = "isAuthenticated()")
+    @ResponseBody
+    @GetMapping(value = "list/all")
+    public ResultDto all() {
+        Map<String, Object> parameters = new HashMap<>();
+        return channelService.list(parameters);
     }
 
     /**
@@ -84,6 +105,6 @@ public class ChannelRestApi {
     @DeleteMapping("/{id}")
     public ResultDto delete(@PathVariable String id) {
         log.info("delete channel id {}", id);
-        return channelService.recycle(id);
+        return channelService.delete(id);
     }
 }
