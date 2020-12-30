@@ -63,13 +63,8 @@ public class ChannelRestApi {
     public ResultDto list(HttpServletRequest request) {
         Map<String, Object> parameters = new HashMap<>();
 
-        /**
-         * 非登录状态只允许查看显示和非内置分类
-         */
-        if (!SecurityUtils.isLogin()) {
-            parameters.put("EQ_show", true);
-            parameters.put("EQ_type", 0);
-        }
+        parameters.put("EQ_show", true);
+        parameters.put("EQ_type", 0);
 
         return channelService.list(parameters);
     }

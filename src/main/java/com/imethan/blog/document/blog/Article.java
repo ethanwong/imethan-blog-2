@@ -26,7 +26,7 @@ public class Article extends BaseDocument {
     private String channelName;
     private String tag;
     /**
-     * 0-正常，1-草稿，2-回收
+     * 0-正常，1-草稿，2-回收,3-内置
      */
     private Integer status;
 

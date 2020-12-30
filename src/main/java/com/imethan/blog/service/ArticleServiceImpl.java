@@ -49,6 +49,12 @@ public class ArticleServiceImpl implements ArticleService {
                 article.setUpdateAt(TimeUtils.dateToString(new Date()));
             }
 
+            //强制设定内置栏目归宿属文章为内置文章
+            Channel channel = channelRepository.getById(article.getChannelId());
+            if (channel.getName().equals(Constant.INNER_CHANNEL_NAME)) {
+                article.setStatus(Constant.ARTICLE_STATUS_INNER);
+            }
+
             Article resultArticle = articleRepository.save(article);
             Map<String, String> data = new HashMap<>();
             data.put("id", resultArticle.getId());

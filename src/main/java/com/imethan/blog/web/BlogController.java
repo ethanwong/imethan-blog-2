@@ -29,12 +29,4 @@ public class BlogController {
         model.addAttribute("id", id);
         return "blog/blog-article-md";
     }
-
-    //TODO
-    @GetMapping(value = {"/channel/{id}"})
-    public String channel(@PathVariable String id) {
-
-        return "blog/blog";
-    }
-
 }

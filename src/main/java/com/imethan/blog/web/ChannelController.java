@@ -26,5 +26,4 @@ public class ChannelController {
         return "console/channel";
     }
 
-
 }

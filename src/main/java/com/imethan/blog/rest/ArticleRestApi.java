@@ -92,7 +92,6 @@ public class ArticleRestApi {
         } else {
             parameters.put("EQ_status", Constant.ARTICLE_STATUS_NORMAL);//
         }
-
         String title = request.getParameter("title");
         String tag = request.getParameter("tag");
         String channelId = request.getParameter("channelId");

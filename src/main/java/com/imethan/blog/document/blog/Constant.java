@@ -21,7 +21,14 @@ public class Constant {
     public static final Integer ARTICLE_STATUS_RECYCLE = 2;
 
     /**
+     * 3-内置不公开文章
+     */
+    public static final Integer ARTICLE_STATUS_INNER = 3;
+
+
+    /**
      * 内置信息分类栏目名称
      */
     public static final String INNER_CHANNEL_NAME = "内置信息分类";
+
 }

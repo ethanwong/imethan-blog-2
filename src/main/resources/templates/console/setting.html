@@ -34,6 +34,7 @@
             <div class="level1-title " type="system">系统配置</div>
 
             <div id="setting-box" class="text-muted">
+                <!--密码设置开始-->
                 <section hidden type="password">
                     <form id="resetpassword-form" action="/console/reset/password" method="post">
                         <div class="mb-3">
@@ -49,6 +50,33 @@
                         <button type="submit" id="resetpassword-button" class="btn btn-primary">确认修改</button>
                     </form>
                 </section>
+                <!--密码设置介绍-->
+
+
+                <!--About设置开始 -->
+                <section hidden type="about">
+                    <form id="seting-about-form" action="/console/reset/about" method="post">
+                        <div class="mb-3">
+                            <label for="aboutContentId" class="form-label">关联的内容ID</label>
+                            <input type="text" class="form-control" id="aboutContentId" name="aboutContentId"
+                                   placeholder="Enter ContentId" required>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="aboutShow" id="aboutShowOption1"
+                                       value="1">
+                                <label class="form-check-label" for="aboutShowOption1">开启</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="aboutShow" id="aboutShowOption0"
+                                       value="0">
+                                <label class="form-check-label" for="aboutShowOption0">关闭</label>
+                            </div>
+                        </div>
+                        <button type="submit" id="seting-about-button" class="btn btn-primary">确认修改</button>
+                    </form>
+                </section>
+                <!--About设置结束 -->
             </div>
 
         </div>
@@ -61,10 +89,20 @@
     $(function () {
         NProgress.start();
 
+        let settingOption = {
+            system: {
+                type: "system", title: "系统信息"
+            }
+        };
+
 
         $(".list-group li").each(function () {
             $(this).click(function () {
                 NProgress.start();
+
+                /**
+                 * 左侧菜单处理
+                 */
                 //移除全部选中
                 $(".list-group li").each(function () {
                     $(this).removeClass("active");
@@ -72,7 +110,11 @@
                 //添加点击选中
                 $(this).addClass("active");
 
-                //设置表单内容标题
+                /**
+                 * 右侧内容处理
+                 * @type {jQuery}
+                 */
+                    //设置表单内容标题
                 var type = $(this).attr("type");
                 $(".level1-title").attr("type", type);
                 $(".level1-title").html($(this).html());
@@ -87,8 +129,29 @@
                     if ($(this).attr("type") == type) {
                         $(this).removeAttr("hidden")
                     }
-                });
 
+
+                    /**
+                     * about信息加载
+                     */
+                    if (type == "about") {
+                        // layer.msg(type, {icon: 6});
+                        $.get("/console/setting/about", function (result) {
+                            let data = result.data;
+                            $.each(data, function (i, item) {
+                                let name = item.name;
+                                let content = item.content;
+                                console.log("name="+name+" content="+content);
+                                if (name == "aboutShow") {
+                                    $("#" + name + "Option" + content).attr("checked", "checked");
+                                } else {
+                                    $("#" + name).val(content);
+                                }
+                            })
+                        });
+                    }
+
+                });
 
                 NProgress.done();
             })
@@ -96,7 +159,7 @@
         NProgress.done();
 
 
-        var validOption = {
+        let resetPasswordValidOption = {
             rules: {
                 password: "required",
                 password2: {
@@ -118,7 +181,30 @@
                 });
             }
         }
-        $("#resetpassword-form").validate(validOption);
+        $("#resetpassword-form").validate(resetPasswordValidOption);
+
+
+        let resetAboutValidOption = {
+            rules: {
+                aboutConentId: "required",
+            },
+            messages: {
+                aboutConentId: "请输入ConentId！",
+            },
+            submitHandler: function (form, event) {
+                event.preventDefault();
+                console.log("resetAbout")
+                submitForm(form, function (result) {
+                    if (result.isSuccess) {
+                        layer.msg('配置修改成功~~', {icon: 6});
+                    }
+                }, function () {
+                    layer.msg('配置修改失败~~', {icon: 5});
+                });
+            }
+        }
+
+        $("#seting-about-form").validate(resetAboutValidOption);
 
 
     });

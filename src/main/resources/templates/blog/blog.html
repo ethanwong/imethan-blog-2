@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-<span class="h2" style="font-weight: 200;">My Blog</span><small> 我的工作和学习笔记</small>
+<span id="blog-header-name" class="h2" style="font-weight: 200;">My Blog</span><small id="blog-header-intro"> 我的工作和学习笔记</small>
 <span style="float: right;display: inline;padding-right: 20px;">
     <input style="width: 330px;border-radius:0px;display: inline;" type="text" class="form-control"
            placeholder="search" name="keyword" id="search-keyword">
@@ -55,15 +55,25 @@
             <div class="row" style="margin-bottom: 10px">
                 <div class="col-sm">
                     <i class="fa fa-recycle color-danger align-middle" aria-hidden="true"></i>
-                    <a href="javascript:;" id="recycle-link">回收内容</a>
+                    <a href="javascript:;" id="recycle-link">Recycle</a>
                 </div>
                 <div class="col-sm">
-                    <i class="fa fa-paint-brush color-warning align-middle" aria-hidden="true"></i>
-                    <a href="javascript:;" id="modify-link">查看草稿</a>
+                    <i class="fa fa-pencil-square-o color-warning align-middle" aria-hidden="true"></i>
+                    <a href="javascript:;" id="draft-link">Draft</a>
                 </div>
+                <div class="col-sm">
+                    <i class="fa fa-user-circle-o color-success align-middle" aria-hidden="true"></i>
+                    <a href="javascript:;" id="inner-link">Inner</a>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 10px">
                 <div class="col-sm">
                     <i class="fa fa-star color-primary align-middle" aria-hidden="true"></i>
-                    <a href="/blog">已发内容</a>
+                    <a href="javascript:;" id="my-link">My Blog</a>
+                </div>
+                <div class="col-sm">
+                </div>
+                <div class="col-sm">
                 </div>
             </div>
         </div>
@@ -88,7 +98,7 @@
 
         let key = '', value = '';
         /**
-         * 0-正常，1-草稿，2-回收
+         * 0-正常，1-草稿，2-回收,3-内置
          */
         let status = getUrlParam("status")
         if (status != null) {
@@ -120,8 +130,17 @@
         });
 
         //草稿内容
-        $("#modify-link").click(function () {
+        $("#draft-link").click(function () {
             loadBlog("#blog-box", '#pagination', page, size, "status", 1);
+        });
+        //My Blog
+        $("#my-link").click(function () {
+            loadBlog("#blog-box", '#pagination', page, size, '', '');
+        });
+
+        //Inner Blog
+        $("#inner-link").click(function () {
+            loadBlog("#blog-box", '#pagination', page, size, "status", 3);
         });
 
     });

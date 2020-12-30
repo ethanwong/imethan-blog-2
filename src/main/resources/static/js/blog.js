@@ -6,6 +6,27 @@ function loadBlog(blogbox, pagebox, page, size, key, value) {
         var data = result.data;
         var content = data.content;
         $(blogbox).html("");
+
+        console.log("key=" + key + " value=" + value);
+
+        if (key == 'status') {
+            if (value == "1") {
+                $("#blog-header-name").html("Draft");
+                $("#blog-header-intro").html("&nbsp;草稿箱");
+            }
+            if (value == "2") {
+                $("#blog-header-name").html("Recycle");
+                $("#blog-header-intro").html("&nbsp;回收站");
+            }
+            if (value == "3") {
+                $("#blog-header-name").html("Inner");
+                $("#blog-header-intro").html("&nbsp;内置内容");
+            }
+        }else{
+            $("#blog-header-name").html("My Blog");
+            $("#blog-header-intro").html("&nbsp;我的工作和学习笔记");
+        }
+
         var blogItems = "";
         if (data.totalElements > 0) {
             $.each(content, function (i, item) {
