@@ -145,16 +145,16 @@
          */
         $("#submit-btn").click(function () {
 
-            /**
-             * 设置保存类型
-             * auto:自动保存
-             * publish:发布保存
-             */
-            $("#content-submit-type").val("publish");
-            $("#content-status").val("0");//正式发布
+
 
             if ($("#content-form").valid()) {
-                $("#content-form").submit();
+                /**
+                 * 设置保存类型
+                 * auto:自动保存
+                 * publish:发布保存
+                 */
+                $("#content-submit-type").val("publish");
+                $("#content-status").val("0");//正式发布
             }
 
         });

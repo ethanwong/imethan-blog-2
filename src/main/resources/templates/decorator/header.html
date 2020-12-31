@@ -5,6 +5,7 @@
             <div class="navbar nav-item">
                 <a  href="/" th:class="'nav-item ' + @{(${module eq ''} ? 'active' : '')} + ''">Home</a>
                 <a  href="/blog" th:class="'nav-item ' + @{(${module eq 'blog'} ? 'active' : '')} + ''">Blog</a>
+                <a  href="/gitalk" th:class="'nav-item ' + @{(${module eq 'gitalk'} ? 'active' : '')} + ''">Gitalk</a>
                 <a  href="/about" th:class="'nav-item ' + @{(${module eq 'about'} ? 'active' : '')} + ''">About</a>
             </div>
 

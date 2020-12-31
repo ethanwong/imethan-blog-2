@@ -65,3 +65,22 @@ function ajaxDelete(uri, successCallback, errorCallback) {
         },
     });
 }
+
+/**
+ * 加载Gitalk评论组件
+ * @param boxId
+ * @param issue
+ */
+function loadGitalk(boxId,issue){
+    const gitalk = new Gitalk({
+        clientID: 'a68e03c29c3ae6f39b67',
+        clientSecret: '1ce647c0c4f0c3d1e35863f54528bfda786b7081',
+        repo: 'imethan-gitalk',      // The repository of store comments,
+        owner: 'ethanwong',
+        admin: ['ethanwong'],
+        id: issue,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false,  // Facebook-like distraction free mode
+    })
+
+    gitalk.render(boxId)
+}

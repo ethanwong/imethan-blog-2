@@ -30,6 +30,9 @@
         <div id="article-editormd-view" style="padding: 0px!important;">
             <textarea style="display:none;" name="article-editormd-markdown-doc">###Hello world!</textarea>
         </div>
+        <div class="shadow-sm p-3 mb-5 bg-white rounded" style="margin-top: 20px!important;">
+            <div id="gitalk-box"></div>
+        </div>
     </div>
     <div class="col-3">
         <div id="custom-toc-container" style="padding: 16px 0px 0px 0px!important;"></div>
@@ -87,6 +90,8 @@
                 flowChart: true,  // 默认不解析
                 sequenceDiagram: true,  // 默认不解析
             });
+
+            loadGitalk("gitalk-box", data.title);
         });
 
         $("#content-delete").click(function () {

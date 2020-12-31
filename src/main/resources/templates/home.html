@@ -4,14 +4,16 @@
     <title>Home</title>
     <style>
         .banner {
-            margin: 40px 0px 40px 0px;
+            margin: 60px 0px 60px 0px;
             line-height: 1.2;
         }
+
         .banner .title {
             font-size: 50px;
             font-weight: lighter;
         }
-        hr{
+
+        hr {
             margin: 40px 0px 40px 0px;
         }
     </style>
@@ -22,11 +24,10 @@
     <p>A tech blog base java、springboot、mongodb. | 一位野生程序猿的自留地。</p>
     <p><a style="width: 200px;" class="btn btn-primary" href="blog"> Learn more </a></p>
 </div>
-<hr>
-
 <p class="level1-title">Site Index</p>
 <p>spring.io：<a href="https://spring.io/" target="_blank">https://spring.io/</a></p>
-<p>mongodb：<a href="https://www.mongodb.com/2" target="_blank">https://www.mongodb.com/</a></p>
+<p>mongodb：<a href="https://www.mongodb.com/" target="_blank">https://www.mongodb.com/</a></p>
+<p>gitalk：<a href="https://github.com/gitalk/gitalk" target="_blank">https://github.com/gitalk/gitalk</a></p>
 <p>fontawesome：<a href="http://www.fontawesome.com.cn/" target="_blank">http://www.fontawesome.com.cn/</a></p>
 <p>getbootstrap：<a href="https://getbootstrap.com/" target="_blank">https://getbootstrap.com/</a></p>
 <p>bootstrap-table：<a href="https://bootstrap-table.com/" target="_blank">https://bootstrap-table.com/</a></p>
@@ -35,6 +36,12 @@
 </p>
 <p>layer：<a href="https://layer.layui.com/" target="_blank">https://layer.layui.com/</a></p>
 <p>nprogress：<a href="https://ricostacruz.com/nprogress/" target="_blank">https://ricostacruz.com/nprogress/</a></p>
+<hr>
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+    <div class="h3">Hey ! How about ImEthan ?</div>
+    <div id="gitalk-box"></div>
+</div>
+
 </body>
 </html>
 <script src="/static/js/tag.js"></script>
@@ -42,6 +49,9 @@
     $(function () {
         NProgress.start();
         // loadTag(".tag-box");
+
+        loadGitalk("gitalk-box", "How about imethan blog")
+
         NProgress.done();
 
     });

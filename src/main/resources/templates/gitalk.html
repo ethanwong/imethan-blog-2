@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gitalk</title>
+</head>
+<body>
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+    <div class="h2">Hey ! How about ImEthan ?</div>
+    <div id="gitalk-box"></div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(function () {
+        NProgress.start();
+
+        loadGitalk("gitalk-box", "How about imethan blog")
+
+        NProgress.done();
+
+    });
+</script>
