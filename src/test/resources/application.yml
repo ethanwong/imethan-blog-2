@@ -6,4 +6,4 @@ spring:
     description: spring boot secutiry demo .
   data:
     mongodb:
-      uri: mongodb://127.0.0.1:27017/imethan_blog_3
+      uri: mongodb://127.0.0.1:27017/imethan_blog_5

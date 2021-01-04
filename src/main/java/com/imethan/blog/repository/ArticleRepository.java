@@ -14,4 +14,6 @@ import java.util.List;
  */
 public interface ArticleRepository extends MongoRepository<Article, String>, BaseRepository<Article,String> {
     List<Article> findByChannelId(String id);
+
+    Article findByTitle(String title);
 }

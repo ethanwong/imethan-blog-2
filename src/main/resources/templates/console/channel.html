@@ -11,6 +11,11 @@
         #input-box-wrapper {
             margin: 12px 10px 0px 10px;
         }
+
+        .fixed-table-pagination {
+            margin-bottom: 10px !important;
+            display: block !important;
+        }
     </style>
 </head>
 <body>
@@ -21,7 +26,9 @@
             <button class="btn btn-sm btn-info" id="modify-channel">修改</button>
             <button class="btn btn-sm btn-danger" id="delete-channel">删除</button>
         </div>
-        <div id="table"></div>
+        <div class="table-responsive">
+            <table id="table"></table>
+        </div>
         <div id="input-box">
             <div id="input-box-wrapper">
                 <form id="input-form" action="/api/channel" method="post">
@@ -48,17 +55,16 @@
             url: '/api/channel/page',
             pagination: true,
             sidePagination: 'server',
-
             clickToSelect: true,//2,设置点击选中当前行
             // singleSelect: true,//3,设置单选
 
-            pageSize: 10, //每页显示多少条数据
+            pageSize: 12, //每页显示多少条数据
             pageNumber: 1, //初始化翻页的页码
             pageList: [10, 25, 50, 100],
             queryParamsType: '',
 
+
             search: true,
-            // sidePagination: 'server',
             showHeader: true,
             // showRefresh: true,
             iconSize: 'sm',
@@ -73,37 +79,66 @@
                 {
                     field: 'name',
                     title: 'Item Name',
-                    width: '600'
+                    width: '300'
                 }
                 ,
                 {
-                    field: 'show',
-                    title: 'Show',
-                    width: 300
-                },
-                {
                     field: 'type',
                     title: 'Type',
-                    width: 300
+                    width: 100,
+                    formatter: function (value, row, index) {
+                        if (value == 0) {
+                            return "公开";
+                        } else if (value == 1) {
+                            return "<abbr class='color-danger'>系统</abbr>";
+                        }
+                    }
                 },
                 {
                     field: 'orderNo',
                     title: 'OrderNo',
-                    width: '300'
+                    width: '200',
+                    formatter: orderNoFormatter
+                },
+                {
+                    field: 'show',
+                    title: 'Show',
+                    width: 100,
+                    formatter: changeShowFormatter
                 }
                 , {
                     field: 'createAt',
                     title: 'CreateAt',
-                    width: '600'
+                    width: '300'
                 }
-                // , {
-                //     field: 'id',
-                //     title: '操作',
-                //     width: '200'
-                //
-                // }
+
             ]
         })
+
+        $('#table').bootstrapTable('resetView', {height: 800});
+
+        function orderNoFormatter(value, row, index) {
+            return "<a title='点击提高排序' onclick=\"updateOrderNo('" + row.id + "'," + (value + 10) + ")\" href='javascript:;' class=\"fa fa-level-up color-primary\" aria-hidden=\"true\"></a>" +
+                "&nbsp;&nbsp;<a title='点击降低排序' onclick=\"updateOrderNo('" + row.id + "'," + (value - 10) + ")\" href='javascript:;' class=\"fa fa-level-down color-danger\" aria-hidden=\"true\"></a>&nbsp;&nbsp;" +
+                value;
+        }
+
+        function adminFormatter(value, row, index) {
+            return value;
+        }
+
+        function changeShowFormatter(value, row, index) {
+            let col;
+            if (value == true) {
+                col = "显示";
+            } else {
+                col = "隐藏";
+            }
+
+            return "<a href='javascript:;' title='点击变更显示状态'  class='btn-link' onclick=\"changeShow('" + row.id + "'," + value + ")\">" + col + "</a>";
+            ;
+        }
+
 
         NProgress.done();
 
@@ -115,7 +150,7 @@
                 event.preventDefault();
                 submitForm(form
                     , function (result) {
-                        layer.msg('保存成功~~', {offset: '200px', icon: 6});
+                        layer.msg('保存成功~~', {offset: '200px', icon: 6, time: 100});
                         // bootstrapTable.refresh();
                         $('#table').bootstrapTable('refresh');
                     }
@@ -216,4 +251,45 @@
 
 
     });
+
+    /**
+     * 更新排序
+     */
+    function updateOrderNo(id, value) {
+        $.ajax({
+            type: "put",
+            url: '/api/channel/' + id + "?orderNo=" + value,
+            headers: {
+                "X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")
+            },
+            success: function (result) {
+                layer.msg('修改成功', {offset: "200px", icon: 1});
+                $('#table').bootstrapTable('refresh');
+            },
+            error: function (result) {
+            },
+        });
+    };
+
+    /**
+     * 更新显示状态
+     * @param id
+     * @param value
+     */
+    function changeShow(id, value) {
+        $.ajax({
+            type: "put",
+            url: '/api/channel/' + id + "?show=" + !value,
+            headers: {
+                "X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")
+            },
+            success: function (result) {
+                layer.msg('修改成功', {offset: "200px", icon: 1});
+                $('#table').bootstrapTable('refresh');
+            },
+            error: function (result) {
+            },
+        });
+    };
+
 </script>

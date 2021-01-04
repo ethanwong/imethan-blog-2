@@ -3,28 +3,127 @@
 <head>
     <title>Home</title>
     <style>
-        .banner {
-            margin: 60px 0px 60px 0px;
-            line-height: 1.2;
-        }
+        .banner {margin: 60px 0px 60px 0px;line-height: 1.6;text-align: center;font-weight: lighter;}
+        .banner .title {font-size: 60px;font-weight: lighter;}
 
-        .banner .title {
-            font-size: 50px;
-            font-weight: lighter;
-        }
+        hr {margin: 60px 0px 60px 0px;}
 
-        hr {
-            margin: 40px 0px 40px 0px;
+        .count-box {padding: 40px 0px 80px 0px;}
+        .count-box .countTitle {padding-bottom: 40px;text-align: center;}
+        .count-box .countTitle .title {font-size: 40px;font-weight: lighter;}
+        .count-box .countTitle .icon {padding-top: 40px;font-size: 40px}
+        .count-box .countInfo {text-align: center;padding: 0px 20px 0px 20px;font-weight: lighter;}
+        .count-box .countInfo .count {font-size: 40px; }
+
+        .card{
+            border-radius:0px!important;
+            margin-top: 10px!important;
         }
     </style>
 </head>
 <body>
+<!--banner begin-->
 <div class="banner">
-    <p class="title">Welcome</p>
-    <p>A tech blog base java、springboot、mongodb. | 一位野生程序猿的自留地。</p>
-    <p><a style="width: 200px;" class="btn btn-primary" href="blog"> Learn more </a></p>
+    <p class="title">Welcome,I'm Ethan</p>
+    <p>A tech blog named imethan,base java、springboot and mongodb. | 一位野生程序猿的自留地。</p>
+
+
+    <div class="row" style="font-weight: lighter;padding-top: 10px;">
+        <div class="col">
+            <div class="card" style="width: 14rem;">
+                <div class="card-body">
+                    <div style="font-size: 60px;font-weight: lighter;" >
+                        <i class="fa fa-leaf color-success" aria-hidden="true"></i>
+                    </div>
+                    <h5 class="card-title">Blog</h5>
+                    <p class="card-text">我的工作和学习笔记，内容、分类、标签
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card" style="width: 14rem;">
+                <div class="card-body">
+                    <div style="font-size: 60px;font-weight: lighter;" >
+                        <i class="fa fa-github color-default" aria-hidden="true"></i>
+                    </div>
+                    <h5 class="card-title">GitHub</h5>
+                    <p class="card-text">
+                        我的GitHub主页，包括本站的源代码
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card" style="width: 14rem;">
+                <div class="card-body">
+                    <div style="font-size: 60px;font-weight: lighter;" >
+                        <i class="fa fa-comments-o color-info" aria-hidden="true"></i>
+                    </div>
+                    <h5 class="card-title">Gitalk</h5>
+                    <p class="card-text">
+                        Gitalk嵌入页面，在这里留言联系我
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card" style="width: 14rem;">
+                <div class="card-body">
+                    <div style="font-size: 60px;font-weight: lighter;" >
+                        <i class="fa fa-user-circle-o color-primary" aria-hidden="true"></i>
+                    </div>
+                    <h5 class="card-title">About</h5>
+                    <p class="card-text">
+                        关于我个人的信息展示，个人对外信息窗口
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p class="level1-title">Site Index</p>
+<!--banner end-->
+
+<!--count-box begin-->
+<div class="count-box">
+    <div class="row countTitle">
+        <div class="col-md-12">
+            <span class="title">All content in site</span>
+            <span>站内发布所有内容信息量的统计</span>
+            <div class="icon"><i class="fa fa-file-text-o" aria-hidden="true"></i></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="countInfo">
+                <p class="count color-primary">231</p>
+                <p>发表的文章数</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="countInfo">
+                <p class="count color-primary" style="">333</p>
+                <p>云标签数</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="countInfo">
+                <p class="count color-primary">32</p>
+                <p>归类栏目数</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--count-box end-->
+<div class="shadow p-3 mb-5 bg-white rounded">
+<!--<div class="shadow-sm p-3 mb-5 bg-white rounded">-->
+    <div class="h3">Hey ! How about ImEthan ?</div>
+    <div id="gitalk-box"></div>
+</div>
+<div class="shadow p-3 mb-5 bg-white rounded">
+
+<div class="level1-title">Site Index</div>
+<br>
 <p>spring.io：<a href="https://spring.io/" target="_blank">https://spring.io/</a></p>
 <p>mongodb：<a href="https://www.mongodb.com/" target="_blank">https://www.mongodb.com/</a></p>
 <p>gitalk：<a href="https://github.com/gitalk/gitalk" target="_blank">https://github.com/gitalk/gitalk</a></p>
@@ -36,10 +135,6 @@
 </p>
 <p>layer：<a href="https://layer.layui.com/" target="_blank">https://layer.layui.com/</a></p>
 <p>nprogress：<a href="https://ricostacruz.com/nprogress/" target="_blank">https://ricostacruz.com/nprogress/</a></p>
-<hr>
-<div class="shadow-sm p-3 mb-5 bg-white rounded">
-    <div class="h3">Hey ! How about ImEthan ?</div>
-    <div id="gitalk-box"></div>
 </div>
 
 </body>

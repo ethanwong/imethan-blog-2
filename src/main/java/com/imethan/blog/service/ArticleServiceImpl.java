@@ -163,4 +163,9 @@ public class ArticleServiceImpl implements ArticleService {
         parameters.put("LIKE_tag", tag.getName());
         return articleRepository.getListByParameters(parameters, null);
     }
+
+    @Override
+    public Article findByTitle(String title) {
+        return articleRepository.findByTitle(title);
+    }
 }

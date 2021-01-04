@@ -20,4 +20,6 @@ public interface ArticleService extends BaseService<Article,String> {
     ResultDto page(Map<String, Object> parameters, Integer pageNo, Integer pageSize);
 
     List<Article> searchArticleByTag(Tag tag);
+
+    Article findByTitle(String title);
 }

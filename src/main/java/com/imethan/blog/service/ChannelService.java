@@ -19,4 +19,7 @@ public interface ChannelService extends BaseService<Channel,String> {
 
     void checkInnerChannel();
 
+    Channel findByName(String channel);
+
+    ResultDto modifyByKeyValue(String id,Map<String, Object> parameter);
 }

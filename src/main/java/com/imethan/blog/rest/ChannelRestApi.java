@@ -102,4 +102,25 @@ public class ChannelRestApi {
         log.info("delete channel id {}", id);
         return channelService.delete(id);
     }
+
+    @PreAuthorize(value = "isAuthenticated()")
+    @PutMapping("/{id}")
+    public ResultDto update(@PathVariable String id, HttpServletRequest request) {
+
+        log.info("update channel id {}", id);
+
+        Map<String, Object> parameter = new HashMap<>();
+
+        String show = request.getParameter("show");
+        if (StringUtils.isNoneBlank(show)) {
+            parameter.put("show", show);
+        }
+
+        String orderNo = request.getParameter("orderNo");
+        if (StringUtils.isNoneBlank(orderNo)) {
+            parameter.put("orderNo", orderNo);
+        }
+
+        return channelService.modifyByKeyValue(id, parameter);
+    }
 }

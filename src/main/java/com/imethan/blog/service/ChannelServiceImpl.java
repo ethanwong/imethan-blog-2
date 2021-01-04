@@ -142,4 +142,15 @@ public class ChannelServiceImpl implements ChannelService {
             log.info("checkInnerChannel error msg = {}", e.getMessage());
         }
     }
+
+    @Override
+    public Channel findByName(String channel) {
+        return channelRepository.getByName(channel);
+    }
+
+    @Override
+    public ResultDto modifyByKeyValue(String id, Map<String, Object> parameter) {
+        Channel channel = channelRepository.findAndModify("id", id, parameter);
+        return ResultDto.ReturnSuccessData(channel);
+    }
 }
