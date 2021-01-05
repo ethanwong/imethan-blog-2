@@ -113,12 +113,12 @@ public class ChannelRestApi {
 
         String show = request.getParameter("show");
         if (StringUtils.isNoneBlank(show)) {
-            parameter.put("show", show);
+            parameter.put("show", Boolean.valueOf(show));
         }
 
         String orderNo = request.getParameter("orderNo");
         if (StringUtils.isNoneBlank(orderNo)) {
-            parameter.put("orderNo", orderNo);
+            parameter.put("orderNo", Integer.valueOf(orderNo));
         }
 
         return channelService.modifyByKeyValue(id, parameter);
