@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Channel</title>
+    <title>Channel:ImEthan独立博客:一个野生程序猿的自留地</title>
     <style>
         #input-box {
             display: none;
@@ -19,27 +19,29 @@
     </style>
 </head>
 <body>
-<div class="row">
-    <div class="col-sm-12">
-        <div id="toolbar">
-            <button class="btn btn-sm btn-primary" id="add-channel">添加</button>
-            <button class="btn btn-sm btn-info" id="modify-channel">修改</button>
-            <button class="btn btn-sm btn-danger" id="delete-channel">删除</button>
-        </div>
-        <div class="table-responsive">
-            <table id="table"></table>
-        </div>
-        <div id="input-box">
-            <div id="input-box-wrapper">
-                <form id="input-form" action="/api/channel" method="post">
-                    <div class="mb-3">
-                        <label for="name" class="form-label level1-title">Channel Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Channel Name" name="name"
-                               value="" required>
-                        <input type="hidden" id="id" name="id" value="">
-                        <input type="hidden" id="orderNo" name="orderNo" value="">
-                    </div>
-                </form>
+<div class="main-box">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="toolbar">
+                <button class="btn btn-sm btn-primary" id="add-channel">添加</button>
+                <button class="btn btn-sm btn-info" id="modify-channel">修改</button>
+                <button class="btn btn-sm btn-danger" id="delete-channel">删除</button>
+            </div>
+            <div class="table-responsive">
+                <table id="table"></table>
+            </div>
+            <div id="input-box">
+                <div id="input-box-wrapper">
+                    <form id="input-form" action="/api/channel" method="post">
+                        <div class="mb-3">
+                            <label for="name" class="form-label level1-title">Channel Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Channel Name" name="name"
+                                   value="" required>
+                            <input type="hidden" id="id" name="id" value="">
+                            <input type="hidden" id="orderNo" name="orderNo" value="">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

@@ -2,32 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About</title>
+    <title>About:ImEthan独立博客:一个野生程序猿的自留地</title>
     <link rel="stylesheet" href="/static/editor/css/editormd.preview.css"/>
     <style>
-        #about-box{
+        #about-box {
             margin-left: 20px;
             margin-right: 20px;
+
         }
     </style>
 </head>
 <body>
-<h2>About me</h2>
-<hr>
-<div class="row">
-    <div class="col-sm-2">
-        <img src="/static/img/20181226115539-300.jpg" class="img-thumbnail" width="300"  alt="...">
-        <p>Ethan Wong | 黄应锋</p>
-        <p><i class="fa fa-envelope"></i> ethanwong@qq.com</p>
-        <p><i class="fa fa-qq"></i> 362108967</p>
-        <p><i class="fa fa-address-book"></i> China.Xiamen</p>
-    </div>
-    <div class="col-sm-10">
-        <div id="about-box">
-            <div id="article-editormd-view" style="padding: 0px!important;">
-                <textarea style="display:none;" name="article-editormd-markdown-doc">###Hello world!</textarea>
+<div class="main-box">
+    <h2>About me</h2>
+    <hr>
+    <div class="row">
+        <div class="col-sm-2">
+            <img src="/static/img/20181226115539-300.jpg" class="img-thumbnail" width="300" alt="...">
+            <p>Ethan Wong | 黄应锋</p>
+            <p><i class="fa fa-envelope"></i> ethanwong@qq.com</p>
+            <p><i class="fa fa-qq"></i> 362108967</p>
+            <p><i class="fa fa-address-book"></i> China.Xiamen</p>
+        </div>
+        <div class="col-sm-10">
+            <div id="about-box">
+                <div id="article-editormd-view" style="padding: 0px!important;">
+                    <textarea style="display:none;" name="article-editormd-markdown-doc">###Hello world!</textarea>
+                </div>
+                <div id="updateAt" style="float: right;margin: 20px;"></div>
+                <div class="shadow-sm p-3 mb-5 bg-white rounded" style="margin-top: 20px!important;">
+                    <div id="gitalk-box"></div>
+                </div>
             </div>
-            <div id="updateAt" style="float: right;margin: 20px;"></div>
         </div>
     </div>
 </div>
@@ -45,10 +51,10 @@
     $(function () {
         NProgress.start();
 
-        $.get("/api/about",function (result){
+        $.get("/api/about", function (result) {
             let data = result.data;
 
-            if(data != null){
+            if (data != null) {
                 let articleEditormdView = editormd.markdownToHTML("article-editormd-view", {
                     markdown: data.content,//+ "\r\n" + $("#append-test").text(),
                     //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
@@ -66,14 +72,12 @@
                     sequenceDiagram: true,  // 默认不解析
                 });
 
-                $("#updateAt").append("内容更新时间："+data.updateAt);
-            }else{
+                $("#updateAt").append("内容更新时间：" + data.updateAt);
+            } else {
                 $("#about-box").html("<h1>没有介绍！</h1>")
             }
 
-
-
-
+            loadGitalk("gitalk-box", "About me");
         });
 
         NProgress.done();

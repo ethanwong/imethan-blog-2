@@ -22,4 +22,6 @@ public interface ArticleService extends BaseService<Article,String> {
     List<Article> searchArticleByTag(Tag tag);
 
     Article findByTitle(String title);
+
+
 }

@@ -126,12 +126,6 @@
             <artifactId>fontawesome</artifactId>
             <version>4.7.0</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.webjars.bower</groupId>-->
-<!--            <artifactId>bootstrap-table</artifactId>-->
-<!--            <version>1.18.1</version>-->
-<!--        </dependency>-->
-        <!-- bootstrap end -->
 
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -154,6 +148,11 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>2.10.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>19.0</version>
         </dependency>
     </dependencies>
 

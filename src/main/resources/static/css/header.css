@@ -1,7 +1,8 @@
 .header {
     background-color: #428bca;
-    -webkit-box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
-    box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
+    /*-webkit-box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);*/
+    /*box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);*/
+    font-weight: lighter;
 }
 .navbar-brand{
     color: #fff!important;
@@ -10,13 +11,10 @@
     position: relative;
     display: inline-block;
     padding: 8px 8px 6px 8px;
-    font-weight: lighter;
     color: #cdddeb;
 }
 .nav-item-right{
     float: right!important;
-
-
 }
 .nav-item-right .default{
     color: #fff!important;

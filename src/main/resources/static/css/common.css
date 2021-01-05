@@ -1,9 +1,19 @@
-@media (min-width: 1200px) {
+@media (min-width: 1140px) {
     .container {
-        /*width: 970px;*/
         width: 100% !important;
     }
+
+    .main-box{
+        max-width: 1140px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 }
+
 
 html {position: relative;min-height: 100%;}
 body {

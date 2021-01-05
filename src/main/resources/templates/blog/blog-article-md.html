@@ -12,30 +12,32 @@
     </style>
 </head>
 <body>
-<span class="h1" id="content-title" style="font-weight: 200!important;"></span>
+<div class="main-box">
+    <span class="h1" id="content-title" style="font-weight: 200!important;"></span>
 
-<span sec:authorize="isAuthenticated()" style="padding-left: 20px;">
+    <span sec:authorize="isAuthenticated()" style="padding-left: 20px;">
         <a th:href="@{'/console/article/modify/'+${id}}" class="color-primary">编辑</a>
         &nbsp;
         <a href="#" id="content-delete" class="color-danger">删除</a>
 </span>
-<br>
-<small id="content-tag" style="color: #a8afb7;"></small>
-<input type="hidden" name="" th:value="${id}" id="content-id">
-<input type="hidden" name="" value="" id="content-status">
+    <br>
+    <small id="content-tag" style="color: #a8afb7;"></small>
+    <input type="hidden" name="" th:value="${id}" id="content-id">
+    <input type="hidden" name="" value="" id="content-status">
 
 
-<div class="row">
-    <div class="col-9">
-        <div id="article-editormd-view" style="padding: 0px!important;">
-            <textarea style="display:none;" name="article-editormd-markdown-doc">###Hello world!</textarea>
+    <div class="row">
+        <div class="col-9">
+            <div id="article-editormd-view" style="padding: 0px!important;">
+                <textarea style="display:none;" name="article-editormd-markdown-doc">###Hello world!</textarea>
+            </div>
+            <div class="shadow-sm p-3 mb-5 bg-white rounded" style="margin-top: 20px!important;">
+                <div id="gitalk-box"></div>
+            </div>
         </div>
-        <div class="shadow-sm p-3 mb-5 bg-white rounded" style="margin-top: 20px!important;">
-            <div id="gitalk-box"></div>
+        <div class="col-3">
+            <div id="custom-toc-container" style="padding: 16px 0px 0px 0px!important;"></div>
         </div>
-    </div>
-    <div class="col-3">
-        <div id="custom-toc-container" style="padding: 16px 0px 0px 0px!important;"></div>
     </div>
 </div>
 
@@ -108,7 +110,7 @@
                         let status = $("#content-status").val();
                         setTimeout(function () {
 
-                            window.location.href = '/blog?status='+status;
+                            window.location.href = '/blog?status=' + status;
                         }, 1000);
                     })
                 }

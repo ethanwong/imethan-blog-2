@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="/static/js/pagination.css" rel="stylesheet">
-    <title>Blog</title>
+    <title>Blog:ImEthan独立博客:一个野生程序猿的自留地</title>
     <style>
         .channel-box {
             padding-right: 20px;
@@ -19,74 +19,72 @@
     </style>
 </head>
 <body>
-<span id="blog-header-name" class="h2" style="font-weight: 200;">My Blog</span><small id="blog-header-intro"> 我的工作和学习笔记</small>
-<span style="float: right;display: inline;padding-right: 20px;">
-    <input style="width: 330px;border-radius:0px;display: inline;" type="text" class="form-control"
-           placeholder="search" name="keyword" id="search-keyword">
-</span>
-<hr>
-<div class="row">
-    <div class="col-sm-8">
-        <ul class="list-unstyled list-group" id="blog-box">
-            <!--            <li class="list-group-item list-group-item-articlelist">-->
-            <!--                <a href="/blog/article/1234567890" class="title">在Spring MVC的拦截器里面获取上传和下载的文件大小</a>-->
-            <!--                <small><a href="">spring专题</a> 2019/10/10</small>-->
-            <!--            </li>-->
-        </ul>
-        <div class="m-style" id="pagination"></div>
-    </div>
-    <div class="col-sm-4">
-        <div sec:authorize="isAuthenticated()">
-            <div class="level1-title">Admin Only</div>
-            <div class="row" style="margin-bottom: 10px">
-                <div class="col-sm">
-                    <i class="fa fa-pencil-square-o color-primary align-middle" aria-hidden="true"></i>
-                    <a href="/console/article/input">发布内容</a>
-                </div>
-                <div class="col-sm">
-                    <i class="fa fa-list color-info align-middle" aria-hidden="true"></i>
-                    <a href="/console/channel">栏目管理</a>
-                </div>
-                <div class="col-sm">
-                    <i class="fa fa-cog color-warning align-middle" aria-hidden="true"></i>
-                    <a href="/console/setting">系统配置</a>
-                </div>
-            </div>
-            <div class="row" style="margin-bottom: 10px">
-                <div class="col-sm">
-                    <i class="fa fa-recycle color-danger align-middle" aria-hidden="true"></i>
-                    <a href="javascript:;" id="recycle-link">Recycle</a>
-                </div>
-                <div class="col-sm">
-                    <i class="fa fa-pencil-square-o color-warning align-middle" aria-hidden="true"></i>
-                    <a href="javascript:;" id="draft-link">Draft</a>
-                </div>
-                <div class="col-sm">
-                    <i class="fa fa-user-circle-o color-success align-middle" aria-hidden="true"></i>
-                    <a href="javascript:;" id="inner-link">Inner</a>
-                </div>
-            </div>
-            <div class="row" style="margin-bottom: 10px">
-                <div class="col-sm">
-                    <i class="fa fa-star color-primary align-middle" aria-hidden="true"></i>
-                    <a href="javascript:;" id="my-link">My Blog</a>
-                </div>
-                <div class="col-sm">
-                </div>
-                <div class="col-sm">
-                </div>
-            </div>
+<div class="main-box">
+    <span id="blog-header-name" class="h2" style="font-weight: 200;">My Blog</span><small id="blog-header-intro">
+    我的工作和学习笔记</small>
+    <span style="float: right;display: inline;padding-right: 20px;">
+        <input style="width: 330px;border-radius:0px;display: inline;" type="text" class="form-control"
+               placeholder="search" name="keyword" id="search-keyword">
+    </span>
+    <hr>
+    <div class="row">
+        <div class="col-sm-8">
+            <ul class="list-unstyled list-group" id="blog-box"></ul>
+            <div class="m-style" id="pagination"></div>
         </div>
+        <div class="col-sm-4">
+            <div sec:authorize="isAuthenticated()">
+                <div class="level1-title">Admin Only</div>
+                <div class="row" style="margin-bottom: 10px">
+                    <div class="col-sm">
+                        <i class="fa fa-pencil-square-o color-primary align-middle" aria-hidden="true"></i>
+                        <a href="/console/article/input">发布内容</a>
+                    </div>
+                    <div class="col-sm">
+                        <i class="fa fa-list color-info align-middle" aria-hidden="true"></i>
+                        <a href="/console/channel">栏目管理</a>
+                    </div>
+                    <div class="col-sm">
+                        <i class="fa fa-cog color-warning align-middle" aria-hidden="true"></i>
+                        <a href="/console/setting">系统配置</a>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 10px">
+                    <div class="col-sm">
+                        <i class="fa fa-recycle color-danger align-middle" aria-hidden="true"></i>
+                        <a href="javascript:;" id="recycle-link">Recycle</a>
+                    </div>
+                    <div class="col-sm">
+                        <i class="fa fa-pencil-square-o color-warning align-middle" aria-hidden="true"></i>
+                        <a href="javascript:;" id="draft-link">Draft</a>
+                    </div>
+                    <div class="col-sm">
+                        <i class="fa fa-user-circle-o color-success align-middle" aria-hidden="true"></i>
+                        <a href="javascript:;" id="inner-link">Inner</a>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 10px">
+                    <div class="col-sm">
+                        <i class="fa fa-star color-primary align-middle" aria-hidden="true"></i>
+                        <a href="javascript:;" id="my-link">My Blog</a>
+                    </div>
+                    <div class="col-sm">
+                    </div>
+                    <div class="col-sm">
+                    </div>
+                </div>
+            </div>
 
-        <div class="level1-title">Content Channel</div>
-        <ul class="list-group channel-box">
-        </ul>
+            <div class="level1-title">Content Channel</div>
+            <ul class="list-group channel-box">
+            </ul>
 
-        <div class="level1-title">Content Tag</div>
-        <div class="tag-box">
-            <!--            <a class="badge bg-primary" href="" role="button">项目管理</a>-->
+            <div class="level1-title">Content Tag</div>
+            <div class="tag-box">
+                <!--            <a class="badge bg-primary" href="" role="button">项目管理</a>-->
+            </div>
+
         </div>
-
     </div>
 </div>
 <script src="/static/js/jquery.pagination.js"></script>

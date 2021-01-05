@@ -4,93 +4,90 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Setting</title>
-
+    <title>Setting:ImEthan独立博客:一个野生程序猿的自留地</title>
 </head>
 
 <body>
-
+<div class="main-box">
 <span class="h1">
     Setting
 </span><small>系统基础参数配置</small>
-<hr>
+    <hr>
 
-<div class="row" style="padding-top: 20px;">
-    <div class="col-3">
-        <ul class="list-group">
-            <li class="list-group-item active" type="system">系统信息</li>
-            <li class="list-group-item" type="common">基本配置</li>
-            <li class="list-group-item" type="meta">META配置</li>
-            <li class="list-group-item" type="copyright">版权设置</li>
-            <li class="list-group-item" type="about">About设置</li>
-            <li class="list-group-item" type="password">修改密码</li>
-            <li class="list-group-item" type="other">其他操作</li>
-        </ul>
-    </div>
-    <div class="col-9">
-        <div class="shadow-sm p-3 mb-5 bg-white rounded">
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-3">
+            <ul class="list-group">
+                <li class="list-group-item active" type="system">系统信息</li>
+                <li class="list-group-item" type="common">基本配置</li>
+                <li class="list-group-item" type="meta">META配置</li>
+                <li class="list-group-item" type="copyright">版权设置</li>
+                <li class="list-group-item" type="about">About设置</li>
+                <li class="list-group-item" type="password">修改密码</li>
+                <li class="list-group-item" type="other">其他操作</li>
+            </ul>
+        </div>
+        <div class="col-9">
+            <div class="shadow-sm p-3 mb-5 bg-white rounded">
 
-            <div class="level1-title " type="system">系统配置</div>
+                <div class="level1-title " type="system">系统配置</div>
 
-            <div id="setting-box" class="text-muted">
-                <!--密码设置开始-->
-                <section hidden type="password">
-                    <form id="resetpassword-form" action="/console/reset/password" method="post">
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Enter Password</label>
-                            <input type="password" class="form-control" id="password" name="password"
-                                   placeholder="Enter Password" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password2" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="password2" name="password2"
-                                   placeholder="Confirm Password" required>
-                        </div>
-                        <button type="submit" id="resetpassword-button" class="btn btn-primary">确认修改</button>
-                    </form>
-                </section>
-                <!--密码设置介绍-->
-
-
-                <!--About设置开始 -->
-                <section hidden type="about">
-                    <form id="seting-about-form" action="/console/reset/about" method="post">
-                        <div class="mb-3">
-                            <label for="aboutContentId" class="form-label">关联的内容ID</label>
-                            <input type="text" class="form-control" id="aboutContentId" name="aboutContentId"
-                                   placeholder="Enter ContentId" required>
-                        </div>
-                        <div class="mb-3">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="aboutShow" id="aboutShowOption1"
-                                       value="1">
-                                <label class="form-check-label" for="aboutShowOption1">开启</label>
+                <div id="setting-box" class="text-muted">
+                    <!--密码设置开始-->
+                    <section hidden type="password">
+                        <form id="resetpassword-form" action="/console/reset/password" method="post">
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Enter Password</label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                       placeholder="Enter Password" required>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="aboutShow" id="aboutShowOption0"
-                                       value="0">
-                                <label class="form-check-label" for="aboutShowOption0">关闭</label>
+                            <div class="mb-3">
+                                <label for="password2" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="password2" name="password2"
+                                       placeholder="Confirm Password" required>
                             </div>
-                        </div>
-                        <button type="submit" id="seting-about-button" class="btn btn-primary">确认修改</button>
-                    </form>
-                </section>
-                <!--About设置结束 -->
+                            <button type="submit" id="resetpassword-button" class="btn btn-primary">确认修改</button>
+                        </form>
+                    </section>
+                    <!--密码设置介绍-->
 
-                <!--其他操作开始-->
-                <section hidden type="other">
-                    <a href="/api/article/import" target="_blank" class="btn-link">批量导入历史文章，初始化时使用，仅运行一次</a>
-                </section>
-                <!--其他操作结束-->
+
+                    <!--About设置开始 -->
+                    <section hidden type="about">
+                        <form id="seting-about-form" action="/console/reset/about" method="post">
+                            <div class="mb-3">
+                                <label for="aboutContentId" class="form-label">关联的内容ID</label>
+                                <input type="text" class="form-control" id="aboutContentId" name="aboutContentId"
+                                       placeholder="Enter ContentId" required>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="aboutShow" id="aboutShowOption1"
+                                           value="1">
+                                    <label class="form-check-label" for="aboutShowOption1">开启</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="aboutShow" id="aboutShowOption0"
+                                           value="0">
+                                    <label class="form-check-label" for="aboutShowOption0">关闭</label>
+                                </div>
+                            </div>
+                            <button type="submit" id="seting-about-button" class="btn btn-primary">确认修改</button>
+                        </form>
+                    </section>
+                    <!--About设置结束 -->
+
+                    <!--其他操作开始-->
+                    <section hidden type="other">
+                        <a href="/api/article/import" target="_blank" class="btn-link">批量导入历史文章，初始化时使用，仅运行一次</a>
+                    </section>
+                    <!--其他操作结束-->
+
+                </div>
 
             </div>
-
         </div>
     </div>
 </div>
-
 </body>
 </html>
 <script type="text/javascript">
@@ -149,7 +146,7 @@
                             $.each(data, function (i, item) {
                                 let name = item.name;
                                 let content = item.content;
-                                console.log("name="+name+" content="+content);
+                                console.log("name=" + name + " content=" + content);
                                 if (name == "aboutShow") {
                                     $("#" + name + "Option" + content).attr("checked", "checked");
                                 } else {

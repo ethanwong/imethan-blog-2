@@ -1,39 +1,88 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <title>Home</title>
+    <title>Home:ImEthan独立博客:一个野生程序猿的自留地</title>
     <style>
-        .banner {margin: 60px 0px 60px 0px;line-height: 1.6;text-align: center;font-weight: lighter;}
-        .banner .title {font-size: 60px;font-weight: lighter;}
+        .banner-box {
+            line-height: 1.6;
+            text-align: center;
+            font-weight: lighter;
+            max-width: 1140px;
+            margin-top: 40px;
+            margin-bottom: 100px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
 
-        hr {margin: 60px 0px 60px 0px;}
+        .banner-box .title {
+            font-size: 60px;
+            font-weight: lighter;
+        }
 
-        .count-box {padding: 40px 0px 80px 0px;}
-        .count-box .countTitle {padding-bottom: 40px;text-align: center;}
-        .count-box .countTitle .title {font-size: 40px;font-weight: lighter;}
-        .count-box .countTitle .icon {padding-top: 40px;font-size: 40px}
-        .count-box .countInfo {text-align: center;padding: 0px 20px 0px 20px;font-weight: lighter;}
-        .count-box .countInfo .count {font-size: 40px; }
+        hr {
+            margin: 100px 0px 60px 0px;
+        }
 
-        .card{
-            border-radius:0px!important;
-            margin-top: 10px!important;
+        .count-box {
+            max-width: 1140px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .count-box .countTitle {
+            padding-bottom: 40px;
+            text-align: center;
+        }
+
+        .count-box .countTitle .title {
+            font-size: 40px;
+            font-weight: lighter;
+        }
+
+        .count-box .countTitle .icon {
+            padding-top: 40px;
+            font-size: 60px;
+        }
+
+        .count-box .countInfo {
+            text-align: center;
+            padding: 0px 20px 0px 20px;
+            font-weight: lighter;
+        }
+
+        .count-box .countInfo .count {
+            font-size: 40px;
+        }
+
+        .card {
+            border-radius: 0px !important;
+            margin-top: 10px !important;
+        }
+
+        .mb-2, .my-2{
+            margin-bottom: 80px!important;
         }
     </style>
 </head>
 <body>
 <!--banner begin-->
-<div class="banner">
+<div class="banner-box">
     <p class="title">Welcome,I'm Ethan</p>
-    <p>A tech blog named imethan,base java、springboot and mongodb. | 一位野生程序猿的自留地。</p>
+    <p>A tech blog named imethan,base java、springboot and mongodb. | 一个野生程序猿的自留地。</p>
 
 
     <div class="row" style="font-weight: lighter;padding-top: 10px;">
         <div class="col">
             <div class="card" style="width: 14rem;">
                 <div class="card-body">
-                    <div style="font-size: 60px;font-weight: lighter;" >
-                        <i class="fa fa-leaf color-success" aria-hidden="true"></i>
+                    <div style="font-size: 60px;font-weight: lighter;">
+                        <i class="fa fa-star-o color-primary" aria-hidden="true"></i>
                     </div>
                     <h5 class="card-title">Blog</h5>
                     <p class="card-text">我的工作和学习笔记，内容、分类、标签
@@ -44,7 +93,7 @@
         <div class="col">
             <div class="card" style="width: 14rem;">
                 <div class="card-body">
-                    <div style="font-size: 60px;font-weight: lighter;" >
+                    <div style="font-size: 60px;font-weight: lighter;">
                         <i class="fa fa-github color-default" aria-hidden="true"></i>
                     </div>
                     <h5 class="card-title">GitHub</h5>
@@ -57,8 +106,8 @@
         <div class="col">
             <div class="card" style="width: 14rem;">
                 <div class="card-body">
-                    <div style="font-size: 60px;font-weight: lighter;" >
-                        <i class="fa fa-comments-o color-info" aria-hidden="true"></i>
+                    <div style="font-size: 60px;font-weight: lighter;">
+                        <i class="fa fa-comments-o color-success" aria-hidden="true"></i>
                     </div>
                     <h5 class="card-title">Gitalk</h5>
                     <p class="card-text">
@@ -70,8 +119,8 @@
         <div class="col">
             <div class="card" style="width: 14rem;">
                 <div class="card-body">
-                    <div style="font-size: 60px;font-weight: lighter;" >
-                        <i class="fa fa-user-circle-o color-primary" aria-hidden="true"></i>
+                    <div style="font-size: 60px;font-weight: lighter;">
+                        <i class="fa fa-user-circle-o text-info" aria-hidden="true"></i>
                     </div>
                     <h5 class="card-title">About</h5>
                     <p class="card-text">
@@ -85,56 +134,72 @@
 <!--banner end-->
 
 <!--count-box begin-->
-<div class="count-box">
-    <div class="row countTitle">
-        <div class="col-md-12">
-            <span class="title">All content in site</span>
-            <span>站内发布所有内容信息量的统计</span>
-            <div class="icon"><i class="fa fa-file-text-o" aria-hidden="true"></i></div>
+<div class="p-3 mb-2 bg-light text-dark">
+    <div class="count-box">
+        <div class="row countTitle">
+            <div class="col-md-12">
+                <span class="title">All content in site</span>
+                <span>站内发布所有内容信息量的统计</span>
+                <div class="icon color-danger"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="countInfo">
+                    <p class="count" th:text="${COUNT.CONTENT_TOTAL}"></p>
+                    <p>发布的文章数</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="countInfo">
+                    <p class="count" th:text="${COUNT.TAG_TOTAL}"></p>
+                    <p>云标签数</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="countInfo">
+                    <p class="count" th:text="${COUNT.CHANNEL_TOTAL}"></p>
+                    <p>分类栏目数</p>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="countInfo">
-                <p class="count color-primary">231</p>
-                <p>发表的文章数</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="countInfo">
-                <p class="count color-primary" style="">333</p>
-                <p>云标签数</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="countInfo">
-                <p class="count color-primary">32</p>
-                <p>归类栏目数</p>
-            </div>
-        </div>
-    </div>
+
 </div>
 <!--count-box end-->
-<div class="shadow p-3 mb-5 bg-white rounded">
-<!--<div class="shadow-sm p-3 mb-5 bg-white rounded">-->
-    <div class="h3">Hey ! How about ImEthan ?</div>
-    <div id="gitalk-box"></div>
-</div>
-<div class="shadow p-3 mb-5 bg-white rounded">
 
-<div class="level1-title">Site Index</div>
-<br>
-<p>spring.io：<a href="https://spring.io/" target="_blank">https://spring.io/</a></p>
-<p>mongodb：<a href="https://www.mongodb.com/" target="_blank">https://www.mongodb.com/</a></p>
-<p>gitalk：<a href="https://github.com/gitalk/gitalk" target="_blank">https://github.com/gitalk/gitalk</a></p>
-<p>fontawesome：<a href="http://www.fontawesome.com.cn/" target="_blank">http://www.fontawesome.com.cn/</a></p>
-<p>getbootstrap：<a href="https://getbootstrap.com/" target="_blank">https://getbootstrap.com/</a></p>
-<p>bootstrap-table：<a href="https://bootstrap-table.com/" target="_blank">https://bootstrap-table.com/</a></p>
-<p>jqueryvalidation：<a href="https://jqueryvalidation.org/" target="_blank">https://jqueryvalidation.org/</a></p>
-<p>editor.md：<a href="https://pandao.github.io/editor.md/index.html" target="_blank">https://pandao.github.io/editor.md/index.html</a>
-</p>
-<p>layer：<a href="https://layer.layui.com/" target="_blank">https://layer.layui.com/</a></p>
-<p>nprogress：<a href="https://ricostacruz.com/nprogress/" target="_blank">https://ricostacruz.com/nprogress/</a></p>
+<!--gitalk begin-->
+<div class="main-box">
+    <div class="shadow p-3 mb-5 bg-white rounded">
+        <div class="h3">Hey ! How about ImEthan ?</div>
+        <div id="gitalk-box"></div>
+    </div>
+</div>
+<!--gitalk end-->
+
+<div class="main-box" >
+    <div class="shadow p-3 mb-5 bg-white rounded">
+        <div class="level1-title">Site Index</div>
+        <br>
+        <p>spring.io：<a href="https://spring.io/" target="_blank">https://spring.io/</a></p>
+        <p>mongodb：<a href="https://www.mongodb.com/" target="_blank">https://www.mongodb.com/</a></p>
+        <p>gitalk：<a href="https://github.com/gitalk/gitalk" target="_blank">https://github.com/gitalk/gitalk</a>
+        </p>
+        <p>fontawesome：<a href="http://www.fontawesome.com.cn/" target="_blank">http://www.fontawesome.com.cn/</a>
+        </p>
+        <p>getbootstrap：<a href="https://getbootstrap.com/" target="_blank">https://getbootstrap.com/</a></p>
+        <p>bootstrap-table：<a href="https://bootstrap-table.com/" target="_blank">https://bootstrap-table.com/</a>
+        </p>
+        <p>jqueryvalidation：<a href="https://jqueryvalidation.org/"
+                               target="_blank">https://jqueryvalidation.org/</a>
+        </p>
+        <p>editor.md：<a href="https://pandao.github.io/editor.md/index.html" target="_blank">https://pandao.github.io/editor.md/index.html</a>
+        </p>
+        <p>layer：<a href="https://layer.layui.com/" target="_blank">https://layer.layui.com/</a></p>
+        <p>nprogress：<a href="https://ricostacruz.com/nprogress/"
+                        target="_blank">https://ricostacruz.com/nprogress/</a>
+        </p>
+    </div>
 </div>
 
 </body>

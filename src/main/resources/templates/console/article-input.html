@@ -6,37 +6,39 @@
     <title>Publish</title>
 </head>
 <body>
-<span class="h3">Publish Content</span>
-<span style="float: right;color: red;display: none;" id="auto-save-warn">自动保存成功！</span>
+<div class="main-box">
+    <span class="h3">Publish Content</span>
+    <span style="float: right;color: red;display: none;" id="auto-save-warn">自动保存成功！</span>
 
-<div class="row" style="padding-top: 20px;">
-    <div class="col-12">
-        <form id="content-form" action="/api/article" method="post">
-            <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Title" name="title" value="" required>
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-12">
+            <form id="content-form" action="/api/article" method="post">
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Title" name="title" value="" required>
 
-            </div>
-            <div class="mb-3">
-                <select class="form-select form-control" aria-label="SelectChannel" id="channelId" name="channelId"
-                        required>
-                    <option value="">Channel</option>
-                </select>
-            </div>
-            <div id="article-editormd">
-                <textarea style="display:none;" name="content" required></textarea>
-            </div>
+                </div>
+                <div class="mb-3">
+                    <select class="form-select form-control" aria-label="SelectChannel" id="channelId" name="channelId"
+                            required>
+                        <option value="">Channel</option>
+                    </select>
+                </div>
+                <div id="article-editormd">
+                    <textarea style="display:none;" name="content" required></textarea>
+                </div>
 
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Tag标签：多个以英文逗号“,”隔开</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="tag" value="tag"
-                          ></textarea>
-            </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Tag标签：多个以英文逗号“,”隔开</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="tag" value="tag"
+                    ></textarea>
+                </div>
 
-            <input type="hidden" name="submitType" id="content-submit-type" value="auto">
-            <input type="hidden" name="id" id="content-id" value="">
-            <input type="hidden" name="status" id="content-status" value="1">
-            <button type="submit" class="btn btn-primary" id="submit-btn">提交</button>
-        </form>
+                <input type="hidden" name="submitType" id="content-submit-type" value="auto">
+                <input type="hidden" name="id" id="content-id" value="">
+                <input type="hidden" name="status" id="content-status" value="1">
+                <button type="submit" class="btn btn-primary" id="submit-btn">提交</button>
+            </form>
+        </div>
     </div>
 </div>
 </body>
@@ -133,7 +135,7 @@
             let items = "";
             if (data.length > 0) {
                 $.each(data, function (i, item) {
-                    $("#channelId").append(" <option value='"+item.id+"'>"+item.name+"</option>");
+                    $("#channelId").append(" <option value='" + item.id + "'>" + item.name + "</option>");
                 })
             }
         })
