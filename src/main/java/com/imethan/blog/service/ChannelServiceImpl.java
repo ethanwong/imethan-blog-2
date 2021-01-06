@@ -2,7 +2,7 @@ package com.imethan.blog.service;
 
 import com.imethan.blog.document.blog.Article;
 import com.imethan.blog.document.blog.Channel;
-import com.imethan.blog.document.blog.Constant;
+import com.imethan.blog.common.Constant;
 import com.imethan.blog.dto.ResultDto;
 import com.imethan.blog.repository.ArticleRepository;
 import com.imethan.blog.repository.ChannelRepository;

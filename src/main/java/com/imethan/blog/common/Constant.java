@@ -1,4 +1,4 @@
-package com.imethan.blog.document.blog;
+package com.imethan.blog.common;
 
 /**
  * @Name Constant
@@ -7,6 +7,9 @@ package com.imethan.blog.document.blog;
  * @Create 2020-12-17 15:01
  */
 public class Constant {
+
+    public static final String SITE_TITLE = "ImEthan - 一个野生程序猿的自留地";
+
     /**
      * 0-正常发布文章
      */

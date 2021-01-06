@@ -1,6 +1,5 @@
 package com.imethan.blog.daemon.init;
 
-import com.imethan.blog.document.blog.Constant;
 import com.imethan.blog.service.AccountService;
 import com.imethan.blog.service.ChannelService;
 import lombok.extern.log4j.Log4j2;

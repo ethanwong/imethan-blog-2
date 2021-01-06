@@ -1,18 +1,14 @@
 package com.imethan.blog.rest;
 
 import com.imethan.blog.document.blog.Channel;
-import com.imethan.blog.document.blog.Constant;
 import com.imethan.blog.dto.BootstrapTableResult;
 import com.imethan.blog.dto.ResultDto;
 import com.imethan.blog.service.ChannelService;
-import com.imethan.blog.util.SecurityUtils;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;

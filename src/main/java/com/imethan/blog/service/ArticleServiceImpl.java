@@ -2,7 +2,7 @@ package com.imethan.blog.service;
 
 import com.imethan.blog.document.blog.Article;
 import com.imethan.blog.document.blog.Channel;
-import com.imethan.blog.document.blog.Constant;
+import com.imethan.blog.common.Constant;
 import com.imethan.blog.document.blog.Tag;
 import com.imethan.blog.dto.ResultDto;
 import com.imethan.blog.repository.ArticleRepository;
@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**

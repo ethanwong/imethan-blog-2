@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.imethan.blog.document.blog.Article;
 import com.imethan.blog.document.blog.Channel;
-import com.imethan.blog.document.blog.Constant;
+import com.imethan.blog.common.Constant;
 import com.imethan.blog.dto.ImageDto;
 import com.imethan.blog.dto.ResultDto;
 import com.imethan.blog.service.ArticleService;

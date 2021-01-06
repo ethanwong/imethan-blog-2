@@ -35,6 +35,11 @@ public class ConsoleController {
         return "console/console";
     }
 
+    @GetMapping(value = "channel")
+    public String channel() {
+        return "console/channel";
+    }
+
     @GetMapping(value = "/article/input")
     public String inputArticle() {
         return "console/article-input";
@@ -52,11 +57,6 @@ public class ConsoleController {
         return "console/setting";
     }
 
-//    @GetMapping(value = "/setting/{type}")
-//    public String settingContent(@PathVariable String type, Model model) {
-//        model.addAttribute("type", type);
-//        return "console/setting";
-//    }
 
     /**
      * 修改密码
@@ -69,18 +69,6 @@ public class ConsoleController {
     public ResultDto resetPassword(@RequestBody JSONObject password) {
         return accountService.resetRootPassword(password.getString("password"));
     }
-
-//    /**
-//     * 配置About
-//     *
-//     * @param setting
-//     * @return
-//     */
-//    @PostMapping("setting")
-//    @ResponseBody
-//    public ResultDto saveSetting(@RequestBody Setting setting) {
-//        return settingService.saveOrUpdate(setting);
-//    }
 
     /**
      * 获取配置信息

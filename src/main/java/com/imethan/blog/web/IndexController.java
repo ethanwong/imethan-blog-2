@@ -9,15 +9,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
- * @Name HomeController
+ * @Name IndexController
  * @Description ${DESCRIPTION}
  * @Author huangyingfeng
  * @Create 2018-09-27 20:50
  */
 @Controller
 @Log4j2
-public class HomeController {
+public class IndexController {
 
     @Autowired
     private StatisticsGuavaCacheService statisticsGuavaCacheService;
@@ -36,6 +38,12 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping(value = "gitalk")
+    public String gitalk(Model model, HttpServletRequest request) {
+
+        return "gitalk";
+    }
+
     @GetMapping(value = "/favorite")
     public String favorite(Model model) {
         Article article = articleService.findByTitle("Favorite");
@@ -45,6 +53,11 @@ public class HomeController {
         }
         model.addAttribute("id", id);
         return "blog/blog-article-md";
+    }
+
+    @GetMapping(value = "about")
+    public String about(Model model, HttpServletRequest request) {
+        return "about";
     }
 
 
