@@ -1,17 +1,16 @@
 # imethan-blog-2
-基于Springboot、thymeleaf、Sitemesh3、Bootstrap、Editor.md、mongodb开发
+一个自己动手撸出来的技术博客，用于编写Markdown风格的技术内容，imethan-blog的升价版本；后端基于Springboot、Spring Security、Guava、thymeleaf、Sitemesh3、MongoDB；前端基于JQuery、Bootstrap、Editor.md开发，下一步计划用Vue重写前端实现。
 
+访问地址：www.imethan.cn
 
-<img src="https://raw.githubusercontent.com/ethanwong/imethan-blog-2/master/img/snapshot/About-ImEthan-%E4%B8%80%E4%B8%AA%E9%87%8E%E7%94%9F%E7%A8%8B%E5%BA%8F%E7%8C%BF%E7%9A%84%E8%87%AA%E7%95%99%E5%9C%B0.jpg" alt="About-ImEthan-一个野生程序猿的自留地.jpg">
+## Home
+<img src="https://raw.githubusercontent.com/ethanwong/imethan-blog-2/master/img/snapshot/Home.png" alt="Home.png">
 
-## 功能模块
-1、首页
-提供索引功能，索引全部内容
+## Blog
+<img src="https://raw.githubusercontent.com/ethanwong/imethan-blog-2/master/img/snapshot/Blog.png" alt="Blog.png">
 
-2、内容管理
+## About
+<img src="https://raw.githubusercontent.com/ethanwong/imethan-blog-2/master/img/snapshot/About.png" alt="About.png">
 
-3、标签管理
-
-4、登录验证
-
-5、关于我
+## Setting
+<img src="https://raw.githubusercontent.com/ethanwong/imethan-blog-2/master/img/snapshot/Setting.png" alt="Setting.png">
