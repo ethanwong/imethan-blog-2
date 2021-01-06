@@ -3,41 +3,45 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/static/editor/css/editormd.css"/>
-    <title>Publish</title>
+    <title>Publish:ImEthan独立博客:一个野生程序猿的自留地</title>
 </head>
 <body>
-<div class="main-box">
-    <span class="h3">Publish Content</span>
-    <span style="float: right;color: red;display: none;" id="auto-save-warn">自动保存成功！</span>
 
-    <div class="row" style="padding-top: 20px;">
-        <div class="col-12">
-            <form id="content-form" action="/api/article" method="post">
-                <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Title" name="title" value="" required>
+<div class="container main-box">
+    <div class="shadow p-3 mb-5 bg-white rounded">
+        <span class="h2">Publish Content</span>
+        <span style="float: right;color: red;display: none;" id="auto-save-warn">自动保存成功！</span>
 
-                </div>
-                <div class="mb-3">
-                    <select class="form-select form-control" aria-label="SelectChannel" id="channelId" name="channelId"
-                            required>
-                        <option value="">Channel</option>
-                    </select>
-                </div>
-                <div id="article-editormd">
-                    <textarea style="display:none;" name="content" required></textarea>
-                </div>
+        <div class="row" style="padding-top: 20px;">
+            <div class="col-12">
+                <form id="content-form" action="/api/article" method="post">
+                    <div class="mb-3">
+                        <input type="text" id="title" class="form-control" placeholder="Title" name="title" value="" required>
+                    </div>
+                    <div class="mb-3">
+                        <select class="form-select form-control" aria-label="SelectChannel" id="channelId"
+                                name="channelId"
+                                required>
+                            <option value="">Channel</option>
+                        </select>
+                    </div>
+                    <div id="article-editormd">
+                        <textarea style="display:none;" name="content" required></textarea>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Tag标签：多个以英文逗号“,”隔开</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="tag" value="tag"
-                    ></textarea>
-                </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Tag标签：多个以英文逗号“,”隔开</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="tag" value="tag"
+                        ></textarea>
+                    </div>
 
-                <input type="hidden" name="submitType" id="content-submit-type" value="auto">
-                <input type="hidden" name="id" id="content-id" value="">
-                <input type="hidden" name="status" id="content-status" value="1">
-                <button type="submit" class="btn btn-primary" id="submit-btn">提交</button>
-            </form>
+                    <input type="hidden" name="submitType" id="content-submit-type" value="auto">
+                    <input type="hidden" name="id" id="content-id" value="">
+                    <input type="hidden" name="status" id="content-status" value="1">
+                    <button type="submit" class="btn btn-primary" id="submit-btn">提交发布</button>
+                    <button type="submit" class="btn btn-info" id="submit-temp-btn">保存草稿</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -105,6 +109,7 @@
              * 设置保存类型
              * auto:自动保存
              * publish:发布保存
+             * draft:保存草稿
              */
             $("#content-submit-type").val("publish");
 
@@ -112,6 +117,23 @@
                 $("#content-status").val("0");//正式发布
             }
         });
+
+        /**
+         * 提交保存草稿
+         */
+        $("#submit-temp-btn").click(function () {
+            /**
+             * 设置保存类型
+             * auto:自动保存
+             * publish:发布保存
+             * draft:保存草稿
+             */
+            $("#content-submit-type").val("draft");
+
+            if ($("#content-form").valid()) {
+                $("#content-status").val("1");//保存草稿
+            }
+        })
 
 
         /**
@@ -183,6 +205,12 @@
                         layer.msg('发布成功，即将跳转到查看页面~~', {offset: '200px', icon: 6});
                         setTimeout(function () {
                             window.location.href = "/blog/article/" + contentId;
+                        }, 2000);
+                    } else if (submitType == 'draft') {
+                        layer.msg('保存成功，即将跳转到查看页面~~', {offset: '200px', icon: 6});
+                        setTimeout(function () {
+                            // window.location.href = "/blog/article/" + contentId;
+                            window.location.href = "/blog?status=2";
                         }, 2000);
                     } else {
                         autoSaveWarn('block', "自动保存成功！");

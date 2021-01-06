@@ -1,39 +1,41 @@
 <div th:fragment="myheader">
-    <div class="header">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="/">ImEthan</a>
-            <div class="navbar nav-item">
-                <a  href="/" th:class="'nav-item ' + @{(${module eq ''} ? 'active' : '')} + ''">Home</a>
-                <a  href="/blog" th:class="'nav-item ' + @{(${module eq 'blog'} ? 'active' : '')} + ''">Blog</a>
-                <a  href="/gitalk" th:class="'nav-item ' + @{(${module eq 'gitalk'} ? 'active' : '')} + ''">Gitalk</a>
-                <a  href="/about" th:class="'nav-item ' + @{(${module eq 'about'} ? 'active' : '')} + ''">About</a>
-            </div>
+        <a class="navbar-brand" href="#">ImEthan</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-bars" aria-hidden="true" style="color: white;"></i>
+        </button>
 
-            <div class="navbar nav-item nav-item-right ">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <a href="/" th:class="'nav-link nav-item ' + @{(${module eq ''} ? 'active' : '')} + ''">Home</a>
+                <a href="/blog" th:class="'nav-link nav-item ' + @{(${module eq 'blog'} ? 'active' : '')} + ''">Blog</a>
+                <a href="/gitalk" th:class="'nav-link nav-item ' + @{(${module eq 'gitalk'} ? 'active' : '')} + ''">Gitalk</a>
+                <a href="/favorite" th:class="'nav-link nav-item ' + @{(${module eq 'favorite'} ? 'active' : '')} + ''">Favorite</a>
+                <a href="/about" th:class="'nav-link nav-item ' + @{(${module eq 'about'} ? 'active' : '')} + ''">About</a>
 
-                <a class="nav-item default" href="/favorite"><i class="fa fa-star-o"></i> Favorite</a>
+            </ul>
+            <span class="navbar-nav">
                 <span sec:authorize="isAuthenticated()">
-                    <a class="nav-item default" href="/console/setting"><i class="fa fa-cogs"></i> Setting</a>
+                    <a class="outer-link default" href="/console/setting"><i class="fa fa-cogs"></i> Setting </a>
                  </span>
-
-
-                <a class="nav-item default" href="https://github.com/ethanwong" target="_blank"><i class="fa fa-github"></i> GitHub</a>
-
+                <a class="default outer-link" href="https://github.com/ethanwong" target="_blank"><i class="fa fa-github"></i> GitHub </a>
                 <span sec:authorize="isAuthenticated()">
-                    <a class="nav-item default" href="/signout"><i class="fa fa-sign-out"></i> Sign Out</a>
+                    <a class="outer-link" href="/signout"><i class="fa fa-sign-out"></i> SignOut </a>
                 </span>
 
                 <span sec:authorize="!isAuthenticated()">
                     <span th:switch="${module}">
                         <span th:case="signin">
-                             <a class="nav-item active" href="/signin"><i class="fa fa-sign-in"></i> Sign In</a>
+                             <a class="outer-link" href="/signin"><i class="fa fa-sign-in"></i> SignIn </a>
                         </span>
                         <span th:case="*">
-                             <a class="nav-item " href="/signin"><i class="fa fa-sign-in"></i> Sign In</a>
+                             <a class="outer-link " href="/signin"><i class="fa fa-sign-in"></i> SignIn </a>
                         </span>
                     </span>
                 </span>
-            </div>
+            </span>
         </div>
-    </div>
+        </div>
+    </nav>
 </div>

@@ -7,11 +7,8 @@
             line-height: 1.6;
             text-align: center;
             font-weight: lighter;
-            max-width: 1140px;
             margin-top: 40px;
             margin-bottom: 100px;
-            margin-left: auto;
-            margin-right: auto;
             padding-left: 15px;
             padding-right: 15px;
         }
@@ -63,26 +60,25 @@
         .card {
             border-radius: 0px !important;
             margin-top: 10px !important;
+            width: 14rem;margin-left: auto;margin-right: auto;
         }
 
-        .mb-2, .my-2{
-            margin-bottom: 80px!important;
-        }
+
     </style>
 </head>
 <body>
 <!--banner begin-->
-<div class="banner-box">
+<div class="banner-box container">
     <p class="title">Welcome,I'm Ethan</p>
     <p>A tech blog named imethan,base java、springboot and mongodb. | 一个野生程序猿的自留地。</p>
 
 
     <div class="row" style="font-weight: lighter;padding-top: 10px;">
-        <div class="col">
-            <div class="card" style="width: 14rem;">
+        <div class="col" >
+            <div class="card" >
                 <div class="card-body">
                     <div style="font-size: 60px;font-weight: lighter;">
-                        <i class="fa fa-gift color-primary" aria-hidden="true"></i>
+                        <i class="fa fa-star-o color-primary" aria-hidden="true"></i>
                     </div>
                     <h5 class="card-title">Blog</h5>
                     <p class="card-text">我的工作和学习笔记，内容、分类、标签
@@ -169,7 +165,7 @@
 <!--count-box end-->
 
 <!--gitalk begin-->
-<div class="main-box">
+<div class="container main-box">
     <div class="shadow p-3 mb-5 bg-white rounded">
         <div class="h3">Hey ! How about ImEthan ?</div>
         <div id="gitalk-box"></div>

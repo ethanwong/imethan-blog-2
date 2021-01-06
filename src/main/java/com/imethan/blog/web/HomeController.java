@@ -44,7 +44,7 @@ public class HomeController {
             id = article.getId();
         }
         model.addAttribute("id", id);
-        return "favorite";
+        return "blog/blog-article-md";
     }
 
 
