@@ -1,6 +1,7 @@
 package com.imethan.blog.daemon.init;
 
 import com.imethan.blog.service.AccountService;
+import com.imethan.blog.service.AutoDeployService;
 import com.imethan.blog.service.ChannelService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class InitRunner implements ApplicationRunner {
     AccountService accountService;
     @Autowired
     ChannelService channelService;
+    @Autowired
+    AutoDeployService autoDeployService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -35,6 +38,11 @@ public class InitRunner implements ApplicationRunner {
          * 检查内置信息分类
          */
         channelService.checkInnerChannel();
+
+        /**
+         * 设置自动部署脚本
+         */
+        autoDeployService.setShell();
 
 
     }

@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 
 /**
  * @Name AutoDeployService
@@ -21,19 +18,55 @@ import java.io.OutputStream;
 @Log4j2
 public class AutoDeployService {
 
+    private final String dir = "/home";
+    private final String fileName = "imethan-deploy.sh";
+    private final String fileFullName = dir + File.separator + fileName;
+
     @Value("classpath:deploy.sh")
     private Resource resource;
+
+    /**
+     * 设置自动部署脚本
+     */
+    public void setShell() {
+        try {
+            File file = new File(fileFullName);
+            if (file.exists()) {
+                return;
+            }
+            FileWriter fileWriter = new FileWriter(fileFullName);
+            InputStream inputStream = resource.getInputStream();
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+            String data;
+            while ((data = bufferedReader.readLine()) != null) {
+                fileWriter.write(data + "\n");
+            }
+
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
+
+            fileWriter.close();
+
+            // 设置权限，否则会报 Permission denied
+            file.setReadable(true);
+            file.setWritable(true);
+            file.setExecutable(true);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
 
 
     public ResultDto execShell() {
         boolean flag = true;
         String message = "";
         try {
-            String dir = "/home";
-
             File shellFile = resource.getFile();
 
-            ProcessBuilder processBuilder = new ProcessBuilder(shellFile.getPath());
+            ProcessBuilder processBuilder = new ProcessBuilder(fileFullName);
             processBuilder.directory(new File(dir));
             Process process = processBuilder.start();
             String input;
@@ -71,7 +104,7 @@ public class AutoDeployService {
             message = e.getMessage();
         }
         if (!flag) {
-            return ResultDto.ReturnFail("");
+            return ResultDto.ReturnFail(message);
         }
         return ResultDto.ReturnSuccess();
     }
