@@ -2,11 +2,13 @@ package com.imethan.blog.service;
 
 import com.imethan.blog.dto.ResultDto;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.nio.charset.Charset;
 
 /**
  * @Name AutoDeployService
@@ -65,7 +67,9 @@ public class AutoDeployService {
         boolean flag = true;
         String message = "";
         try {
-            ProcessBuilder processBuilder = new ProcessBuilder(fileFullName);
+            String data = IOUtils.toString(resource.getInputStream(), Charset.forName("UTF-8"));
+//            ProcessBuilder processBuilder = new ProcessBuilder(fileFullName);
+            ProcessBuilder processBuilder = new ProcessBuilder(data);
             processBuilder.directory(new File(dir));
             Process process = processBuilder.start();
             String input;
