@@ -11,6 +11,7 @@
     <name>imethan-blog-2</name>
     <description>ImEthan blog2 base Spring Boot</description>
 
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
