@@ -5,7 +5,7 @@
 
     <groupId>com.imethan</groupId>
     <artifactId>imethan-blog-2</artifactId>
-    <version>2.0.0-snapshot</version>
+    <version>2.0.0</version>
     <packaging>jar</packaging>
 
     <name>imethan-blog-2</name>
@@ -175,7 +175,8 @@
     </profiles>
 
     <build>
-        <finalName>${project.artifactId}-${PROFILE}-${project.version}-${maven.build.timestamp}</finalName>
+<!--        <finalName>${project.artifactId}-${PROFILE}-${project.version}-${maven.build.timestamp}</finalName>-->
+        <finalName>${project.artifactId}-${PROFILE}-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
