@@ -27,13 +27,26 @@ mvn clean package -DskipTests -P dev
 
 #停止已启动jar
 echo ****exec ps -ef kill jar****
-ps -ef|grep $name|grep -v grep|awk '{print $2}'|xargs kill -s 9
-
+#pids='ps -ef|grep $name|grep -v grep|awk '{print $2}''
+pids=`ps aux | grep $name |grep -v grep | awk '{print $2}'`
 
 now=$(date "+%Y%m%d")
 
 #启动jar
 echo ****exec java -jar****
 exec java -Dfile.encoding=UTF-8 -Dserver.port=80 -jar $target > /home/"$name-$now".log &
+echo ****open start log****
+
+#关闭旧进程
+if [ -n $pids ];then
+ echo ****kill pids=$pids
+  for pid in $pids
+  do
+   kill -9 $pid
+  done
+else
+ echo ****pids is empty****
+fi
+ 
 
 echo ****end deploy****
