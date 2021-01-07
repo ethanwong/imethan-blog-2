@@ -2,10 +2,7 @@ package com.imethan.blog.rest;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Name GitHubRestApi
@@ -23,10 +20,17 @@ public class GitHubRestApi {
      *
      * @return
      */
-    @PreAuthorize(value = "permitAll()")
     @PostMapping("webhook")
+    @ResponseBody
     public String webhook(@RequestBody String body) {
         log.info("GitHubRestApi body = {}", body);
         return "";
+    }
+
+    @ResponseBody
+    @PreAuthorize(value = "permitAll()")
+    @GetMapping("test")
+    public String test(){
+        return "ok";
     }
 }
