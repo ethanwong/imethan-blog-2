@@ -38,7 +38,7 @@ public class AutoDeployService {
         try {
             File file = new File(fileFullName);
             if (file.exists()) {
-                return;
+                file.delete();
             }
             FileWriter fileWriter = new FileWriter(fileFullName);
             InputStream inputStream = resource.getInputStream();
