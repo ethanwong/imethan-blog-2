@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Name AutoDeployService
@@ -62,14 +64,24 @@ public class AutoDeployService {
         }
     }
 
+    public void exec() {
+        ResultDto resultDto = this.execShell("start", "");
+        Map<String, String> data = (Map<String, String>) resultDto.getData();
+        String pids = data.get("pids");
 
-    public ResultDto execShell() {
+        log.info("exec start pids={}", pids);
+        log.info("exec stop pids={}", pids);
+        this.execShell("stop", "pids");
+    }
+
+
+    public ResultDto execShell(String command, String parameter) {
         boolean flag = true;
         String message = "";
+
+        String pids = "";
         try {
-            String data = IOUtils.toString(resource.getInputStream(), Charset.forName("UTF-8"));
-//            ProcessBuilder processBuilder = new ProcessBuilder(fileFullName);
-            ProcessBuilder processBuilder = new ProcessBuilder(data);
+            ProcessBuilder processBuilder = new ProcessBuilder(fileFullName + " " + command + " " + parameter);
             processBuilder.directory(new File(dir));
             Process process = processBuilder.start();
             String input;
@@ -78,6 +90,9 @@ public class AutoDeployService {
             BufferedReader bufferedReaderErrorStream = new BufferedReader(new InputStreamReader(process.getErrorStream()));
             while ((input = bufferedReaderInputStream.readLine()) != null) {
                 log.info("execShell InputStream input={}", input);
+                if (input.contains("pids")) {
+                    pids = input.substring(input.indexOf("="));
+                }
             }
             while ((error = bufferedReaderErrorStream.readLine()) != null) {
                 log.info("execShell InputStream error={}", error);
@@ -109,6 +124,10 @@ public class AutoDeployService {
         if (!flag) {
             return ResultDto.ReturnFail(message);
         }
-        return ResultDto.ReturnSuccess();
+        Map<String, String> data = new HashMap<>();
+        data.put("pids", pids);
+        return ResultDto.ReturnSuccessData(data);
     }
+
+
 }

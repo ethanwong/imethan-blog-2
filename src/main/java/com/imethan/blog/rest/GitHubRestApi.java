@@ -29,7 +29,7 @@ public class GitHubRestApi {
     @ResponseBody
     public String webhook(@RequestBody String body) {
         log.info("GitHubRestApi body = {}", body);
-        autoDeployService.execShell();
+        autoDeployService.exec();
         return "ok";
     }
 

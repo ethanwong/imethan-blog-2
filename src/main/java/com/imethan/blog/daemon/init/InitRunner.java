@@ -42,7 +42,7 @@ public class InitRunner implements ApplicationRunner {
         /**
          * 设置自动部署脚本
          */
-//        autoDeployService.setShell();
+        autoDeployService.setShell();
 
 
     }
