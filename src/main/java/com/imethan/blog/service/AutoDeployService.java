@@ -3,6 +3,7 @@ package com.imethan.blog.service;
 import com.imethan.blog.dto.ResultDto;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -81,7 +82,12 @@ public class AutoDeployService {
 
         String pids = "";
         try {
-            ProcessBuilder processBuilder = new ProcessBuilder(fileFullName + " " + command + " " + parameter);
+            ProcessBuilder processBuilder = null;
+            if (StringUtils.isNoneBlank(parameter)) {
+                processBuilder = new ProcessBuilder(fileFullName + " " + command + " " + parameter);
+            } else {
+                processBuilder = new ProcessBuilder(fileFullName + " " + command);
+            }
             processBuilder.directory(new File(dir));
             Process process = processBuilder.start();
             String input;
