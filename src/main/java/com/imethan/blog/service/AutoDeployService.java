@@ -72,7 +72,7 @@ public class AutoDeployService {
 
         log.info("exec start pids={}", pids);
         log.info("exec stop pids={}", pids);
-        this.execShell("stop", "pids");
+        this.execShell("stop", pids);
     }
 
 
