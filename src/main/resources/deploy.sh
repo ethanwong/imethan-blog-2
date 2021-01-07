@@ -33,7 +33,7 @@ if [ "$command" == "start" ];then
 
 	#停止已启动jar
 	echo ****exec ps -ef kill jar****
-	pids=`ps aux | grep $name |grep -v grep | awk '{print $2}'`
+	pids=`ps aux | grep $jar |grep -v grep | awk '{print $2}'`
 	echo pids=$pids
 
 	now=$(date "+%Y%m%d")
