@@ -44,6 +44,11 @@ public class HistoryBlogHandleTest {
     @Value("classpath:static/imethan-blog-histoty.json")
     private Resource resource;
 
+    @Test
+    public void testPath() throws Exception{
+        System.out.println(resource.getFile().getPath());
+    }
+
 //    @Test
     public void bachImport() throws Exception {
 

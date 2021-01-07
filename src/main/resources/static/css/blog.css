@@ -19,7 +19,7 @@
 }
 
 .markdown-toc-list{
-    padding-top: 20px;
+    padding-top: 2px;
 }
 
 .markdown-toc-list ul{
@@ -28,5 +28,5 @@
 
 .markdown-toc-list li{
     padding-left: 0px;
-    margin-left: 10px;
+    margin-left: 14px;
 }

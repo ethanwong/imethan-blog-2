@@ -3422,7 +3422,7 @@ li.L9 {
 }
 .editormd-preview-container .editormd-toc-menu > .markdown-toc li > ul, .editormd-html-preview .editormd-toc-menu > .markdown-toc li > ul {
   position: absolute;
-  top: 32px;
+  /*top: 32px;*/
   left: 10%;
   display: none;
   -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);

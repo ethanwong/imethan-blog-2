@@ -32,7 +32,7 @@ spring:
     rest:
       basePath: /hal
 server:
-  port: 80
+  port: 5490
 management:
   endpoints:
     web:
