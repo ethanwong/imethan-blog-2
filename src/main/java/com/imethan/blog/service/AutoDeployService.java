@@ -29,6 +29,7 @@ public class AutoDeployService {
      * 设置自动部署脚本
      */
     public void setShell() {
+        log.info("AutoDeployService setShell fileFullName={}", fileFullName);
         try {
             File file = new File(fileFullName);
             if (file.exists()) {
@@ -64,8 +65,6 @@ public class AutoDeployService {
         boolean flag = true;
         String message = "";
         try {
-            File shellFile = resource.getFile();
-
             ProcessBuilder processBuilder = new ProcessBuilder(fileFullName);
             processBuilder.directory(new File(dir));
             Process process = processBuilder.start();
