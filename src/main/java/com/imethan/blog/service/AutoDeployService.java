@@ -84,9 +84,9 @@ public class AutoDeployService {
         try {
             ProcessBuilder processBuilder = null;
             if (StringUtils.isNoneBlank(parameter)) {
-                processBuilder = new ProcessBuilder(fileFullName + " " + command + " " + parameter);
+                processBuilder = new ProcessBuilder(fileFullName, command, parameter);
             } else {
-                processBuilder = new ProcessBuilder(fileFullName + " " + command);
+                processBuilder = new ProcessBuilder(fileFullName, command);
             }
             processBuilder.directory(new File(dir));
             Process process = processBuilder.start();
