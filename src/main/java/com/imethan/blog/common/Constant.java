@@ -32,6 +32,6 @@ public class Constant {
     /**
      * 内置信息分类栏目名称
      */
-    public static final String INNER_CHANNEL_NAME = "内置信息分类";
+    public static final String INNER_CHANNEL_NAME = "ImEthan基础信息";
 
 }
