@@ -44,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/static/**","/webjars/**");
+        web.ignoring().antMatchers("/static/**", "/webjars/**");
 //        web.ignoring().antMatchers("/api/github/**");
     }
 
@@ -68,7 +68,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(securityFilter, FilterSecurityInterceptor.class)
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/blog", "/blog/**", "/about","/gitalk","/favorite", "/api/**", "/validCode").permitAll()
+                .antMatchers("/", "/home", "/blog", "/blog/**", "/about", "/gitalk", "/favorite", "/api/**", "/validCode").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -82,7 +82,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/signin").permitAll()
                 .invalidateHttpSession(true)
                 .and().csrf().ignoringAntMatchers("/api/article/upload/image**").and()
-                .rememberMe().tokenValiditySeconds(1000 * 60 * 60);
+                .rememberMe().tokenValiditySeconds(1000 * 60 * 60 * 24);
     }
 
     @Bean

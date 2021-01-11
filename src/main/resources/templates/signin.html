@@ -4,29 +4,44 @@
     <title>SignIn - ImEthan - 一个野生程序猿的自留地</title>
     <link rel="stylesheet" href="static/css/login.css"/>
     <style>
-        #password{
+        #password {
             margin-bottom: 0px;
             border-radius: 0;
         }
-        #code{
+
+        #code {
             margin-bottom: 10px;
             border-radius: 0;
+        }
+
+        .sinin-box {
+            margin-top: 40px;
+            margin-bottom: 40px;
         }
 
     </style>
 </head>
 <body>
-<div class="container">
+<div class="container sinin-box">
     <form name='f' action='/signin' method='POST' class="form-signin">
-        <div class="form-signin-heading">SIGN IN</div>
+        <div class="form-signin-heading"><h2>ImEthan Sign In</h2></div>
         <!--<label for="username" class="sr-only">username</label>-->
-        <input type="text" name="username" id="username" class="form-control" value="" placeholder="username" required autofocus/>
+        <input type="text" name="username" id="username" class="form-control" value="" placeholder="username" required
+               autofocus/>
         <!--<label for="password" class="sr-only">password</label>-->
-        <input type="password" name="password" id="password" class="form-control" value="" placeholder="password" required/>
+        <input type="password" name="password" id="password" class="form-control" value="" placeholder="password"
+               required/>
 
-        <input type="text"  id="code" class="form-control" name="code" style="width: 210px;display: inline;vertical-align: top;" value="" placeholder="code" required/>
-        <img id="codeImg" alt="点击更换" title="点击更换" src="/validCode" />
-        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}" />
+        <input type="text" id="code" class="form-control" name="code"
+               style="width: 210px;display: inline;vertical-align: top;" value="" placeholder="code" required/>
+        <img id="codeImg" alt="点击更换" title="点击更换" src="/validCode"/>
+        <div class="form-check" style="margin-bottom: 10px;">
+            <input class="form-check-input" type="checkbox" name="remember-me" value="true" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                记住我
+            </label>
+        </div>
+        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}"/>
         <button class="btn btn-primary btn-block" type="submit">SIGN IN</button>
     </form>
 </div>
@@ -36,7 +51,7 @@
     $(function () {
         NProgress.start();
         NProgress.done();
-        $("#codeImg").click(function (){
+        $("#codeImg").click(function () {
             var time = new Date();
             $(this).attr("src", "/validCode?t=" + time.getTime());
         })
