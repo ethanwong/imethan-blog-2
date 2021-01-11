@@ -75,10 +75,10 @@ public class TestController {
         while (iterator.hasNext()) {
             Document document = iterator.next();
             String collectionName = document.getString("name");
-            log.info("document name:{}", collectionName);
+
             collections.add(collectionName);
         }
-
+        log.info("collections:{}", collections);
         MongoExportUtils.exportAll(database, collections);
 
         return ResultDto.ReturnSuccess();

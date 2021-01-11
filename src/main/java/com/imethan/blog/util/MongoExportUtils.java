@@ -36,7 +36,6 @@ public class MongoExportUtils {
             log.info("process input={}", IOUtils.toString(input, "UTF-8"));
 
             InputStream errorStream = process.getErrorStream();
-            log.info("成功");
             log.info("process error={}", IOUtils.toString(errorStream, "UTF-8"));
             if (input != null) {
                 input.close();
@@ -88,6 +87,7 @@ public class MongoExportUtils {
         String command = exportCommand(database, collection, targetBackupDir);
         //执行命令
         execCommand(command);
+
     }
 
     /**
@@ -110,6 +110,10 @@ public class MongoExportUtils {
         log.info("mongodb back target dir={}", targetBackupDir);
 
         //压缩备份文件，并且推送
+        String targetFileFullName = MONGODB_EXPORT_DIR + File.separator + date + ".tar.gz";
+        String command = "tar -zcvf " + targetFileFullName + " " + targetBackupDir;
+        execCommand(command);
+        log.info("targetFileFullName={}", targetFileFullName);
     }
 
 
