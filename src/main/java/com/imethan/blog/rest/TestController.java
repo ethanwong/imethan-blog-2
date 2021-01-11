@@ -39,7 +39,7 @@ public class TestController {
      *
      * @return
      */
-    @PreAuthorize(value = "permitAll()")
+    @PreAuthorize(value = "isAuthenticated()")
     @GetMapping("set")
     @ResponseBody
     public ResultDto setLevel() {
@@ -55,7 +55,7 @@ public class TestController {
         return ResultDto.ReturnSuccess();
     }
 
-    @PreAuthorize(value = "permitAll()")
+    @PreAuthorize(value = "isAuthenticated()")
     @GetMapping("log")
     @ResponseBody
     public ResultDto log() {
@@ -64,7 +64,7 @@ public class TestController {
         return ResultDto.ReturnSuccess();
     }
 
-    @PreAuthorize(value = "permitAll()")
+    @PreAuthorize(value = "isAuthenticated()")
     @GetMapping("mongodb/export")
     @ResponseBody
     public ResultDto dump() {
