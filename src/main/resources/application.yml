@@ -26,7 +26,7 @@ spring:
     static-path-pattern: /static/**
   data:
     mongodb:
-      uri: mongodb://127.0.0.1:27017/imethan_blog_4
+      uri: mongodb://127.0.0.1:27017/imethan_blog_3
       gridfs:
         bucket: blog_fs
     rest:
