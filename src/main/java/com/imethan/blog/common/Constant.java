@@ -34,4 +34,6 @@ public class Constant {
      */
     public static final String INNER_CHANNEL_NAME = "ImEthan基础信息";
 
+
+
 }

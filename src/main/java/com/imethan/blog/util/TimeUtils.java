@@ -18,6 +18,10 @@ public class TimeUtils {
      * 日期格式yyyy-MM-dd HH:mm:ss
      */
     public static String DATETIME_FORMAT_01 = "yyyy-MM-dd HH:mm:ss";
+    /**
+     * 日期格式yyyyMMdd
+     */
+    public static String DATETIME_FORMAT_02 = "yyyyMMdd";
 
     public static Date stringToDate(String dateTimeString, String format) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(format);
