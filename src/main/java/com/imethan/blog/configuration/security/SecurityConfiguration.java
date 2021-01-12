@@ -68,7 +68,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(securityFilter, FilterSecurityInterceptor.class)
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/blog", "/blog/**", "/about", "/gitalk", "/favorite", "/api/**", "/validCode").permitAll()
+                .antMatchers("/", "/home", "/blog", "/blog/**", "/about", "/gitalk", "/favorite", "/api/**", "/validCode","/email").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -80,9 +80,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/signout")
                 .logoutSuccessUrl("/signin").permitAll()
-                .invalidateHttpSession(true)
+                .invalidateHttpSession(true).deleteCookies("remember-me")
                 .and().csrf().ignoringAntMatchers("/api/article/upload/image**").and()
-                .rememberMe().tokenValiditySeconds(1000 * 60 * 60 * 24);
+                .rememberMe().tokenValiditySeconds(1000 * 60 * 60 * 24 * 7);
     }
 
     @Bean

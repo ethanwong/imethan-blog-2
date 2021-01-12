@@ -3,13 +3,16 @@ package com.imethan.blog.web;
 import com.imethan.blog.document.blog.Article;
 import com.imethan.blog.service.ArticleService;
 import com.imethan.blog.service.StatisticsGuavaCacheService;
+import com.imethan.blog.util.TimeUtils;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * @Name IndexController
@@ -48,7 +51,7 @@ public class IndexController {
     public String favorite(Model model) {
         Article article = articleService.findByTitle("Favorite");
         String id = "favorite";
-        if(article != null){
+        if (article != null) {
             id = article.getId();
         }
         model.addAttribute("id", id);
@@ -58,6 +61,15 @@ public class IndexController {
     @GetMapping(value = "about")
     public String about(Model model, HttpServletRequest request) {
         return "about";
+    }
+
+    @PostMapping(value = "email")
+    public String email(Model model, HttpServletRequest request) {
+        String path = request.getParameter("path");
+        //"/home/mongdo-export/imethan-blog-2-20210112.tar.gz"
+        model.addAttribute("targetFullFilePath", path);
+        model.addAttribute("datetime", TimeUtils.dateToString(new Date(), TimeUtils.DATETIME_FORMAT_03));
+        return "email-template";
     }
 
 

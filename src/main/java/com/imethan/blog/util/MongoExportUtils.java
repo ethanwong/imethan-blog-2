@@ -96,7 +96,7 @@ public class MongoExportUtils {
      * @param database
      * @param collections
      */
-    public static void exportAll(String database, List<String> collections) {
+    public static String exportAll(String database, List<String> collections) {
         //当前日期：yyyyMMdd
         String date = TimeUtils.dateToString(new Date(), TimeUtils.DATETIME_FORMAT_02);
 
@@ -110,10 +110,12 @@ public class MongoExportUtils {
         log.info("mongodb back target dir={}", targetBackupDir);
 
         //压缩备份文件，并且推送
-        String targetFileFullName = MONGODB_EXPORT_DIR + File.separator + date + ".tar.gz";
+        String targetFileFullName = MONGODB_EXPORT_DIR + File.separator + "imethan-blog-2-" + date + ".tar.gz";
         String command = "tar -zcvf " + targetFileFullName + " " + targetBackupDir;
         execCommand(command);
         log.info("targetFileFullName={}", targetFileFullName);
+        return targetFileFullName;
+
     }
 
 

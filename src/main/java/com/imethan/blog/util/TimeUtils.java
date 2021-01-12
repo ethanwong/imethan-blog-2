@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class TimeUtils {
 
+
     /**
      * 日期格式yyyy-MM-dd HH:mm:ss
      */
@@ -22,6 +23,10 @@ public class TimeUtils {
      * 日期格式yyyyMMdd
      */
     public static String DATETIME_FORMAT_02 = "yyyyMMdd";
+    /**
+     * 日期格式yyyy年MM月dd日 HH:mm:ss
+     */
+    public static final String DATETIME_FORMAT_03 = "yyyy年MM月dd日 HH:mm:ss";
 
     public static Date stringToDate(String dateTimeString, String format) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(format);
