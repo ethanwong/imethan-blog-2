@@ -32,6 +32,8 @@ public class MongodbExportManage {
     @Autowired
     private EmailService emailService;
 
+    private final String url = "http://127.0.0.1/email";
+
     /**
      * 导出数据库
      *
@@ -69,7 +71,7 @@ public class MongodbExportManage {
     private String getEmailContent(HttpServletRequest req, String path) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://" + req.getLocalAddr() + ":" + req.getLocales() + "/api/test/email?path=" + path)
+                .url(url + "?path=" + path)
                 .build();
         try (Response response = client.newCall(request).execute()) {
             return response.body().string();

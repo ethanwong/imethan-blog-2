@@ -6,6 +6,7 @@ import com.imethan.blog.service.StatisticsGuavaCacheService;
 import com.imethan.blog.util.TimeUtils;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,7 +64,15 @@ public class IndexController {
         return "about";
     }
 
-
+    @PreAuthorize(value = "permitAll()")
+    @GetMapping(value = "email")
+    public String email(Model model, HttpServletRequest request) {
+        String path = request.getParameter("path");
+        //"/home/mongdo-export/imethan-blog-2-20210112.tar.gz"
+        model.addAttribute("targetFullFilePath", path);
+        model.addAttribute("datetime", TimeUtils.dateToString(new Date(), TimeUtils.DATETIME_FORMAT_03));
+        return "email-template";
+    }
 
 
 }

@@ -44,9 +44,9 @@ public class MongoExportUtils {
                 }
             }
             if (process.waitFor() == 0) {
-                log.info("成功");
+                log.info("process success command={}", command);
             } else {
-                log.info("失败");
+                log.info("process fail command={}", command);
             }
         } catch (Exception e) {
             log.error("execCommand error message={}", e.getMessage());
@@ -110,8 +110,9 @@ public class MongoExportUtils {
         log.info("mongodb back target dir={}", targetBackupDir);
 
         //压缩备份文件，并且推送
-        String targetFileFullName = MONGODB_EXPORT_DIR + File.separator + date + File.separator + "imethan-blog-2-" + date + ".tar.gz";
-        String command = "tar -zcvf " + targetFileFullName + " " + targetBackupDir;
+        String targetFileFullName = MONGODB_EXPORT_DIR + "/" + date + "/" + "imethan-blog-2-" + date + ".tar.gz";
+        String command = "tar -zcvf " + targetFileFullName + " " + targetBackupDir + " --warning=no-file-changed";
+        log.info("package backup file command={}", command);
         execCommand(command);
         log.info("targetFileFullName={}", targetFileFullName);
         return targetFileFullName;
