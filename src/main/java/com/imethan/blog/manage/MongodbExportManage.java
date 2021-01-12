@@ -10,6 +10,7 @@ import okhttp3.Response;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +40,7 @@ public class MongodbExportManage {
      *
      * @param request
      */
+    @Async
     public String export(HttpServletRequest request) {
         String database = mongoTemplate.getDb().getName();
         log.info("database name:{}", database);

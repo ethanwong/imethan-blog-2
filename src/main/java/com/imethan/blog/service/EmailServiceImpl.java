@@ -37,7 +37,6 @@ public class EmailServiceImpl implements EmailService {
     private String from;
 
     @Override
-    @Async
     public void sendSimpleMail(String to, String subject, String content) {
         //创建SimpleMailMessage对象
         SimpleMailMessage message = new SimpleMailMessage();
@@ -54,7 +53,6 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    @Async
     public void sendHtmlMail(String to, String subject, String content) {
         //获取MimeMessage对象
         MimeMessage message = mailSender.createMimeMessage();
@@ -79,7 +77,6 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    @Async
     public void sendAttachmentsMail(String to, String subject, String content, String filePath) {
         MimeMessage message = mailSender.createMimeMessage();
         try {
