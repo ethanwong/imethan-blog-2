@@ -7,6 +7,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -36,6 +37,7 @@ public class EmailServiceImpl implements EmailService {
     private String from;
 
     @Override
+    @Async
     public void sendSimpleMail(String to, String subject, String content) {
         //创建SimpleMailMessage对象
         SimpleMailMessage message = new SimpleMailMessage();
@@ -52,6 +54,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
+    @Async
     public void sendHtmlMail(String to, String subject, String content) {
         //获取MimeMessage对象
         MimeMessage message = mailSender.createMimeMessage();
@@ -76,6 +79,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
+    @Async
     public void sendAttachmentsMail(String to, String subject, String content, String filePath) {
         MimeMessage message = mailSender.createMimeMessage();
         try {
@@ -90,7 +94,7 @@ public class EmailServiceImpl implements EmailService {
             helper.addAttachment(fileName, file);
             mailSender.send(message);
             //日志信息
-            log.info("邮件已经发送。");
+            log.info("已经发送邮件,to={},subject={}", to, subject);
         } catch (MessagingException e) {
             log.error("发送邮件时发生异常！", e);
         }
