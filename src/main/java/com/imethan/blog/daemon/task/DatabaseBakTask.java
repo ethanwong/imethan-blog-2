@@ -22,7 +22,7 @@ public class DatabaseBakTask {
 
     @Scheduled(cron = "0 0 23 * * ?")
     public void execute(){
-        log.info("DatabaseBakTask execute");
+        log.warn("DatabaseBakTask execute");
         mongodbExportManage.export();
 
     }

@@ -91,7 +91,7 @@ public class EmailServiceImpl implements EmailService {
             helper.addAttachment(fileName, file);
             mailSender.send(message);
             //日志信息
-            log.info("已经发送邮件,to={},subject={}", to, subject);
+            log.warn("已经发送邮件,to={},subject={}", to, subject);
         } catch (MessagingException e) {
             log.error("发送邮件时发生异常！", e);
         }

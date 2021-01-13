@@ -45,7 +45,7 @@ public class MongodbExportManage {
     @Async
     public String export() {
         String database = mongoTemplate.getDb().getName();
-        log.info("database name:{}", database);
+        log.warn("database name:{}", database);
         List<String> collections = new ArrayList<>();
         MongoCursor<Document> iterator = mongoTemplate.getDb().listCollections().iterator();
         while (iterator.hasNext()) {
@@ -54,7 +54,7 @@ public class MongodbExportManage {
 
             collections.add(collectionName);
         }
-        log.info("collections:{}", collections);
+        log.warn("collections:{}", collections);
         String targetFileFullName = MongoExportUtils.exportAll(database, collections);
         //生成邮件内容
         String content = generateMongoDbExportEmailContent(targetFileFullName);

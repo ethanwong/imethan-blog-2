@@ -30,6 +30,7 @@ public class InitRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        log.warn("imethan-blog-2 application start");
         log.info("InitRunner run");
 
         //检查是否已经创建ROOT账号

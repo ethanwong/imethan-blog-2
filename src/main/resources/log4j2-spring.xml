@@ -60,6 +60,13 @@
             </Policies>
         </RollingFile>
 
+        <NoSql name="mongoAppender" ><!-- debug日志 -->
+            <MongoDb4 connection="mongodb://localhost:27017/imethan_blog_3.system_log4j2"
+                      capped="true"
+                      collectionSize="1073741824"/><!--超过1G,滚动覆盖 -->
+        </NoSql>
+
+
     </appenders>
     <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
     <loggers>
@@ -71,12 +78,19 @@
         <logger name="org.apache.catalina" level="error" additivity="false"></logger>
         <logger name="springfox.documentation" level="error" additivity="false"></logger>
 
+
+        <logger name="com.imethan.blog" level="warn">
+            <appender-ref ref="mongoAppender"/>
+        </logger>
+
         <root level="INFO">
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFileInfo"/>
             <appender-ref ref="RollingFileWarn"/>
             <appender-ref ref="RollingFileError"/>
+
         </root>
+
     </loggers>
 
 </configuration>

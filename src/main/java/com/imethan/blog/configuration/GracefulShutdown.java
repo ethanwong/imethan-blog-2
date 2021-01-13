@@ -30,7 +30,8 @@ public class GracefulShutdown implements TomcatConnectorCustomizer, ApplicationL
     @Override
     public void onApplicationEvent(ContextClosedEvent event) {
         final int waitTime = 30;
-        log.info("application is going to stop. try to stop tomcat gracefully");
+
+        log.warn("application is going to stop. try to stop tomcat gracefully");
 
         //关闭Connector连接器
         this.connector.pause();

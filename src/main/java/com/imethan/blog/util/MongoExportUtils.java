@@ -114,7 +114,7 @@ public class MongoExportUtils {
         String command = "tar -zcvf " + targetFileFullName + " " + targetBackupDir + " --warning=no-file-changed";
         log.info("package backup file command={}", command);
         execCommand(command);
-        log.info("targetFileFullName={}", targetFileFullName);
+        log.warn("targetFileFullName={}", targetFileFullName);
         return targetFileFullName;
 
     }

@@ -22,7 +22,7 @@ public class ClearTagTask {
 //    @Scheduled(cron = "0 0 23 * * ?")
     @Scheduled(fixedDelay = 300000,initialDelay = 10000)
     public void execute(){
-        log.info("ClearTagTask execute");
+        log.warn("ClearTagTask execute");
         tagService.clearTag();
 
     }
