@@ -6,17 +6,16 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * @Name Setting
+ * @Name SystemLog
  * @Description
  * @Author huangyingfeng
- * @Create 2020-12-30 15:10
+ * @Create 2021-01-13 10:48
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "system_setting")
-public class Setting extends BaseDocument {
-    public String module;
-    public String name;
-    public String content;
+@Document(collection = "system_log")
+public class SystemLog extends BaseDocument {
+    private Integer type;
+    private String content;
 }

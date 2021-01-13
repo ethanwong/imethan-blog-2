@@ -29,15 +29,15 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @Name TestRestApi
+ * @Name CommonRestApi
  * @Description
  * @Author huangyingfeng
  * @Create 2021-01-11 15:39
  */
 @Controller
 @Log4j2
-@RequestMapping(value = "/api/test")
-public class TestRestApi {
+@RequestMapping(value = "/api/common")
+public class CommonRestApi {
 
     @Autowired
     private MongodbExportManage mongodbExportManage;
@@ -63,6 +63,11 @@ public class TestRestApi {
         return ResultDto.ReturnSuccess();
     }
 
+    /**
+     * 查看日志打印级别
+     *
+     * @return
+     */
     @PreAuthorize(value = "isAuthenticated()")
     @GetMapping("log")
     @ResponseBody
@@ -72,17 +77,21 @@ public class TestRestApi {
         return ResultDto.ReturnSuccess();
     }
 
+    /**
+     * 手动触发导出mongodb数据
+     *
+     * @param request
+     * @return
+     */
     @PreAuthorize(value = "isAuthenticated()")
     @GetMapping("mongodb/export")
     @ResponseBody
     public ResultDto dump(HttpServletRequest request) {
 
-        mongodbExportManage.export(request);
+        mongodbExportManage.export();
 
         return ResultDto.ReturnSuccess();
     }
-
-
 
 
 }

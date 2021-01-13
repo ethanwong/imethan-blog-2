@@ -64,15 +64,5 @@ public class IndexController {
         return "about";
     }
 
-    @PreAuthorize(value = "permitAll()")
-    @GetMapping(value = "email")
-    public String email(Model model, HttpServletRequest request) {
-        String path = request.getParameter("path");
-        //"/home/mongdo-export/imethan-blog-2-20210112.tar.gz"
-        model.addAttribute("targetFullFilePath", path);
-        model.addAttribute("datetime", TimeUtils.dateToString(new Date(), TimeUtils.DATETIME_FORMAT_03));
-        return "email-template";
-    }
-
 
 }
