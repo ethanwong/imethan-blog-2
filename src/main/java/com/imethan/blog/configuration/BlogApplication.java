@@ -1,7 +1,10 @@
 package com.imethan.blog.configuration;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -13,13 +16,27 @@ import java.util.concurrent.ThreadPoolExecutor;
 @SpringBootApplication(scanBasePackages = "com.imethan.blog")
 @EnableScheduling
 @EnableAsync
+@Log4j2
 public class BlogApplication {
+
+    @Bean
+    public GracefulShutdown gracefulShutdown() {
+        return new GracefulShutdown();
+    }
+
+    @Bean
+    public ServletWebServerFactory servletContainer() {
+        log.info("init TomcatServletWebServerFactory");
+        TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
+        tomcat.addConnectorCustomizers(gracefulShutdown());
+        return tomcat;
+    }
+
     /**
      * 线程池配置
      *
      * @return
      */
-    @Bean(name = "blogTaskExecutor")
     public TaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 设置核心线程数

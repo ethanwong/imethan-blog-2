@@ -20,14 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Log4j2
 public class GracefulShutdown implements TomcatConnectorCustomizer, ApplicationListener<ContextClosedEvent> {
 
-    private ThreadPoolTaskExecutor blogTaskExecutor;
     private volatile Connector connector;
-
-    GracefulShutdown(){}
-    GracefulShutdown(ThreadPoolTaskExecutor blogTaskExecutor){
-        this.blogTaskExecutor = blogTaskExecutor;
-    }
-
 
     @Override
     public void customize(Connector connector) {
@@ -55,12 +48,5 @@ public class GracefulShutdown implements TomcatConnectorCustomizer, ApplicationL
                 threadPoolExecutor.shutdownNow();
             }
         }
-        try{
-//            log.info("start to stop all task");
-//            blogTaskExecutor.shutdown();
-        }catch (Exception e){
-            log.error("shutdown blogTaskExecutor failed.", e);
-        }
-
     }
 }

@@ -5,6 +5,7 @@ import com.imethan.blog.dto.ResultDto;
 import com.imethan.blog.repository.AccountRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
