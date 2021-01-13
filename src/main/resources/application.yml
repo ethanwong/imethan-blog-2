@@ -51,6 +51,8 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+    shutdown:
+      enabled: true
 #logging:
 #  level:
 #    org:

@@ -16,7 +16,6 @@ public class AccountRepositoryTest {
     private AccountRepository accountRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
 
-    @Test
     public void testSave() {
 
         Account accountDocument = new Account();

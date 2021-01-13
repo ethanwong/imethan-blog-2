@@ -49,7 +49,7 @@ public class MongoExportUtils {
                 log.info("process fail command={}", command);
             }
         } catch (Exception e) {
-            log.error("execCommand error message={}", e.getMessage());
+            log.error("execCommand error ", e);
         }
 
     }

@@ -19,7 +19,7 @@ public class BlogApplication {
      *
      * @return
      */
-    @Bean
+    @Bean(name = "blogTaskExecutor")
     public TaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 设置核心线程数
@@ -36,6 +36,7 @@ public class BlogApplication {
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         // 等待所有任务结束后再关闭线程池
         executor.setWaitForTasksToCompleteOnShutdown(true);
+        executor.setAwaitTerminationSeconds(30);
         return executor;
     }
 
