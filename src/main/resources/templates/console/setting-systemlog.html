@@ -1,0 +1,51 @@
+<div th:fragment="setting-systemlog">
+
+    <style>
+        .input-group-text {
+            border-radius: 0px !important;
+        }
+
+        #page {
+            width: 10px !important;
+        }
+    </style>
+
+    <div class="input-group col-6">
+        <span class="input-group-text">page</span>
+        <input class="form-control" id="page" type="text" name="page" value="0" placeholder="page"/>
+        <span class="input-group-text">size</span>
+        <input style="width: 20px!important;" class="form-control" id="size" type="text" name="size" value="10"
+               placeholder="size"/>
+        <button class="btn btn-primary" id="system-log-btn">跳转</button>
+        <button type="reset" class="btn btn-outline-secondary" id="system-log-btn-reset">重置</button>
+    </div>
+    <div id="system-log">
+
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $("#system-log-btn").click(function () {
+                loadSystemLog();
+            })
+
+            $("#system-log-btn-reset").click(function () {
+                $("#page").val(0);
+                $("#size").val(10);
+                loadSystemLog();
+            });
+        })
+
+        function loadSystemLog() {
+            let page = $("#page").val();
+            let size = $("#size").val();
+            $.get("/hal/systemLog4j2s?sort=date,desc&page=" + page + "&size=" + size, function (result) {
+                $('#system-log').jsonViewer(result, {
+                    collapsed: false,
+                    withQuotes: false,
+                    withLinks: false
+                });
+            })
+        }
+
+    </script>
+</div>

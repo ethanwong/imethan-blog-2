@@ -21,14 +21,18 @@
         $(function () {
             NProgress.start();
 
+            //默认加载系统信息
+            // loadActuator();
+
+
             let settingOption = [
-                {type: "system", title: "系统信息"},
-                {type: "actuator", title: "ACTUATOR", init: "loadActuator"},
+                {type: "actuator", title: "系统信息", init: "loadActuator"},
                 {type: "base", title: "基本信息"},
                 {type: "copyright", title: "版权信息"},
                 {type: "meta", title: "META配置"},
                 {type: "about", title: "About设置", init: "loadAbout"},
                 {type: "password", title: "修改密码"},
+                {type: "systemlog", title: "系统日志", init: "loadSystemLog"},
                 {type: "other", title: "其他操作"}
             ];
 
@@ -38,19 +42,22 @@
                 },
                 "loadActuator": function () {
                     loadActuator();
+                },
+                "loadSystemLog":function (){
+                    loadSystemLog();
                 }
             }
 
             //初始化左侧菜单
-            $.each(settingOption,function (i,item){
+            $.each(settingOption, function (i, item) {
                 let active = "";
-                if(i==0){
+                if (i == 0) {
                     active = "active";
+                    loadActuator();
                 }
-                let li = "<li class='list-group-item "+active+"' type='"+item.type+"'>"+item.title+"</li>"
+                let li = "<li class='list-group-item " + active + "' type='" + item.type + "'>" + item.title + "</li>"
                 $("#setting-menu").append(li);
             })
-
 
             $(".list-group li").each(function () {
                 $(this).click(function () {
@@ -72,8 +79,8 @@
                      */
                         //设置表单内容标题
                     let type = $(this).attr("type");
-                    $(".level1-title").attr("type", type);
-                    $(".level1-title").html($(this).html());
+                    $("#setting-box-title").attr("type", type);
+                    $("#setting-box-title").html($(this).html());
 
                     //隐藏所有配置内容
                     $("#setting-box section").each(function () {
@@ -115,23 +122,17 @@
     <div class="row" style="padding-top: 20px;">
         <div class="col-2">
             <ul class="list-group" id="setting-menu">
-<!--                <li class="list-group-item active" type="system">系统信息</li>-->
-<!--                <li class="list-group-item" type="common">基本配置</li>-->
-<!--                <li class="list-group-item" type="meta">META配置</li>-->
-<!--                <li class="list-group-item" type="copyright">版权设置</li>-->
-<!--                <li class="list-group-item" type="about">About设置</li>-->
-<!--                <li class="list-group-item" type="password">修改密码</li>-->
-<!--                <li class="list-group-item" type="other">其他操作</li>-->
+                <!--                <li class="list-group-item active" type="system">系统信息</li>-->
             </ul>
         </div>
         <div class="col-10">
             <div class="shadow-sm p-3 mb-5 bg-white rounded">
 
-                <div class="level1-title " type="system">系统配置</div>
+                <div id="setting-box-title" class="level1-title" style="margin-bottom: 20px;" type="system">系统信息</div>
 
                 <div id="setting-box" class="text-muted">
                     <!--系统信息开始-->
-                    <section hidden type="actuator">
+                    <section type="actuator">
                         <div th:replace="console/setting-actuator :: setting-actuator"></div>
                     </section>
                     <!--系统信息结束-->
@@ -156,6 +157,10 @@
                         <a href="/hal" target="_blank" class="btn-link">hal数据浏览</a>
                     </section>
                     <!--其他操作结束-->
+                    <section hidden type="systemlog">
+                        <div th:replace="console/setting-systemlog :: setting-systemlog"></div>
+                    </section>
+
 
                 </div>
 

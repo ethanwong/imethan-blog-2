@@ -1,15 +1,33 @@
 <div th:fragment="setting-actuator">
     <div id="system-actuator" style="display: none;"></div>
 
-    <button class="btn btn-primary" id="env">env</button>
-    <button class="btn btn-primary" id="beans">beans</button>
-    <button class="btn btn-primary" id="health">health</button>
-    <button class="btn btn-primary" id="loggers">loggers</button>
-    <button class="btn btn-primary" id="metrics">metrics</button>
-    <button class="btn btn-primary" id="info">info</button>
-    <button class="btn btn-primary" id="conditions">conditions</button>
-    <button class="btn btn-primary" id="mappings">mappings</button>
-    <button class="btn btn-primary" id="scheduledtasks">scheduledtasks</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col" style='width: 210px;'>Key</th>
+            <th scope="col">Value</th>
+        </tr>
+        </thead>
+        <tbody id="system-actuator-base">
+        <tr>
+            <td style='width: 200px;'>Mark</td>
+            <td>@mdo</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="level1-title">更多系统信息</div>
+    <div id="system-actuator-box" style="margin: 10px 0px 40px 0px;">
+        <button class="btn btn-sm btn-primary" id="env">env</button>
+        <button class="btn btn-sm btn-primary" id="beans">beans</button>
+        <button class="btn btn-sm btn-primary" id="health">health</button>
+        <button class="btn btn-sm btn-primary" id="loggers">loggers</button>
+        <button class="btn btn-sm btn-primary" id="metrics">metrics</button>
+        <button class="btn btn-sm btn-primary" id="info">info</button>
+        <button class="btn btn-sm btn-primary" id="conditions">conditions</button>
+        <button class="btn btn-sm btn-primary" id="mappings">mappings</button>
+        <button class="btn btn-sm btn-primary" id="scheduledtasks">scheduledtasks</button>
+    </div>
+
     <script type="text/javascript">
         $(function () {
 
@@ -17,6 +35,7 @@
                 type: 1,
                 offset: "100px",
                 title: false,
+                maxmin:true,
                 closeBtn: 1,
                 // btn: ['关闭'],
                 shadeClose: true,
@@ -26,19 +45,107 @@
                     layer.close(index);
                 }
             }
-            $(".btn").each(function (){
-                $(this).click(function (){
-                    loadActuator($(this).html());
+
+            $("#system-actuator-box .btn").each(function () {
+                $(this).click(function () {
+                    loadActuatorMsg($(this).html());
                     layer.open(layerOption);
                 })
             })
         })
 
-        function loadActuator(content) {
-            $.get("/actuator/" + content, function (result) {
-                console.log("result=" + result)
-                $('#system-actuator').jsonViewer(result, {collapsed: false, withQuotes: true, withLinks: false});
+        /**
+         * 获取actuator信息
+         */
+        function getActuatorContent(content, callback) {
+            $.get("/actuator/" + content, function (json) {
+                callback(json)
             })
+        }
+
+        /**
+         * 弹窗展示actuator信息
+         */
+        function loadActuatorMsg(content) {
+            getActuatorContent(content, function (json) {
+                $('#system-actuator').jsonViewer(json, {
+                    collapsed: false,
+                    withQuotes: false,
+                    withLinks: false
+                });
+            })
+
+        }
+
+        /**
+         * 进入初始化加载Actuator信息
+         */
+        function loadActuator() {
+
+            getActuatorContent("env", function (json) {
+
+                let jsonArray = [];
+                let keys = "os.name,PID,user.dir,java.home,java.version,java.specification.version,catalina.home,spring.data.mongodb.uri";
+                searchJsonKeys(keys, json, jsonArray)
+
+                let keyArray = keys.split(",");
+                $("#system-actuator-base").html("");
+                for (let i in jsonArray) {
+                    let json = jsonArray[i]
+                    let tr = "" +
+                        "<tr>" +
+                        " <td style='width: 210px;font-weight: bolder;'>" + keyArray[i] + "</td>" +
+                        " <td>" + json.value + "</td>" +
+                        "</tr>";
+
+
+                    console.log("key=" + json.key + " -value=" + json.value);
+                    $("#system-actuator-base").append(tr);
+                }
+            })
+        }
+
+        /**
+         * keys以英文逗号隔开
+         */
+        function searchJsonKeys(keys, json, jsonArray) {
+            let keyArray = keys.split(',');
+            for (let key in keyArray) {
+                searchJsonKey(keyArray[key], json, jsonArray)
+            }
+        }
+
+
+        /**
+         * 从josn中检索出符合key条件的信息
+         * @param key
+         * @param json
+         * @param jsonArray
+         *
+         * let jsonArray = [];
+         * searchJsonKey("java.home", json, jsonArray)
+         * console.log("java.runtime.name=" + JSON.stringify(jsonArray));
+         */
+        function searchJsonKey(key, json, jsonArray) {
+
+            $.each(json, function (i) {
+                let temp = json[i];
+                if (temp instanceof Array) {
+                    // console.log("Array key=" + i + " value=" + json[i])
+                    searchJsonKey(key, temp, jsonArray)
+                } else if (isJson(temp)) {
+                    // console.log("JSON i=" + i + " -value=" + json[i]+" -key="+key)
+                    searchJsonKey(key, temp, jsonArray)
+                    if (i == key) {
+                        // temp['key'] = key;
+                        jsonArray.push(temp);
+                    }
+                }
+            })
+        }
+
+        window.isJson = function (obj) {
+            return typeof (obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;
         }
     </script>
 </div>
