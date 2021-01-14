@@ -5,12 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="黄应锋,ImEthan,EthanWong,ethanwong,ethan,blog">
-    <meta name="author" content="黄应锋,ImEthan,EthanWong,ethanwong,ethan">
-    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}"/>
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/3.11.1/less.min.js" ></script>
-
     <link rel="icon" href="/static/favicon.ico">
     <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/webjars/fontawesome/4.7.0/css/font-awesome.css"/>
@@ -34,6 +30,8 @@
 
     <script src="/static/js/common.js"></script>
 
+    <meta name="author" content="黄应锋,EthanWong,ethanwong,ethan,ImEthan">
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}"/>
     <sitemesh:write property='head'/>
 </head>
 <body>

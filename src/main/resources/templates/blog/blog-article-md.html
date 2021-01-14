@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="utf-8"/>
     <title>Content - ImEthan - 一个野生程序猿的自留地</title>
+    <meta name="description" content="Blog - ImEthan - 一个野生程序猿的自留地">
+    <meta name="keywords" content="Blog,ImEthan,一个野生程序猿的自留地">
+
     <link rel="stylesheet" href="/static/editor/css/editormd.preview.css"/>
     <style>
         #content-tag i {
@@ -76,8 +78,8 @@
     $(function () {
         NProgress.start();
 
-        var articleEditormdView;
-        var contentId = $("#content-id").val();
+        let articleEditormdView;
+        let contentId = $("#content-id").val();
         $.get("/api/article/" + contentId, function (result) {
 
             let data = result.data;
@@ -86,7 +88,11 @@
                 $("#article-editormd-view").html("<h1>内容不存在!</h1>");
             }
 
+            //设置title和meta
             $("title").html(data.title +" - ImEthan - 一个野生程序猿的自留地");
+            $("meta[name='description']").attr('content', data.title +" - ImEthan - 一个野生程序猿的自留地");
+            $("meta[name='keywords']").attr('content', data.tag+","+data.channelName);
+
             $("#content-status").val(data.status);
             $("#content-title").html(data.title);
             $("#content-time").html(data.createAt);

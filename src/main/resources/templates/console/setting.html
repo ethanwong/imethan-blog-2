@@ -5,72 +5,147 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Setting - ImEthan - 一个野生程序猿的自留地</title>
+    <link href="/static/json-viewer/jquery.json-viewer.css" rel="stylesheet">
+    <script src="/static/json-viewer/jquery.json-viewer.js"></script>
+    <script type="text/javascript">
+        /**
+         * Setting模块采用左侧菜单，右侧功能区域的页面渲染模式,添加模块步骤：
+         * 1、settingOption配置项添加模块信息,例如： {type: "about", title: "About设置", init: "loadAbout"}
+         * 其中type表示模块类型，title表示模块名称，init表示初始化加载的方法
+         * 2、在id为setting-box的div里面添加对应的section代码块，例如：
+         * <section hidden type="about"> 默认将模块隐藏hidden,类型设置为与配置项一致
+         *     <div th:replace="console/setting-about :: setting-about"></div>
+         * </section>
+         * 3、添加html引入模块console/setting-about，其中需要注意的的是模板里面div设定，<div th:fragment="setting-about">
+         **/
+        $(function () {
+            NProgress.start();
+
+            let settingOption = [
+                {type: "system", title: "系统信息"},
+                {type: "actuator", title: "ACTUATOR", init: "loadActuator"},
+                {type: "base", title: "基本信息"},
+                {type: "copyright", title: "版权信息"},
+                {type: "meta", title: "META配置"},
+                {type: "about", title: "About设置", init: "loadAbout"},
+                {type: "password", title: "修改密码"},
+                {type: "other", title: "其他操作"}
+            ];
+
+            window.initSettingBox = {
+                "loadAbout": function () {
+                    loadAbout();
+                },
+                "loadActuator": function () {
+                    loadActuator();
+                }
+            }
+
+            //初始化左侧菜单
+            $.each(settingOption,function (i,item){
+                let active = "";
+                if(i==0){
+                    active = "active";
+                }
+                let li = "<li class='list-group-item "+active+"' type='"+item.type+"'>"+item.title+"</li>"
+                $("#setting-menu").append(li);
+            })
+
+
+            $(".list-group li").each(function () {
+                $(this).click(function () {
+                    NProgress.start();
+
+                    /**
+                     * 左侧菜单处理
+                     */
+                    //移除全部选中
+                    $(".list-group li").each(function () {
+                        $(this).removeClass("active");
+                    })
+                    //添加点击选中
+                    $(this).addClass("active");
+
+                    /**
+                     * 右侧内容处理
+                     * @type {jQuery}
+                     */
+                        //设置表单内容标题
+                    let type = $(this).attr("type");
+                    $(".level1-title").attr("type", type);
+                    $(".level1-title").html($(this).html());
+
+                    //隐藏所有配置内容
+                    $("#setting-box section").each(function () {
+                        $(this).attr("hidden", "hidden")
+
+                    });
+                    //激活选中配置内容
+                    $("#setting-box section").each(function () {
+                        if ($(this).attr("type") == type) {
+                            $(this).removeAttr("hidden")
+
+                            $.each(settingOption, function (i, item) {
+                                if (type == item.type) {
+                                    console.log("item=" + JSON.stringify(item));
+                                    if (item.init) {
+                                        try {
+                                            initSettingBox[item.init]();
+                                        } catch (e) {
+                                            console.log(e);
+                                        }
+                                    }
+                                }
+                            })
+                        }
+                    });
+
+                    NProgress.done();
+                })
+            })
+            NProgress.done();
+        });
+    </script>
 </head>
 
 <body>
 <div class="container main-box">
     <span class="h1">Setting</span><small>系统基础参数配置</small>
     <hr>
-
     <div class="row" style="padding-top: 20px;">
-        <div class="col-3">
-            <ul class="list-group">
-                <li class="list-group-item active" type="system">系统信息</li>
-                <li class="list-group-item" type="common">基本配置</li>
-                <li class="list-group-item" type="meta">META配置</li>
-                <li class="list-group-item" type="copyright">版权设置</li>
-                <li class="list-group-item" type="about">About设置</li>
-                <li class="list-group-item" type="password">修改密码</li>
-                <li class="list-group-item" type="other">其他操作</li>
+        <div class="col-2">
+            <ul class="list-group" id="setting-menu">
+<!--                <li class="list-group-item active" type="system">系统信息</li>-->
+<!--                <li class="list-group-item" type="common">基本配置</li>-->
+<!--                <li class="list-group-item" type="meta">META配置</li>-->
+<!--                <li class="list-group-item" type="copyright">版权设置</li>-->
+<!--                <li class="list-group-item" type="about">About设置</li>-->
+<!--                <li class="list-group-item" type="password">修改密码</li>-->
+<!--                <li class="list-group-item" type="other">其他操作</li>-->
             </ul>
         </div>
-        <div class="col-9">
+        <div class="col-10">
             <div class="shadow-sm p-3 mb-5 bg-white rounded">
 
                 <div class="level1-title " type="system">系统配置</div>
 
                 <div id="setting-box" class="text-muted">
+                    <!--系统信息开始-->
+                    <section hidden type="actuator">
+                        <div th:replace="console/setting-actuator :: setting-actuator"></div>
+                    </section>
+                    <!--系统信息结束-->
+
+
                     <!--密码设置开始-->
                     <section hidden type="password">
-                        <form id="resetpassword-form" action="/console/reset/password" method="post">
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Enter Password</label>
-                                <input type="password" class="form-control" id="password" name="password"
-                                       placeholder="Enter Password" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password2" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="password2" name="password2"
-                                       placeholder="Confirm Password" required>
-                            </div>
-                            <button type="submit" id="resetpassword-button" class="btn btn-primary">确认修改</button>
-                        </form>
+                        <div th:replace="console/setting-password :: setting-password"></div>
                     </section>
-                    <!--密码设置介绍-->
-
+                    <!--密码设置结束-->
 
                     <!--About设置开始 -->
                     <section hidden type="about">
-                        <form id="seting-about-form" action="/console/reset/about" method="post">
-                            <div class="mb-3">
-                                <label for="aboutContentId" class="form-label">关联的内容ID</label>
-                                <input type="text" class="form-control" id="aboutContentId" name="aboutContentId"
-                                       placeholder="Enter ContentId" required>
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="aboutShow" id="aboutShowOption1"
-                                           value="1">
-                                    <label class="form-check-label" for="aboutShowOption1">开启</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="aboutShow" id="aboutShowOption0"
-                                           value="0">
-                                    <label class="form-check-label" for="aboutShowOption0">关闭</label>
-                                </div>
-                            </div>
-                            <button type="submit" id="seting-about-button" class="btn btn-primary">确认修改</button>
-                        </form>
+                        <div th:replace="console/setting-about :: setting-about"></div>
                     </section>
                     <!--About设置结束 -->
 
@@ -90,127 +165,3 @@
 </div>
 </body>
 </html>
-<script type="text/javascript">
-    $(function () {
-        NProgress.start();
-
-        let settingOption = {
-            system: {
-                type: "system", title: "系统信息"
-            }
-        };
-
-
-        $(".list-group li").each(function () {
-            $(this).click(function () {
-                NProgress.start();
-
-                /**
-                 * 左侧菜单处理
-                 */
-                //移除全部选中
-                $(".list-group li").each(function () {
-                    $(this).removeClass("active");
-                })
-                //添加点击选中
-                $(this).addClass("active");
-
-                /**
-                 * 右侧内容处理
-                 * @type {jQuery}
-                 */
-                    //设置表单内容标题
-                var type = $(this).attr("type");
-                $(".level1-title").attr("type", type);
-                $(".level1-title").html($(this).html());
-
-                //隐藏所有配置内容
-                $("#setting-box section").each(function () {
-                    $(this).attr("hidden", "hidden")
-
-                });
-                //激活选中配置内容
-                $("#setting-box section").each(function () {
-                    if ($(this).attr("type") == type) {
-                        $(this).removeAttr("hidden")
-                    }
-
-
-                    /**
-                     * about信息加载
-                     */
-                    if (type == "about") {
-                        // layer.msg(type, {icon: 6});
-                        $.get("/console/setting/about", function (result) {
-                            let data = result.data;
-                            $.each(data, function (i, item) {
-                                let name = item.name;
-                                let content = item.content;
-                                console.log("name=" + name + " content=" + content);
-                                if (name == "aboutShow") {
-                                    $("#" + name + "Option" + content).attr("checked", "checked");
-                                } else {
-                                    $("#" + name).val(content);
-                                }
-                            })
-                        });
-                    }
-
-                });
-
-                NProgress.done();
-            })
-        })
-        NProgress.done();
-
-
-        let resetPasswordValidOption = {
-            rules: {
-                password: "required",
-                password2: {
-                    equalTo: "#password"
-                }
-            },
-            messages: {
-                password: "请输入密码！",
-                password2: "请确认密码！"
-            },
-            submitHandler: function (form, event) {
-                event.preventDefault();
-                submitForm(form, function (result) {
-                    if (result.isSuccess) {
-                        layer.msg('密码修改成功~~', {icon: 6});
-                    }
-                }, function () {
-                    layer.msg('密码修改失败~~', {icon: 5});
-                });
-            }
-        }
-        $("#resetpassword-form").validate(resetPasswordValidOption);
-
-
-        let resetAboutValidOption = {
-            rules: {
-                aboutConentId: "required",
-            },
-            messages: {
-                aboutConentId: "请输入ConentId！",
-            },
-            submitHandler: function (form, event) {
-                event.preventDefault();
-                console.log("resetAbout")
-                submitForm(form, function (result) {
-                    if (result.isSuccess) {
-                        layer.msg('配置修改成功~~', {icon: 6});
-                    }
-                }, function () {
-                    layer.msg('配置修改失败~~', {icon: 5});
-                });
-            }
-        }
-
-        $("#seting-about-form").validate(resetAboutValidOption);
-
-
-    });
-</script>

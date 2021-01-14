@@ -1,0 +1,44 @@
+<div th:fragment="setting-actuator">
+    <div id="system-actuator" style="display: none;"></div>
+
+    <button class="btn btn-primary" id="env">env</button>
+    <button class="btn btn-primary" id="beans">beans</button>
+    <button class="btn btn-primary" id="health">health</button>
+    <button class="btn btn-primary" id="loggers">loggers</button>
+    <button class="btn btn-primary" id="metrics">metrics</button>
+    <button class="btn btn-primary" id="info">info</button>
+    <button class="btn btn-primary" id="conditions">conditions</button>
+    <button class="btn btn-primary" id="mappings">mappings</button>
+    <button class="btn btn-primary" id="scheduledtasks">scheduledtasks</button>
+    <script type="text/javascript">
+        $(function () {
+
+            let layerOption = {
+                type: 1,
+                offset: "100px",
+                title: false,
+                closeBtn: 1,
+                // btn: ['关闭'],
+                shadeClose: true,
+                area: ['980px', '600px'],
+                content: $("#system-actuator"),
+                yes: function (index, layero) {
+                    layer.close(index);
+                }
+            }
+            $(".btn").each(function (){
+                $(this).click(function (){
+                    loadActuator($(this).html());
+                    layer.open(layerOption);
+                })
+            })
+        })
+
+        function loadActuator(content) {
+            $.get("/actuator/" + content, function (result) {
+                console.log("result=" + result)
+                $('#system-actuator').jsonViewer(result, {collapsed: false, withQuotes: true, withLinks: false});
+            })
+        }
+    </script>
+</div>
