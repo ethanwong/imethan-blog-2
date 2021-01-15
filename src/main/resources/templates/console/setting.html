@@ -7,6 +7,15 @@
     <title>Setting - ImEthan - 一个野生程序猿的自留地</title>
     <link href="/static/json-viewer/jquery.json-viewer.css" rel="stylesheet">
     <script src="/static/json-viewer/jquery.json-viewer.js"></script>
+    <style>
+        .row {
+            margin-bottom: 10px !important;
+        }
+
+        label {
+            font-weight: bold !important;
+        }
+    </style>
     <script type="text/javascript">
         /**
          * Setting模块采用左侧菜单，右侧功能区域的页面渲染模式,添加模块步骤：
@@ -27,7 +36,7 @@
 
             let settingOption = [
                 {type: "actuator", title: "系统信息", init: "loadActuator"},
-                {type: "base", title: "基本信息"},
+                {type: "config", title: "参数配置", init: "loadConfig"},
                 {type: "copyright", title: "版权信息"},
                 {type: "meta", title: "META配置"},
                 {type: "about", title: "About设置", init: "loadAbout"},
@@ -43,8 +52,11 @@
                 "loadActuator": function () {
                     loadActuator();
                 },
-                "loadSystemLog":function (){
+                "loadSystemLog": function () {
                     loadSystemLog();
+                },
+                "loadConfig": function () {
+                    loadConfig();
                 }
             }
 
@@ -137,6 +149,11 @@
                     </section>
                     <!--系统信息结束-->
 
+                    <!--系统配置开始-->
+                    <section hidden type="config">
+                        <div th:replace="console/setting-config :: setting-config"></div>
+                    </section>
+                    <!--系统配置结束-->
 
                     <!--密码设置开始-->
                     <section hidden type="password">

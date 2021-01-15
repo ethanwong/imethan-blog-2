@@ -7,7 +7,7 @@ mail:
   properties.mail.smtp.port: 465 #端口号465或587
   from: ethanwong@qq.com # 发送邮件的地址，和上面username一致可以任意
 mongodb:
-  uri: mongodb://127.0.0.1:27017/imethan_blog_4
+  uri: mongodb://127.0.0.1:27017/imethan_blog_3
 qiniu:
   accessKey: DNfSleFHEk1cJsWsoSdTJJrun9jSVPpE_DZoiynQ
   secretKey: 9mlrK4XqzZW7zjs1Y_dHZCgsDmBKiCcA7Rr7QHv_

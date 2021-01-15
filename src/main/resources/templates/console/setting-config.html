@@ -1,0 +1,131 @@
+<div th:fragment="setting-config">
+
+    <div id="config-box">
+        <!--email config begin-->
+        <div class="row">
+            <div class="col-6">
+                <label for="" class="email-host">email.host</label>
+                <input type="text" class="form-control" id="email-host" name="email-host"
+                       placeholder="Enter email.host">
+            </div>
+            <div class="col-6">
+                <label for="" class="form-label">email.properties.mail.smtp.port</label>
+                <input type="text" class="form-control" id="email-port" name="email-port"
+                       placeholder="Enter email.port">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label for="" class="form-label">email.username</label>
+                <input type="text" class="form-control" id="email-username" name="email-username"
+                       placeholder="Enter ContentId">
+            </div>
+            <div class="col-6">
+                <label for="" class="form-label">email.password</label>
+                <input type="text" class="form-control" id="email-password" name="email-password"
+                       placeholder="Enter email.password" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label for="" class="form-label">email.from</label>
+                <input type="text" class="form-control" id="email-from" name="email-from"
+                       placeholder="Enter email.from">
+            </div>
+            <div class="col-6">
+
+            </div>
+        </div>
+        <!--email config end-->
+        <hr>
+        <!--qiniu config begin-->
+        <div class="row">
+            <div class="col-6">
+                <label for="" class="form-label">qiniu.accessKey</label>
+                <input type="text" class="form-control" id="qiniu-accessKey" name="qiniu-accessKey"
+                       placeholder="Enter qiniu.accessKey">
+            </div>
+            <div class="col-6">
+                <label for="" class="form-label">qiniu.secretKey</label>
+                <input type="text" class="form-control" id="qiniu-secretKey" name="qiniu-secretKey"
+                       placeholder="Enter qiniu.secretKey" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label for="" class="form-label">qiniu.bucket</label>
+                <input type="text" class="form-control" id="qiniu-bucket" name="qiniu-bucket"
+                       placeholder="Enter qiniu.bucket" required>
+            </div>
+            <div class="col-6">
+                <label for="" class="form-label">qiniu.domainOfBucket</label>
+                <input type="text" class="form-control" id="qiniu-domainOfBucket" name="qiniu-domainOfBucket"
+                       placeholder="Enter qiniu.domainOfBucket" required>
+            </div>
+        </div>
+        <!--qiniu config end-->
+        <button class="btn btn-primary" id="config-btn-save">保存</button>
+        <button class="btn btn-outline-secondary" id="config-btn-reset">重置</button>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+
+            $("#config-btn-save").click(function () {
+                let jsonList = new Array();
+                $("#config-box input").each(function () {
+                    let names = $(this).attr("name");
+                    let value = $(this).val();
+
+                    let nameArry = names.split("-");
+                    let module = nameArry[0];
+                    let name = nameArry[1];
+
+                    let json = new Object();
+                    json.module = module;
+                    json.name = name;
+                    json.content = value;
+
+                    console.log("json=" + JSON.stringify(json));
+
+                    jsonList.push(json);
+
+                })
+
+                $.ajax({
+                    headers: {
+                        "X-CSRF-TOKEN": $("meta[name='_csrf']").attr("content")
+                    },
+                    url: "/api/setting/upset",
+                    type: "put",
+                    data: JSON.stringify(jsonList),
+                    contentType: 'application/json',
+                    success: function (result) {
+                        if (result.isSuccess) {
+                            layer.msg('配置修改成功~~', {icon: 6});
+                        }
+                    },
+                    error: function (result) {
+                        layer.msg('配置修改失败~~', {icon: 5});
+                    }
+                })
+            })
+
+            $("#config-btn-reset").click(function () {
+
+            })
+
+        })
+
+        function loadConfig() {
+            $.get("/api/setting/email,qiniu", function (result) {
+                console.log("result=" + JSON.stringify(result.data));
+                // let jsonArray = [];
+                // let s = searchJsonKey("id", result.data, jsonArray);
+                // console.log("jsonArray=" + jsonArray)
+                // console.log("jsonArray=" + JSON.stringify(jsonArray))
+
+            })
+        }
+
+    </script>
+</div>

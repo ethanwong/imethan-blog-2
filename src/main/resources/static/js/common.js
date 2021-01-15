@@ -71,7 +71,7 @@ function ajaxDelete(uri, successCallback, errorCallback) {
  * @param boxId
  * @param issue
  */
-function loadGitalk(boxId,issue){
+function loadGitalk(boxId, issue) {
     const gitalk = new Gitalk({
         clientID: 'a68e03c29c3ae6f39b67',
         clientSecret: '1ce647c0c4f0c3d1e35863f54528bfda786b7081',
@@ -83,4 +83,46 @@ function loadGitalk(boxId,issue){
     })
 
     gitalk.render(boxId)
+}
+
+/**
+ * 从josn中检索出符合key条件的信息
+ * @param key
+ * @param json
+ * @param jsonArray
+ *
+ * let jsonArray = [];
+ * searchJsonKey("java.home", json, jsonArray)
+ * console.log("java.runtime.name=" + JSON.stringify(jsonArray));
+ *
+ * json格式说明
+ * var json1 = {"data":[{"name":"zs","age":"10"}]};
+ * var json2 = {"name":"zs","age":"10"};
+ */
+window.searchJsonKey = function (key, json, jsonArray) {
+
+    $.each(json, function (i, item) {
+        let temp = json[i];
+        if (temp instanceof Array) {
+            console.log("Array key=" + i + " value=" + JSON.stringify(json[i]) + " -item=" + JSON.stringify(item))
+            searchJsonKey(key, temp, jsonArray)
+        } else if (isJson(temp)) {
+            console.log("JSON i=" + i + " -value=" + JSON.stringify(json[i]) + " -key=" + key + " -length=" + item.length + " -item=" + JSON.stringify(item))
+
+            searchJsonKey(key, temp, jsonArray)
+            if (i == key) {
+                // temp['key'] = key;
+                jsonArray.push(temp);
+            }
+        }
+    })
+}
+
+/**
+ * 判断对象是否是json
+ * @param obj
+ * @returns {boolean}
+ */
+window.isJson = function (obj) {
+    return typeof (obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;
 }

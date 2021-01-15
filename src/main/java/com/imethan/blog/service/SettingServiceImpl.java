@@ -27,23 +27,24 @@ public class SettingServiceImpl implements SettingService {
 
     @Override
     public ResultDto saveOrUpdate(Setting setting) {
+        Setting result = null;
         try {
             Setting settingDb = settingRepository.findByNameAndModule(setting.getName(), setting.getModule());
             if (settingDb == null) {
                 setting.setId(UuidUtils.getUuid());
                 setting.setCreateAt(TimeUtils.dateToString(new Date()));
-                settingRepository.save(setting);
+                result = settingRepository.save(setting);
             } else {
                 settingDb.setContent(setting.getContent());
                 settingDb.setUpdateAt(TimeUtils.dateToString(new Date()));
-                settingRepository.save(settingDb);
+                result = settingRepository.save(settingDb);
             }
 
         } catch (Exception e) {
-            log.error("saveOrUpdate error msg = {}", e.getMessage());
+            log.error("saveOrUpdate error", e);
             return ResultDto.ReturnFail(e.getMessage());
         }
-        return ResultDto.ReturnSuccess();
+        return ResultDto.ReturnSuccessData(result);
     }
 
     @Override
@@ -85,4 +86,5 @@ public class SettingServiceImpl implements SettingService {
     public List<Setting> findByModule(String module) {
         return settingRepository.findByModule(module);
     }
+
 }

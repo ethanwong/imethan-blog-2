@@ -35,7 +35,7 @@
                 type: 1,
                 offset: "100px",
                 title: false,
-                maxmin:true,
+                maxmin: true,
                 closeBtn: 1,
                 // btn: ['关闭'],
                 shadeClose: true,
@@ -115,37 +115,5 @@
             }
         }
 
-
-        /**
-         * 从josn中检索出符合key条件的信息
-         * @param key
-         * @param json
-         * @param jsonArray
-         *
-         * let jsonArray = [];
-         * searchJsonKey("java.home", json, jsonArray)
-         * console.log("java.runtime.name=" + JSON.stringify(jsonArray));
-         */
-        function searchJsonKey(key, json, jsonArray) {
-
-            $.each(json, function (i) {
-                let temp = json[i];
-                if (temp instanceof Array) {
-                    // console.log("Array key=" + i + " value=" + json[i])
-                    searchJsonKey(key, temp, jsonArray)
-                } else if (isJson(temp)) {
-                    // console.log("JSON i=" + i + " -value=" + json[i]+" -key="+key)
-                    searchJsonKey(key, temp, jsonArray)
-                    if (i == key) {
-                        // temp['key'] = key;
-                        jsonArray.push(temp);
-                    }
-                }
-            })
-        }
-
-        window.isJson = function (obj) {
-            return typeof (obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length;
-        }
     </script>
 </div>

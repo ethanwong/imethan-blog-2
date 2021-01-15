@@ -15,4 +15,5 @@ public interface SettingService extends BaseService<Setting, String> {
     ResultDto batchSaveOrUpdate(List<Setting> t);
 
     List<Setting> findByModule(String module);
+
 }
