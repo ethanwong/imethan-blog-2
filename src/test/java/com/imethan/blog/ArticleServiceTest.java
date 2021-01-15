@@ -1,12 +1,11 @@
 package com.imethan.blog;
 
 import com.imethan.blog.configuration.BlogApplication;
-import com.imethan.blog.document.blog.Article;
+import com.imethan.blog.pojo.document.blog.Article;
 import com.imethan.blog.repository.ArticleRepository;
 import com.imethan.blog.service.ArticleService;
 import com.imethan.blog.util.TimeUtils;
 import lombok.extern.log4j.Log4j2;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

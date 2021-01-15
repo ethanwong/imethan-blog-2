@@ -1,10 +1,10 @@
 package com.imethan.blog.service;
 
-import com.imethan.blog.document.blog.Article;
-import com.imethan.blog.document.blog.Channel;
+import com.imethan.blog.pojo.document.blog.Article;
+import com.imethan.blog.pojo.document.blog.Channel;
 import com.imethan.blog.common.Constant;
-import com.imethan.blog.document.blog.Tag;
-import com.imethan.blog.dto.ResultDto;
+import com.imethan.blog.pojo.document.blog.Tag;
+import com.imethan.blog.pojo.dto.ResultDto;
 import com.imethan.blog.repository.ArticleRepository;
 import com.imethan.blog.repository.ChannelRepository;
 import com.imethan.blog.repository.TagRepository;

@@ -1,6 +1,6 @@
 package com.imethan.blog.configuration;
 
-import com.imethan.blog.document.blog.Tag;
+import com.imethan.blog.pojo.document.blog.Tag;
 import com.imethan.blog.repository.base.BaseRepositoryImpl;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Configuration;

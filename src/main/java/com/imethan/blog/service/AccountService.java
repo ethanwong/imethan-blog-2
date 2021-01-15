@@ -1,7 +1,7 @@
 package com.imethan.blog.service;
 
-import com.imethan.blog.document.rbac.Account;
-import com.imethan.blog.dto.ResultDto;
+import com.imethan.blog.pojo.document.rbac.Account;
+import com.imethan.blog.pojo.dto.ResultDto;
 
 /**
  * @Name AccountService

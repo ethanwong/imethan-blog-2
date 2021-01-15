@@ -1,6 +1,6 @@
 package com.imethan.blog.configuration.security;
 
-import com.imethan.blog.document.rbac.Account;
+import com.imethan.blog.pojo.document.rbac.Account;
 import com.imethan.blog.service.AccountServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

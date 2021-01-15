@@ -5,19 +5,12 @@ import com.imethan.blog.util.MongoExportUtils;
 import com.imethan.blog.util.TimeUtils;
 import com.mongodb.client.MongoCursor;
 import lombok.extern.log4j.Log4j2;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.bson.Document;
-import org.jsoup.Jsoup;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,6 +29,8 @@ public class MongodbExportManage {
     private MongoTemplate mongoTemplate;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private QiniuSDKManage qiniuSDKManage;
 
     private final String url = "http://127.0.0.1/email";
 
@@ -56,9 +51,14 @@ public class MongodbExportManage {
         }
         log.warn("collections:{}", collections);
         String targetFileFullName = MongoExportUtils.exportAll(database, collections);
+
+        //上传服务
+        String qiniuKey = targetFileFullName.substring(targetFileFullName.lastIndexOf("/") + 1) + System.currentTimeMillis();
+        qiniuSDKManage.uploadFile(targetFileFullName, qiniuKey);
+
         //生成邮件内容
-        String content = generateMongoDbExportEmailContent(targetFileFullName);
-        emailService.sendAttachmentsMail("ethanwong@qq.com", "ImEthanBlog2完成数据自动备份", content, targetFileFullName);
+        String content = generateMongoDbExportEmailContent(targetFileFullName, qiniuKey);
+        emailService.sendAttachmentsMail("ethanwong@qq.com", "ImEthanBlog2完成数据自动备份和上传存储", content, targetFileFullName);
 
         return targetFileFullName;
     }
@@ -69,13 +69,13 @@ public class MongodbExportManage {
      * @param targetFileFullName
      * @return
      */
-    private String generateMongoDbExportEmailContent(String targetFileFullName) {
+    private String generateMongoDbExportEmailContent(String targetFileFullName, String qiniuKey) {
         String content = "" +
                 "<div>" +
                 "<div>" +
-                "   Hey !<br>" +
-                "     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ImEthan Blog 2 的MongoDB数据库已经完成自动备份，" +
-                " 备份文件在服务器上的路径为:" + targetFileFullName + "，请知悉。" +
+                "   Hi!<br>" +
+                "     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ImEthan Blog 2的MongoDB数据库已经完成自动备份，" +
+                " 备份文件在服务器上的路径为:" + targetFileFullName + "，上传七牛备份key=" + qiniuKey + "，请知悉。" +
                 " </div>" +
                 " <br>" +
                 " <div>" +

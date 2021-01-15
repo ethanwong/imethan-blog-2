@@ -1,10 +1,9 @@
 package com.imethan.blog;
 
 import com.imethan.blog.configuration.BlogApplication;
-import com.imethan.blog.document.rbac.Account;
+import com.imethan.blog.pojo.document.rbac.Account;
 import com.imethan.blog.repository.AccountRepository;
 import lombok.extern.log4j.Log4j2;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

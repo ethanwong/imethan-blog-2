@@ -19,9 +19,9 @@ public class ClearTagTask {
     @Autowired
     private TagService tagService;
 
-//    @Scheduled(cron = "0 0 23 * * ?")
-    @Scheduled(fixedDelay = 300000,initialDelay = 10000)
-    public void execute(){
+    @Scheduled(cron = "0 0 22 * * ?")
+//    @Scheduled(fixedDelay = 300000,initialDelay = 10000)
+    public void execute() {
         log.warn("ClearTagTask execute");
         tagService.clearTag();
 

@@ -1,11 +1,10 @@
 package com.imethan.blog.service;
 
-import com.imethan.blog.document.rbac.Account;
-import com.imethan.blog.dto.ResultDto;
+import com.imethan.blog.pojo.document.rbac.Account;
+import com.imethan.blog.pojo.dto.ResultDto;
 import com.imethan.blog.repository.AccountRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

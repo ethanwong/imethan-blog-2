@@ -182,6 +182,12 @@
             <version>1.13.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>7.4.0</version>
+        </dependency>
+
     </dependencies>
 
     <profiles>
@@ -205,6 +211,12 @@
     <build>
         <!--        <finalName>${project.artifactId}-${PROFILE}-${project.version}-${maven.build.timestamp}</finalName>-->
         <finalName>${project.artifactId}-${PROFILE}-${project.version}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

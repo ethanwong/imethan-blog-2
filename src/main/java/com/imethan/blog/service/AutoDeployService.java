@@ -1,15 +1,13 @@
 package com.imethan.blog.service;
 
-import com.imethan.blog.dto.ResultDto;
+import com.imethan.blog.pojo.dto.ResultDto;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 

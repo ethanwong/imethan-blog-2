@@ -1,7 +1,7 @@
 package com.imethan.blog.service;
 
-import com.imethan.blog.document.blog.Channel;
-import com.imethan.blog.dto.ResultDto;
+import com.imethan.blog.pojo.document.blog.Channel;
+import com.imethan.blog.pojo.dto.ResultDto;
 
 import java.util.Map;
 

@@ -1,6 +1,6 @@
 package com.imethan.blog.repository;
 
-import com.imethan.blog.document.blog.Article;
+import com.imethan.blog.pojo.document.blog.Article;
 import com.imethan.blog.repository.base.BaseRepository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

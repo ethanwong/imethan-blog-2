@@ -1,11 +1,10 @@
 package com.imethan.blog.service;
 
-import com.imethan.blog.document.Setting;
-import com.imethan.blog.dto.ResultDto;
+import com.imethan.blog.pojo.document.Setting;
+import com.imethan.blog.pojo.dto.ResultDto;
 import com.imethan.blog.repository.SettingRepository;
 import com.imethan.blog.util.TimeUtils;
 import com.imethan.blog.util.UuidUtils;
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

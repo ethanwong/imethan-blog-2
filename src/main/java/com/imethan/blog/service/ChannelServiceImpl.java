@@ -1,9 +1,9 @@
 package com.imethan.blog.service;
 
-import com.imethan.blog.document.blog.Article;
-import com.imethan.blog.document.blog.Channel;
+import com.imethan.blog.pojo.document.blog.Article;
+import com.imethan.blog.pojo.document.blog.Channel;
 import com.imethan.blog.common.Constant;
-import com.imethan.blog.dto.ResultDto;
+import com.imethan.blog.pojo.dto.ResultDto;
 import com.imethan.blog.repository.ArticleRepository;
 import com.imethan.blog.repository.ChannelRepository;
 import com.imethan.blog.util.TimeUtils;
@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;

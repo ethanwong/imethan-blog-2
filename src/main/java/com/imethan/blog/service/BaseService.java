@@ -1,8 +1,6 @@
 package com.imethan.blog.service;
 
-import com.imethan.blog.dto.ResultDto;
-
-import java.util.List;
+import com.imethan.blog.pojo.dto.ResultDto;
 
 /**
  * @Name BaseService
