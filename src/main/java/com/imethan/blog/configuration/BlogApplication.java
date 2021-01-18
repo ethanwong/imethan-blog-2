@@ -10,11 +10,13 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.session.data.mongo.config.annotation.web.http.EnableMongoHttpSession;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
 @SpringBootApplication(scanBasePackages = "com.imethan.blog")
 @EnableScheduling
+@EnableMongoHttpSession
 @EnableAsync
 @Log4j2
 public class BlogApplication {

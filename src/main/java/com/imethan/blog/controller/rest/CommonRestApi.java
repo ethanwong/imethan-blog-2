@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Collection;
 
 /**
@@ -94,6 +95,21 @@ public class CommonRestApi {
     @ResponseBody
     public ResultDto testEmail(@PathVariable String address) {
         return emailSenderManage.sendHtmlMail(address, "imethan blog 2 test email-" + System.currentTimeMillis(), "imethan blog 2 test email!");
+    }
+
+    @PreAuthorize(value = "isAuthenticated()")
+    @GetMapping("session/set/{name}/{content}")
+    @ResponseBody
+    public String setSession(HttpSession session, @PathVariable String name, @PathVariable String content) {
+        session.setAttribute(name, content);
+        return "ok!";
+    }
+
+    @PreAuthorize(value = "isAuthenticated()")
+    @GetMapping("session/get/{name}")
+    @ResponseBody
+    public String getSession(HttpSession session, @PathVariable String name) {
+        return session.getAttribute(name).toString();
     }
 
 
