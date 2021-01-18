@@ -36,6 +36,14 @@
 
             </div>
         </div>
+        <div class="row">
+            <div class="input-group col-6">
+                <span class="input-group-text">email.to</span>
+                <input style="width: 20px!important;" class="form-control" id="test-email" type="email"
+                       name="test-email" value="" placeholder="email address"/>
+                <button class="btn btn-primary" id="test-email-btn">测试发送</button>
+            </div>
+        </div>
         <!--email config end-->
         <hr>
         <!--qiniu config begin-->
@@ -70,6 +78,11 @@
     <script type="text/javascript">
         $(function () {
 
+            /**
+             * 系统配置数据{"module":"","name":"","content":""}
+             * input的id设置为"${module}-${name}"
+             */
+
             $("#config-btn-save").click(function () {
                 let jsonList = new Array();
                 $("#config-box input").each(function () {
@@ -85,10 +98,7 @@
                     json.name = name;
                     json.content = value;
 
-                    console.log("json=" + JSON.stringify(json));
-
                     jsonList.push(json);
-
                 })
 
                 $.ajax({
@@ -101,28 +111,37 @@
                     contentType: 'application/json',
                     success: function (result) {
                         if (result.isSuccess) {
-                            layer.msg('配置修改成功~~', {icon: 6});
+                            layer.msg('配置修改成功~~', {offset: '200px',icon: 6});
                         }
                     },
                     error: function (result) {
-                        layer.msg('配置修改失败~~', {icon: 5});
+                        layer.msg('配置修改失败~~', {offset: '200px',icon: 5});
                     }
                 })
             })
 
             $("#config-btn-reset").click(function () {
+                loadConfig();
+            })
 
+            $("#test-email-btn").click(function () {
+                let email = $("#test-email").val();
+                $.get("/api/common/test/email/" + email, function (result) {
+                    layer.msg(result.message, {offset: '200px',icon: 6});
+                })
             })
 
         })
 
+
         function loadConfig() {
             $.get("/api/setting/email,qiniu", function (result) {
-                console.log("result=" + JSON.stringify(result.data));
-                // let jsonArray = [];
-                // let s = searchJsonKey("id", result.data, jsonArray);
-                // console.log("jsonArray=" + jsonArray)
-                // console.log("jsonArray=" + JSON.stringify(jsonArray))
+                $.each(result.data, function (i, item) {
+                    let module = item.module
+                    let name = item.name
+                    let content = item.content
+                    $("#" + module + "-" + name).val(content);
+                })
 
             })
         }

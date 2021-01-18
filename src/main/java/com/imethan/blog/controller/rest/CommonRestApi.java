@@ -1,5 +1,6 @@
 package com.imethan.blog.controller.rest;
 
+import com.imethan.blog.manage.EmailSenderManage;
 import com.imethan.blog.pojo.dto.ResultDto;
 import com.imethan.blog.manage.MongodbExportManage;
 import lombok.extern.log4j.Log4j2;
@@ -28,6 +29,8 @@ public class CommonRestApi {
 
     @Autowired
     private MongodbExportManage mongodbExportManage;
+    @Autowired
+    private EmailSenderManage emailSenderManage;
 
     /**
      * 动态设置日志的级别
@@ -78,6 +81,19 @@ public class CommonRestApi {
         mongodbExportManage.export();
 
         return ResultDto.ReturnSuccess();
+    }
+
+    /**
+     * 测试邮件发送
+     *
+     * @param address
+     * @return
+     */
+    @PreAuthorize(value = "isAuthenticated()")
+    @GetMapping("test/email/{address}")
+    @ResponseBody
+    public ResultDto testEmail(@PathVariable String address) {
+        return emailSenderManage.sendHtmlMail(address, "imethan blog 2 test email-" + System.currentTimeMillis(), "imethan blog 2 test email!");
     }
 
 

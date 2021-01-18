@@ -34,6 +34,10 @@ public class Constant {
      */
     public static final String INNER_CHANNEL_NAME = "ImEthan基础信息";
 
+    public static final String SETTING_MODULE_ABOUT = "about";
+    public static final String SETTING_MODULE_EMAIL = "email";
+    public static final String SETTING_MODULE_QINIU = "qiniu";
+
 
 
 }

@@ -79,7 +79,7 @@
         <logger name="springfox.documentation" level="error" additivity="false"></logger>
 
 
-        <logger name="com.imethan.blog" level="warn">
+        <logger name="com.imethan.blog" level="info">
             <appender-ref ref="mongoAppender"/>
         </logger>
 
@@ -88,7 +88,6 @@
             <appender-ref ref="RollingFileInfo"/>
             <appender-ref ref="RollingFileWarn"/>
             <appender-ref ref="RollingFileError"/>
-
         </root>
 
     </loggers>

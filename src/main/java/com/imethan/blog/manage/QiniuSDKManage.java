@@ -1,6 +1,8 @@
 package com.imethan.blog.manage;
 
 import com.alibaba.fastjson.JSONObject;
+import com.imethan.blog.common.Constant;
+import com.imethan.blog.service.SettingService;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
@@ -10,9 +12,11 @@ import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -27,14 +31,25 @@ import java.net.URLEncoder;
 @Component
 public class QiniuSDKManage {
 
-    @Value("${qiniu.accessKey}")
     private String accessKey = "";
-    @Value("${qiniu.secretKey}")
     private String secretKey = "";
-    @Value("${qiniu.bucket}")
     private String bucket = "imethan-blog-2";
-    @Value("${qiniu.domainOfBucket}")
-    private String domainOfBucket = "http://qmyn9dpl5.hn-bkt.clouddn.com";
+    private String domainOfBucket = "";
+
+    @Autowired
+    private SettingService settingService;
+
+    private String getByName(String name) {
+        return settingService.findByModuleAndName(Constant.SETTING_MODULE_QINIU, name);
+    }
+
+    private void initConfig() {
+        accessKey = getByName("accessKey");
+        secretKey = getByName("secretKey");
+        bucket = getByName("bucket");
+        domainOfBucket = getByName("domainOfBucket");
+        log.info("accessKey={},secretKey={},bucket={},domainOfBucket={}", accessKey, secretKey, bucket, domainOfBucket);
+    }
 
     /**
      * 获取token
@@ -42,6 +57,7 @@ public class QiniuSDKManage {
      * @return
      */
     private String getToken() {
+        initConfig();
         Auth auth = Auth.create(accessKey, secretKey);
         return auth.uploadToken(bucket);
     }
@@ -54,6 +70,9 @@ public class QiniuSDKManage {
      * @return
      */
     public boolean uploadFile(String localFilePath, String key) {
+
+        initConfig();
+
         //构造一个带指定 Region 对象的配置类
         Configuration cfg = new Configuration(Region.huanan());
         UploadManager uploadManager = new UploadManager(cfg);
@@ -91,6 +110,8 @@ public class QiniuSDKManage {
      */
     public String downloadFile(String fileName, Long expireInSeconds) throws UnsupportedEncodingException {
 
+        initConfig();
+
         String encodedFileName = URLEncoder.encode(fileName, "utf-8").replace("+", "%20");
         String publicUrl = String.format("%s/%s", domainOfBucket, encodedFileName);
         Auth auth = Auth.create(accessKey, secretKey);
@@ -107,6 +128,9 @@ public class QiniuSDKManage {
      * @return
      */
     public boolean deleteFile(String key) {
+
+        initConfig();
+
         Configuration cfg = new Configuration(Region.region0());
         Auth auth = Auth.create(accessKey, secretKey);
         BucketManager bucketManager = new BucketManager(auth, cfg);

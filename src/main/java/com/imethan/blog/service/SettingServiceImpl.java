@@ -87,4 +87,13 @@ public class SettingServiceImpl implements SettingService {
         return settingRepository.findByModule(module);
     }
 
+    @Override
+    public String findByModuleAndName(String module, String name) {
+        Setting setting = settingRepository.findByNameAndModule(name, module);
+        if (setting != null) {
+            return setting.getContent();
+        }
+        return "";
+    }
+
 }

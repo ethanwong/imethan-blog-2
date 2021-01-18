@@ -1,15 +1,17 @@
 server:
   port: 80
+mongodb:
+  uri: mongodb://127.0.0.1:27017/imethan_blog_3
+
+#以下配置为了安全考虑，当前配置写入到数据库里面，以下配置不生效
 mail:
   host: smtp.qq.com #发送邮件服务器
   username: ethanwong@qq.com #发送邮件的邮箱地址
-  password: ivofhmlxdrjtcbbc #客户端授权码，不是邮箱密码，这个在qq邮箱设置里面自动生成的
+  password: password    #客户端授权码，不是邮箱密码，这个在qq邮箱设置里面自动生成的
   properties.mail.smtp.port: 465 #端口号465或587
   from: ethanwong@qq.com # 发送邮件的地址，和上面username一致可以任意
-mongodb:
-  uri: mongodb://127.0.0.1:27017/imethan_blog_3
 qiniu:
-  accessKey: DNfSleFHEk1cJsWsoSdTJJrun9jSVPpE_DZoiynQ
-  secretKey: 9mlrK4XqzZW7zjs1Y_dHZCgsDmBKiCcA7Rr7QHv_
+  accessKey: accessKey
+  secretKey: secretKey
   bucket: imethan-blog-2
-  domainOfBucket: http://qmyn9dpl5.hn-bkt.clouddn.com
+  domainOfBucket: domainOfBucket

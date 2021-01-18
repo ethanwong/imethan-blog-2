@@ -102,21 +102,42 @@ function loadGitalk(boxId, issue) {
 window.searchJsonKey = function (key, json, jsonArray) {
 
     $.each(json, function (i, item) {
-        let temp = json[i];
-        if (temp instanceof Array) {
-            console.log("Array key=" + i + " value=" + JSON.stringify(json[i]) + " -item=" + JSON.stringify(item))
-            searchJsonKey(key, temp, jsonArray)
-        } else if (isJson(temp)) {
-            console.log("JSON i=" + i + " -value=" + JSON.stringify(json[i]) + " -key=" + key + " -length=" + item.length + " -item=" + JSON.stringify(item))
-
-            searchJsonKey(key, temp, jsonArray)
+        console.log("key=" + key + " i=" + i + " -item=" + JSON.stringify(item))
+        if (item instanceof Array) {
+            //队列处理
+            searchJsonKey(key, item, jsonArray)
+        } else if (isJson(item)) {
+            //json处理
+            searchJsonKey(key, item, jsonArray)
             if (i == key) {
-                // temp['key'] = key;
-                jsonArray.push(temp);
+                jsonArray.push(item);
+            }
+        }else{
+            //字符串处理
+            if (i == key) {
+                jsonArray.push(item);
             }
         }
     })
 }
+
+function getJsonLength(json) {
+    let jsonLength = 0;
+    for (let item in json) {
+        jsonLength++;
+    }
+    return jsonLength;
+}
+
+function searchJson(key, json, jsonArray) {
+    $.each(json, function (i, item) {
+        console.log("i=" + i + " -item=" + item + " -key=" + key);
+        if (key = i) {
+            jsonArray.push(item);
+        }
+    })
+}
+
 
 /**
  * 判断对象是否是json

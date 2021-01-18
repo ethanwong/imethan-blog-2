@@ -16,4 +16,5 @@ public interface SettingService extends BaseService<Setting, String> {
 
     List<Setting> findByModule(String module);
 
+    String findByModuleAndName(String module, String name);
 }
