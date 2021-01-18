@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 @SpringBootApplication(scanBasePackages = "com.imethan.blog")
 @EnableScheduling
-@EnableMongoHttpSession
+@EnableMongoHttpSession(collectionName="system_sessions")
 @EnableAsync
 @Log4j2
 public class BlogApplication {
