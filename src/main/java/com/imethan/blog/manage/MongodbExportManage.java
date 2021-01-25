@@ -86,7 +86,7 @@ public class MongodbExportManage {
                 emailSenderManage.sendAttachmentsMail("ethanwong@qq.com", "ImEthanBlog2数据完成本地备份并异地转存", content, targetFileFullName);
 
                 //生成日志
-                this.saveOpLog(targetFileFullName, qiniuKey, md5);
+                this.saveOpLog(targetFileFullName, qiniuKey, md5, database, collections);
                 return targetFileFullName;
             } else {
                 //无需异地备份
@@ -109,11 +109,13 @@ public class MongodbExportManage {
     private boolean checkBackup(String md5) {
         boolean flag = true;
         SystemOpLog systemOpLog = systemOpLogRepository.findTopByOpLogTypeOrderByIdDesc(OpLogType.MONGODB_BAK);
-        JSONObject jsonObject = systemOpLog.getLogContent();
-        if (jsonObject != null) {
-            String oldMd5 = jsonObject.getString("md5");
-            if (oldMd5 != null && oldMd5.equals(md5)) {
-                flag = false;
+        if (systemOpLog != null) {
+            JSONObject jsonObject = systemOpLog.getLogContent();
+            if (jsonObject != null) {
+                String oldMd5 = jsonObject.getString("md5");
+                if (oldMd5 != null && oldMd5.equals(md5)) {
+                    flag = false;
+                }
             }
         }
         return flag;
@@ -126,13 +128,15 @@ public class MongodbExportManage {
      * @param qiniuKey
      * @param md5
      */
-    private void saveOpLog(String targetFileFullName, String qiniuKey, String md5) {
+    private void saveOpLog(String targetFileFullName, String qiniuKey, String md5, String database, List<String> collections) {
         SystemOpLog systemOpLog = new SystemOpLog();
         systemOpLog.setOpLogType(OpLogType.MONGODB_BAK);
         JSONObject json = new JSONObject();
         json.put("md5", md5);
         json.put("targetFileFullName", targetFileFullName);
         json.put("qiniuKey", qiniuKey);
+        json.put("database", database);
+        json.put("collections", collections);
         systemOpLog.setLogContent(json);
         systemOpLog.setCreateAt(TimeUtils.dateToString(new Date()));
         systemOpLogRepository.save(systemOpLog);
