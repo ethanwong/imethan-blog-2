@@ -28,7 +28,7 @@ public class LoginSuccessHandler extends
         //检查验证码是否正确
         if (request.getMethod().equals("POST") && request.getRequestURI().equals("/signin")) {
             String code = request.getParameter("code");
-            String validCode = (String) request.getSession().getAttribute("valid_code");
+            String validCode = (String) request.getSession().getAttribute("kaptcha_code");
             log.info("SecurityFilter doFilter valid code={},request code={}", validCode, code);
             if (!code.equals(validCode)) {
                 throw new AuthenticationServiceException("校验码不正确！");

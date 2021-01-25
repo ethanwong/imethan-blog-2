@@ -78,12 +78,12 @@ public class MongodbExportManage {
                 //需要上传七牛备份
 
                 //上传七牛
-                String qiniuKey = targetFileFullName.substring(targetFileFullName.lastIndexOf("/") + 1) + "-" + System.currentTimeMillis() + "-" + md5;
+                String qiniuKey = targetFileFullName.substring(targetFileFullName.lastIndexOf("/") + 1) + "-" + md5;
                 qiniuSDKManage.uploadFile(targetFileFullName, qiniuKey);
 
                 //生成邮件内容
                 String content = generateMongoDbExportEmailContent(true, targetFileFullName, qiniuKey, md5);
-                emailSenderManage.sendAttachmentsMail("ethanwong@qq.com", "ImEthanBlog2数据完成本地备份并异地备份", content, targetFileFullName);
+                emailSenderManage.sendAttachmentsMail("ethanwong@qq.com", "ImEthanBlog2数据完成本地备份并异地转存", content, targetFileFullName);
 
                 //生成日志
                 this.saveOpLog(targetFileFullName, qiniuKey, md5);
@@ -91,7 +91,7 @@ public class MongodbExportManage {
             } else {
                 //无需异地备份
                 String content = generateMongoDbExportEmailContent(false, "", "", md5);
-                emailSenderManage.sendHtmlMail("ethanwong@qq.com", "ImEthanBlog2数据完成本地备份无异地备份", content);
+                emailSenderManage.sendHtmlMail("ethanwong@qq.com", "ImEthanBlog2数据完成本地备份无异地转存", content);
             }
 
         } catch (Exception e) {

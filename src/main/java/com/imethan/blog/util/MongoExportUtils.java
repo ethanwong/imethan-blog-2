@@ -110,8 +110,8 @@ public class MongoExportUtils {
         log.info("mongodb back target dir={}", targetBackupDir);
 
         //压缩备份文件，并且推送
-        String targetFileFullName = MONGODB_EXPORT_DIR + "/" + date + "/" + "imethan-blog-2-" + date + ".tar.gz";
-        String command = "tar -zcvf " + targetFileFullName + " " + targetBackupDir + " --warning=no-file-changed";
+        String targetFileFullName = MONGODB_EXPORT_DIR + "/" + date + "/" + "imethan-blog-2-" + System.currentTimeMillis() + ".tar.gz";
+        String command = "tar -zcvPf " + targetFileFullName + " " + targetBackupDir + " --warning=no-file-changed";
         log.info("package backup file command={}", command);
         execCommand(command);
         log.warn("targetFileFullName={}", targetFileFullName);

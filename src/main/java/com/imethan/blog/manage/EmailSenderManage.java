@@ -118,7 +118,7 @@ public class EmailSenderManage {
             //发送
             mailSender.send(message);
             //日志信息
-            log.info("邮件已经发送。");
+            log.warn("发送邮件,to={},subject={},content={}", to, subject, content);
         } catch (MessagingException e) {
             log.error("发送邮件时发生异常！", e);
             return ResultDto.ReturnFail(e.getMessage());
@@ -150,7 +150,7 @@ public class EmailSenderManage {
             helper.addAttachment(fileName, file);
             mailSender.send(message);
             //日志信息
-            log.warn("已经发送邮件,to={},subject={},content={}", to, subject, content);
+            log.warn("发送邮件,to={},subject={},content={}", to, subject, content);
         } catch (MessagingException e) {
             log.error("发送邮件时发生异常！", e);
         }
