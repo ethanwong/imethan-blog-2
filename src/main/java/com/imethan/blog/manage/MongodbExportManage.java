@@ -57,7 +57,7 @@ public class MongodbExportManage {
                 Document document = iterator.next();
                 String collectionName = document.getString("name");
                 //不备份滚动的数据
-                if (!collectionName.contains("log") && !collectionName.contains("session")) {
+                if (!collectionName.contains("system_oplog") && !collectionName.contains("system_log4j2") && !collectionName.contains("session")) {
                     collections.add(collectionName);
                 }
             }

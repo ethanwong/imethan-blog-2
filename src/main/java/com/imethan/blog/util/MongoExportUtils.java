@@ -2,6 +2,7 @@ package com.imethan.blog.util;
 
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.InputStream;
@@ -36,18 +37,20 @@ public class MongoExportUtils {
             log.info("process input={}", IOUtils.toString(input, "UTF-8"));
 
             InputStream errorStream = process.getErrorStream();
-            log.info("process error={}", IOUtils.toString(errorStream, "UTF-8"));
+
+            String errorMsg = IOUtils.toString(errorStream, "UTF-8");
+            if (StringUtils.isNoneBlank(errorMsg)) {
+                log.info("process error={}", errorMsg);
+            }
+
             if (input != null) {
                 input.close();
                 if (errorStream != null) {
                     errorStream.close();
                 }
             }
-            if (process.waitFor() == 0) {
-                log.info("process success command={}", command);
-            } else {
-                log.info("process fail command={}", command);
-            }
+            process.waitFor();
+            log.info("process wait for over");
         } catch (Exception e) {
             log.error("execCommand error ", e);
         }
@@ -110,7 +113,7 @@ public class MongoExportUtils {
         log.info("mongodb back target dir={}", targetBackupDir);
 
         //压缩备份文件，并且推送
-        String targetFileFullName = MONGODB_EXPORT_DIR + "/" + date + "/" + "imethan-blog-2-" + System.currentTimeMillis() + ".tar.gz";
+        String targetFileFullName = MONGODB_EXPORT_DIR + "/" + date + "/" + "imethan-blog-2-db-" + System.currentTimeMillis() + ".tar.gz";
         String command = "tar -zcvPf " + targetFileFullName + " " + targetBackupDir + " --warning=no-file-changed";
         log.info("package backup file command={}", command);
         execCommand(command);

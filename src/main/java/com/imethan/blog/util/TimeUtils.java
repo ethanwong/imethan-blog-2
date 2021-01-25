@@ -28,6 +28,7 @@ public class TimeUtils {
      */
     public static final String DATETIME_FORMAT_03 = "yyyy年MM月dd日 HH:mm:ss";
 
+
     public static Date stringToDate(String dateTimeString, String format) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(format);
         DateTime dateTime = dateTimeFormatter.parseDateTime(dateTimeString);
