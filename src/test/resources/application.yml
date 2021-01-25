@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: @PROFILE@
+    active: dev
   application:
     name: imethan-blog-2
     description: imethan blog base springboot .
