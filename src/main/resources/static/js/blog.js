@@ -30,7 +30,7 @@ function loadBlog(blogbox, pagebox, page, size, key, value) {
         var blogItems = "";
         if (data.totalElements > 0) {
             $.each(content, function (i, item) {
-                blogItems += blogItem(item.id, item.title, item.tag, item.createAt, item.channelName);
+                blogItems += blogItem(item.id, item.title, item.tag, item.createAt, item.channelName,item.top);
             })
 
             $(blogbox).append(blogItems);
@@ -50,11 +50,15 @@ function loadBlog(blogbox, pagebox, page, size, key, value) {
     })
 }
 
-function blogItem(id, title, tag, createAt, channelName) {
+function blogItem(id, title, tag, createAt, channelName,top) {
+    let topBox = '';
+    if(top){
+        topBox = "Top"
+    }
     return "<li class='list-group-item list-group-item-articlelist'>"
         + " <a href='/blog/article/" + id + "' class='title'>" + title + "</a>"
         + " <small style='color: #a8afb7'><i class=\"fa fa-calendar-o\" aria-hidden=\"true\"> " + createAt + "</i>   <i class=\"fa fa-bookmark-o\" aria-hidden=\"true\"> " + tag + "</i>"
-        + "<i class=\"fa fa-link\" aria-hidden=\"true\"> " + channelName + "</i>  </small>"
+        + "<i class=\"fa fa-link\" aria-hidden=\"true\"> " + channelName + "</i> "+topBox+" </small>"
         // + " <small>" + createAt + "</small>"
         + "</li>";
 }
