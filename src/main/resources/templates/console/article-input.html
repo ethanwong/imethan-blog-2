@@ -16,14 +16,26 @@
             <div class="col-12">
                 <form id="content-form" action="/api/article" method="post">
                     <div class="mb-3">
-                        <input type="text" id="title" class="form-control" placeholder="Title" name="title" value="" required>
+                        <input type="text" id="title" class="form-control" placeholder="请输入标题" name="title" value=""
+                               required>
                     </div>
                     <div class="mb-3">
                         <select class="form-select form-control" aria-label="SelectChannel" id="channelId"
                                 name="channelId"
                                 required>
-                            <option value="">Channel</option>
+                            <option value="">选择归属分类</option>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="top" id="inlineRadio1" value="false"
+                                   checked="checked">
+                            <label class="form-check-label" for="inlineRadio1">普通内容</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="top" id="inlineRadio2" value="true">
+                            <label class="form-check-label" for="inlineRadio2">置顶内容</label>
+                        </div>
                     </div>
                     <div id="article-editormd">
                         <textarea style="display:none;" name="content" required></textarea>

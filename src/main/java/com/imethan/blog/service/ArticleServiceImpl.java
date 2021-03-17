@@ -143,7 +143,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ResultDto page(Map<String, Object> parameters, Integer pageNo, Integer pageSize) {
-        PageRequest pageable = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Order.desc("createAt")));
+        PageRequest pageable = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Order.desc("top"),Sort.Order.desc("createAt")));
         Page<Article> page = articleRepository.getPageByParameters(parameters, pageable);
 
         for (Article article : page.getContent()) {

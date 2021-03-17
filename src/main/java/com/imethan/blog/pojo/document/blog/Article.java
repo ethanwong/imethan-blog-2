@@ -27,6 +27,10 @@ public class Article extends BaseDocument {
      * 0-正常，1-草稿，2-回收,3-内置
      */
     private Integer status;
+    /**
+     * 是否置顶，默认为否
+     */
+    private boolean top = false;
 
     @Override
     public String toString() {
@@ -36,6 +40,7 @@ public class Article extends BaseDocument {
                 ", channelId='" + channelId + '\'' +
                 ", tag='" + tag + '\'' +
                 ", status='" + status + '\'' +
+                ", top='" + top + '\'' +
                 "} " + super.toString();
     }
 }
