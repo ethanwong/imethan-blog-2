@@ -20,4 +20,9 @@ public class DecoratorController {
     public String defaultDecorator(HttpServletRequest request) {
         return "decorator/default";
     }
+
+    @GetMapping("itool")
+    public String itoolDecorator(HttpServletRequest request) {
+        return "decorator/itool";
+    }
 }

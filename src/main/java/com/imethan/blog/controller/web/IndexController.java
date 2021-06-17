@@ -60,5 +60,10 @@ public class IndexController {
         return "about";
     }
 
+    @GetMapping(value = "base64")
+    public String base64(Model model, HttpServletRequest request) {
+        return "base64";
+    }
+
 
 }

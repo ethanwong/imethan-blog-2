@@ -14,10 +14,13 @@ public class Sitemesh3Filter extends ConfigurableSiteMeshFilter {
     @Override
     protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
         builder.addDecoratorPath("/*", "/decorator/default")
+                .addDecoratorPath("/base64","/decorator/itool")
                 .addExcludedPath("/static/**")
                 .addExcludedPath("/hal/**")
                 .addExcludedPath("/api/**")
                 .addTagRuleBundle(new MyTagRuleBundle())
+
+
         ;
     }
 }

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Base64在线编码解码</title>
+    <meta name="description" content="Base64在线编码解码">
+    <meta name="keywords" content="Base64,Base64编码,Base64解码,Base64加密,Base64解密">
+    <style>
+        .main-box{margin-top: 40px;}
+        .menu{margin: 10px 0px 10px 0px;}
+        hr{margin: 40px 0px 10px 0px}
+        .copyright{text-align: center;margin-bottom: 40px;}
+    </style>
+</head>
+<body>
+<div class="container main-box">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <div class="h2 tag-box"><span class=" badge badge-primary">Base64</span>在线编码解码(Base64在线辅助工具)</div>
+        <form>
+        <div class="form-group">
+            <label for="inArea">请输入要进行 Base64 编码或解码的字符</label>
+            <textarea class="form-control" id="inArea" rows="6"></textarea>
+            <div class="menu">
+                <button type="button" class="btn btn-primary" id="encode">编码(Encode)</button>
+                <button type="button" class="btn btn-light" id="decode">解码(Decode)</button>
+                <button type="button" class="btn btn-light" id="exchange">↕ 交换</button>
+            </div>
+            <textarea class="form-control" id="outArea" rows="6"></textarea>
+        </div>
+        </form>
+
+        <div class="alert alert-primary" role="alert">
+            源字符串长度：<span id="inLen">0</span>，编码后长度：<span id="outLen">0</span>。<button id="copyBtn" type="button" class="btn btn-sm btn-light">复制编码结果</button>
+        </div>
+        <hr>
+        <div class="copyright">Copyright © 2014-2021 ImEthan. 闽ICP备15016601号-1</div>
+    </div>
+</div>
+
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/js-base64@3.6.1/base64.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#inArea').bind('input propertychange', function(){
+            let length = $("#inArea").val().length;
+            $("#inLen").html(length)
+        });
+
+        $("#encode").click(function () {
+            let inArea = $("#inArea").val();
+            let inAreaEncode = Base64.encode(inArea)
+            $("#outArea").val(inAreaEncode);
+            $("#inLen").html(inArea.length)
+            $("#outLen").html(inAreaEncode.length)
+        });
+        $("#decode").click(function () {
+            let inArea = $("#inArea").val();
+            let inAreaDecode = Base64.decode($("#inArea").val())
+            $("#outArea").val(inAreaDecode);
+            $("#inLen").html(inArea.length)
+            $("#outLen").html(inAreaDecode.length)
+        });
+        $("#exchange").click(function () {
+            let inText = $("#inArea").val();
+            let outText = $("#outArea").val();
+            $("#inArea").val(outText);
+            $("#outArea").val(inText);
+
+            $("#inLen").html(outText.length)
+            $("#outLen").html(inText.length)
+        });
+
+        $("#copyBtn").click(function (){
+            $("#outArea").select();
+            document.execCommand("Copy");
+        })
+    });
+</script>
