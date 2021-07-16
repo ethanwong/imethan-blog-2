@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8778
 mongodb:
   uri: mongodb://127.0.0.1:27017/imethan_blog_3
 

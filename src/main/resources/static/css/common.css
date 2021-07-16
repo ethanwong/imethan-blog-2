@@ -19,17 +19,12 @@ li{border-radius:0px !important;}
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
     font-weight: lighter!important;
 }
-
 .main-box{
-    /*max-width: 1140px;*/
     margin-top: 30px !important;
     margin-bottom: 30px !important;;
-    /*margin-left: auto;*/
-    /*margin-right: auto;*/
     padding-left: 15px !important;
     padding-right: 15px !important;
 }
-
 .page-link{
     margin-top: 20px;
     position: relative;
@@ -41,25 +36,19 @@ li{border-radius:0px !important;}
     background-color: #fff;
     border: 1px solid #dee2e6;
 }
-
 .th-inner{
     font-weight: lighter!important;
 }
-
 .table {table-layout:fixed;}
-
 .pagination{
     padding-top: 0px;
     margin-top: 0px;
 }
-
 .btn-primary {
     color: #fff;
     background-color: #428bca;
     border-color: #428bca;
 }
-
-
 .level1-title{
     margin: 10px 8px 8px 0px;
     font-weight: bolder;
@@ -76,11 +65,9 @@ li{border-radius:0px !important;}
 .color-warning{color: #f0ad4e!important;}
 .color-danger{color: #d9534f!important;}
 .layui-layer-btn .layui-layer-btn0{color: #fff!important; }
-
 .bg-primary {
     background-color: #428bca!important;
 }
-
 .list-group-item.active{
     background-color: #428bca;
     border-color: #428bca;
@@ -88,5 +75,69 @@ li{border-radius:0px !important;}
 .btn {
     border-radius: 0px !important;
 }
+/*blog css begin*/
+.list-group-item-articlelist {
+    border: 0px;
+    padding-left: 0px;
+}
+.list-group-item-articlelist .title {
+    display: block;
+    font-size: 20px;
+    padding-bottom: 2px;
+    font-weight: 340;
 
+}
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #428bca;
+    border-color: #428bca;
+}
+.markdown-toc-list{
+    padding-top: 2px;
+}
+.markdown-toc-list ul{
+    padding-left: 0px;
+}
+.markdown-toc-list li{
+    padding-left: 0px;
+    margin-left: 14px;
+}
+/*blog css end*/
+/* head css begin  */
+nav {
+    background-color: #428bca !important;
+    font-weight: lighter;
+}
+.navbar-brand {
+    color: #fff !important;
+}
+nav a {
+    color: #cdddeb !important;
+}
+.navbar-nav a:hover,
+.navbar-nav a:focus {
+    color: #fff !important;
+}
+.navbar-nav .active {
+    color: #fff!important;
+}
+.outer-link {
+    color: #fff !important;
+    padding-right: 15px;
+}
+/* head css end  */
+/* foot css begin  */
+.blog-footer {
+    display: block;
+    padding: 40px 0;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: 1px solid #e5e5e5;
+    height: 160px;
+}
+.blog-footer p:last-child {
+    margin-bottom: 0;
+}
+/* foot css end  */
 

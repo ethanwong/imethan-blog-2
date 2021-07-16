@@ -17,5 +17,6 @@ public class BCryptPasswordEncoderTest {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
         String password = bCryptPasswordEncoder.encode("123456");
         log.info("password is {}", password);
+        System.out.println("password is "+password);
     }
 }
