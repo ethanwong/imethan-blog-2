@@ -61,7 +61,11 @@
         </RollingFile>
 
         <NoSql name="mongoAppender" ><!-- debug日志 -->
-            <MongoDb4 connection="mongodb://localhost:27017/imethan_blog_3.system_log4j2"
+            <!--
+            <MongoDb4 connection="mongodb://imethan:imethan123456@192.168.9.224:27017/imethan_blog_3.system_log4j2"
+                      capped="true"
+                      collectionSize="1073741824"/>超过1G,滚动覆盖 -->
+            <MongoDb4 connection="mongodb://127.0.0.1:27017/imethan_blog_3.system_log4j2"
                       capped="true"
                       collectionSize="1073741824"/><!--超过1G,滚动覆盖 -->
         </NoSql>

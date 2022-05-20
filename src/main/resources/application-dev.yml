@@ -1,7 +1,7 @@
 server:
   port: 8778
 mongodb:
-  uri: mongodb://127.0.0.1:27017/imethan_blog_3
+  uri: mongodb://imethan:imethan123456@192.168.9.224:27017/imethan_blog_3
 
 #以下配置为了安全考虑，当前配置写入到数据库里面，以下配置不生效
 mail:

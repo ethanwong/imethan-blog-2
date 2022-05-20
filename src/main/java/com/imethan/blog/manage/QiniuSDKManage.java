@@ -51,6 +51,14 @@ public class QiniuSDKManage {
         log.info("accessKey={},secretKey={},bucket={},domainOfBucket={}", accessKey, secretKey, bucket, domainOfBucket);
     }
 
+    private void debugInitConfig(){
+        accessKey = "DNfSleFHEk1cJsWsoSdTJJrun9jSVPpE_DZoiynQ";
+        secretKey = "9mlrK4XqzZW7zjs1Y_dHZCgsDmBKiCcA7Rr7QHv_";
+        bucket = "imethan-blog-2";
+        domainOfBucket = "http://object.imethan.cn";
+        log.info("accessKey={},secretKey={},bucket={},domainOfBucket={}", accessKey, secretKey, bucket, domainOfBucket);
+    }
+
     /**
      * 获取token
      *
@@ -110,7 +118,7 @@ public class QiniuSDKManage {
      */
     public String downloadFile(String fileName, Long expireInSeconds) throws UnsupportedEncodingException {
 
-        initConfig();
+
 
         String encodedFileName = URLEncoder.encode(fileName, "utf-8").replace("+", "%20");
         String publicUrl = String.format("%s/%s", domainOfBucket, encodedFileName);
@@ -144,6 +152,13 @@ public class QiniuSDKManage {
             log.error("deleteFile from qiniu error", ex);
             return false;
         }
+    }
+
+    public static void main(String[] args) throws UnsupportedEncodingException {
+        QiniuSDKManage qiniuSDKManage = new QiniuSDKManage();
+        qiniuSDKManage.debugInitConfig();
+        String downloadUrl = qiniuSDKManage.downloadFile("imethan-blog-2-db-20220519.tar.gz-8d88383eaa5e312395da35a9483749cc", 3600L);
+        System.out.println("downloadUrl=" + downloadUrl);
     }
 
 

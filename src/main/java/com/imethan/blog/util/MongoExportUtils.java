@@ -3,8 +3,10 @@ package com.imethan.blog.util;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.DigestUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +24,10 @@ public class MongoExportUtils {
      * Linux服务上，MongoDB备份路径
      */
     private static final String MONGODB_EXPORT_DIR = "/home/mongodb-export";
+    /**
+     * 数据库名称
+     */
+    private static final String DATABASE_NAME = "imethan_blog_2";
 
     /**
      * 执行命令
@@ -57,14 +63,17 @@ public class MongoExportUtils {
 
     }
 
+
     /**
-     * 导出数据库指定数据集
+     * 执行数据集合备份
      *
      * @param database
      * @param collection
+     * @param targetBackupDir
      * @return
      */
-    private static String exportCommand(String database, String collection, String targetBackupDir) {
+    private static String exportCollection(String database, String collection, String targetBackupDir) {
+
         //mongoexport -d imethan_blog_3 -c blog_article -o /home/mongodb-bak/20210111/blog_article.json --type=json
         String fileFullName = targetBackupDir + File.separator + collection + ".json";
         StringBuffer command = new StringBuffer();
@@ -73,24 +82,22 @@ public class MongoExportUtils {
         command.append("-c " + collection + " ");
         command.append("-o " + fileFullName);
         command.append(" --type=json");
+
+
+        //执行命令
         String commandString = command.toString();
         log.info("command={}", commandString);
-        return commandString;
-    }
+        execCommand(commandString);
 
-    /**
-     * 执行数据集合备份
-     *
-     * @param database
-     * @param collection
-     * @param targetBackupDir
-     */
-    private static void exportCollection(String database, String collection, String targetBackupDir) {
-        //生成命令
-        String command = exportCommand(database, collection, targetBackupDir);
-        //执行命令
-        execCommand(command);
-
+        //生成md5值
+        String md5 = "";
+        try {
+            md5 = DigestUtils.md5DigestAsHex(new FileInputStream(fileFullName));
+            log.info("fileFullName=" + fileFullName + ",md5=" + md5);
+        } catch (Exception e) {
+            log.error(e);
+        }
+        return md5;
     }
 
     /**
@@ -104,7 +111,7 @@ public class MongoExportUtils {
         String date = TimeUtils.dateToString(new Date(), TimeUtils.DATETIME_FORMAT_02);
 
         //备份文件存储路径
-        String targetBackupDir = MONGODB_EXPORT_DIR + File.separator + date;
+        String targetBackupDir = MONGODB_EXPORT_DIR + File.separator + date + File.separator + DATABASE_NAME;
 
         for (String collection : collections) {
             exportCollection(database, collection, targetBackupDir);
