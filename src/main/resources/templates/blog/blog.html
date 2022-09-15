@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>Blog - ImEthan - 一个野生程序猿的自留地</title>
     <meta name="description" content="Blog - ImEthan - 一个野生程序猿的自留地">
@@ -18,7 +19,7 @@
 <body>
 <div class="container main-box">
     <span id="blog-header-name" class="h2" style="font-weight: 200;">My Blog</span><small id="blog-header-intro">
-    我的工作和学习笔记</small>
+    我的软件技术学习笔记</small>
     <span style="float: right;display: inline;padding-right: 20px;">
         <input style="width: 330px;border-radius:0px;display: inline;" type="text" class="form-control"
                placeholder="search" name="keyword" id="search-keyword">
@@ -49,21 +50,21 @@
                 <div class="row" style="margin-bottom: 10px">
                     <div class="col-sm">
                         <i class="fa fa-recycle color-danger align-middle" aria-hidden="true"></i>
-                        <a href="javascript:;" id="recycle-link">Recycle</a>
+                        <a href="javascript:;" id="recycle-link">回收站</a>
                     </div>
                     <div class="col-sm">
                         <i class="fa fa-pencil-square-o color-warning align-middle" aria-hidden="true"></i>
-                        <a href="javascript:;" id="draft-link">Draft</a>
+                        <a href="javascript:;" id="draft-link">草稿箱</a>
                     </div>
                     <div class="col-sm">
                         <i class="fa fa-user-circle-o color-success align-middle" aria-hidden="true"></i>
-                        <a href="javascript:;" id="inner-link">Inner</a>
+                        <a href="javascript:;" id="inner-link">內置內容</a>
                     </div>
                 </div>
                 <div class="row" style="margin-bottom: 10px">
                     <div class="col-sm">
                         <i class="fa fa-star color-primary align-middle" aria-hidden="true"></i>
-                        <a href="javascript:;" id="my-link">My Blog</a>
+                        <a href="javascript:;" id="my-link">公开内容</a>
                     </div>
                     <div class="col-sm">
                     </div>

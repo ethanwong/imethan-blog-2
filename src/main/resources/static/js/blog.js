@@ -24,7 +24,7 @@ function loadBlog(blogbox, pagebox, page, size, key, value) {
             }
         }else{
             $("#blog-header-name").html("My Blog");
-            $("#blog-header-intro").html("&nbsp;我的工作和学习笔记");
+            $("#blog-header-intro").html("&nbsp;我的软件技术学习笔记");
         }
 
         var blogItems = "";

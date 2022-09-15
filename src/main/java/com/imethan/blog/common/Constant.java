@@ -8,7 +8,7 @@ package com.imethan.blog.common;
  */
 public class Constant {
 
-    public static final String SITE_TITLE = "ImEthan - 一个野生程序猿的自留地";
+    public static final String SITE_TITLE = "ImEthan - 一名软件工程师的技术自留地";
 
     /**
      * 0-正常发布文章
